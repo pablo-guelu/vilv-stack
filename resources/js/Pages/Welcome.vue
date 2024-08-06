@@ -3,7 +3,7 @@
         <v-card flat>
             <v-card-title class="text-h2">Bugolog</v-card-title>
         </v-card>
-        <form  @submit.prevent="data.post('/send')">
+        <form @submit.prevent="data.post('/send')">
             <v-container>
                 <v-row>
                     <v-col>
@@ -11,20 +11,25 @@
                     </v-col>
                 </v-row>
                 <v-row>
-                    <v-col cols="8">
+                    <v-col cols="12" md="6">
                         <v-text-field variant="outlined" v-model="data.email" label="Email"></v-text-field>
                     </v-col>
-                </v-row>
-                <v-row class="mb-6">
-                    <v-col cols="12">
-                        <div class="h-100">
-                            <QuillEditor theme="snow" v-model="data.issueDescription"/>
-                        </div>
+                    <v-col cols="12" sm="6">
+                        <v-text-field variant="outlined" v-model="data.position" label="Position"></v-text-field>
                     </v-col>
                 </v-row>
-                <v-row class="mt-4">
+                <v-row class="mb-8">
+                    <div class="h-100 px-3">
+                        <div class="text-h5">Issue Description</div>
+                        <div class="mt-2 mb-16" style="height: 300px;">
+                            <QuillEditor theme="snow" toolbar="full" v-model="data.issueDescription" />
+                        </div>
+                    </div>
+                </v-row>
+                <v-row class="">
                     <v-col cols="12">
-                        <v-file-input variant="outlined" v-model="data.image" label="Attachments" prepend-icon="" append-inner-icon="mdi-paperclip" multiple></v-file-input>
+                        <v-file-input variant="outlined" v-model="data.image" label="Attachments" prepend-icon=""
+                            append-inner-icon="mdi-paperclip" multiple></v-file-input>
                     </v-col>
                 </v-row>
                 <v-row>
@@ -49,6 +54,7 @@ const data = useForm({
     email: '',
     issueDescription: '',
     image: null,
+    position: ''
 });
 
 </script>
