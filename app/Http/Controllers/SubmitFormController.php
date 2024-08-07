@@ -17,18 +17,20 @@ class SubmitFormController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
+            'issueDescription' => 'required|string',
         ]);
 
         $name = $validatedData['name'];
         $email = $validatedData['email'];
+        $issueDescription = $validatedData['issueDescription'];
 
         // dd($validatedData);
 
-        $mailable = new BugologForm($email, $name);
+        $mailable = new BugologForm($email, $name, $issueDescription);
 
         // dd($mailable);
 
-        Mail::to('pablo.guelu@gmail.com')
+        Mail::to('pablo.guelu@gmail.com') ///////////////////// This ig oging to be the client that set up bugolog, not the user
             ->cc('cc@domain.com')
             ->bcc('bcc@domain.com')
             ->send($mailable);

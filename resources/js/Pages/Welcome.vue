@@ -3,7 +3,7 @@
         <v-card flat>
             <v-card-title class="text-h2">Bugolog</v-card-title>
         </v-card>
-        <form @submit.prevent="data.post('/send')">         
+        <form @submit.prevent="getHtml">
             <v-container>
                 <v-row>
                     <v-col>
@@ -23,9 +23,9 @@
                 </v-row>
                 <v-row class="mt-6 mb-8">
                     <div class="h-100 px-3">
-                        <FormLabel :name="'Issue Description'" required/>
+                        <FormLabel :name="'Issue Description'" required :info="'vuetify.com'"/>
                         <div class="mt-4 mb-16" style="height: 300px;">
-                            <QuillEditor theme="snow" toolbar="full" v-model:content="data.issueDescription" />
+                            <QuillEditor ref="editor" theme="snow" toolbar="full" v-model:content="data.issueDescription" content-type="html"/>
                         </div>
                     </div>
                 </v-row>
@@ -47,17 +47,29 @@
 </template>
 
 <script lang="ts" setup>
-import { useForm } from '@inertiajs/vue3'
-import { QuillEditor } from '@vueup/vue-quill'
+import { useForm, router } from '@inertiajs/vue3'
+import { QuillEditor, Quill } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import FormLabel from '@/Components/FormLabel.vue'
+import { reactive, ref } from 'vue';
 
-const data = useForm({
+const data = reactive({
     name: '',
     email: '',
     issueDescription: '',
     image: null,
     product: ''
 });
+
+const editor = ref()
+
+const submitForm = () => {
+    router.post('/send', data)
+}
+
+const getHtml = () => {
+    // let dataEditor = editor.value.getHtml();
+    console.log(data.issueDescription)
+}
 
 </script>

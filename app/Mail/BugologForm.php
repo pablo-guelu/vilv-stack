@@ -21,7 +21,7 @@ class BugologForm extends Mailable
 
     public $fromEmail;
     public $fromName;
-    // protected $data;
+    protected $data;
 
     /**
      * Create a new message instance.
@@ -30,11 +30,11 @@ class BugologForm extends Mailable
      * 
      * @param string $fromName
      */
-    public function __construct($fromEmail, $fromName)
+    public function __construct($fromEmail, $fromName, $data)
     {
         $this->fromEmail = $fromEmail;
         $this->fromName = $fromName;
-        // $this->data = $data;
+        $this->data = $data;
     }
 
     // dd($this->fromEmail);
@@ -60,7 +60,10 @@ class BugologForm extends Mailable
     {
         return new Content(
             view: 'emails.bugolog',
-            // with: ['data' => $this->data]
+            with: [
+                'name' => $this->fromName,
+                'data' => $this->data
+                ]
         );
     }
 

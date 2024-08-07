@@ -9,11 +9,9 @@
 </head>
 
 <body>
-    <h1>Email Test</h1>
+    <h1>Email Test for {{ $name }}</h1>
 
-    <p>Thank you for submitting the form. This is a test email.</p>
-
-    <p>Here are the details you submitted:</p>
+    {{ $data }}
 
 </body>
 
