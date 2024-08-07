@@ -3,22 +3,26 @@
         <v-card flat>
             <v-card-title class="text-h2">Bugolog</v-card-title>
         </v-card>
-        <form @submit.prevent="getHtml">
+        <form @submit.prevent="submitForm">
             <v-container>
                 <v-row>
-                    <v-col>
+                    <v-col cols="12" md="6">
                         <FormLabel :name="'Name'" required/>
-                        <v-text-field variant="outlined" v-model="data.name" placeholder="John Doe"></v-text-field>
+                        <v-text-field variant="outlined" v-model="data.name" placeholder="John Doe" type="text" ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <FormLabel :name="'Subject'" required/>
+                        <v-text-field variant="outlined" v-model="data.subject" placeholder="Bug in version 1.0" type="text" ></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="12" md="6">
                         <FormLabel :name="'Email'" required />
-                        <v-text-field variant="outlined" v-model="data.email" placeholder="john.doe@example.com"></v-text-field>
+                        <v-text-field variant="outlined" v-model="data.email" placeholder="john.doe@example.com" type="email"></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <FormLabel :name="'Product'" />
-                        <v-text-field variant="outlined" v-model="data.product" placeholder="Product"></v-text-field>
+                        <v-text-field variant="outlined" v-model="data.product" placeholder="Product" type="text" ></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row class="mt-6 mb-8">
@@ -32,7 +36,7 @@
                 <v-row class="">
                     <v-col cols="12" md="6">
                         <FormLabel :name="'Attachments'"/>
-                        <v-file-input variant="outlined" v-model="data.image" label="Attachments" prepend-icon=""
+                        <v-file-input variant="outlined" v-model="data.files" label="Attachments" prepend-icon=""
                             append-inner-icon="mdi-paperclip" multiple></v-file-input>
                     </v-col>
                 </v-row>
@@ -51,15 +55,29 @@ import { useForm, router } from '@inertiajs/vue3'
 import { QuillEditor, Quill } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import FormLabel from '@/Components/FormLabel.vue'
-import { reactive, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 
 const data = reactive({
     name: '',
     email: '',
+    subject: '',
     issueDescription: '',
-    image: null,
+    files: [],
     product: ''
 });
+
+const setDefaultData = () => {
+    data.name = 'Paul Doe'
+    data.subject = 'Bug in version 1.0'
+    data.email = 'support@bugolog.com'
+    data.issueDescription = '<h1><span style="color: rgb(102, 185, 102);">This</span> a test HTML</h1><h1><br></h1><p><strong><em>Nothing else to add apart from</em></strong><strong style="color: rgb(230, 0, 0);"><em> seeing how the HTML is displayed in the email</em></strong></p><p><br></p>'
+    data.product = 'Bugolog'
+}   
+
+
+onMounted(() => {
+    setDefaultData()
+})
 
 const editor = ref()
 

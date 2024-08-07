@@ -11,7 +11,7 @@
 <body>
     <h1>Email Test for {{ $name }}</h1>
 
-    {{ $data }}
+    {{!! $data !!}}
 
 </body>
 

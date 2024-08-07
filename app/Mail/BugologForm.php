@@ -19,8 +19,9 @@ class BugologForm extends Mailable
 {
     use Queueable, SerializesModels, MailerSendTrait;
 
-    public $fromEmail;
-    public $fromName;
+    protected $fromEmail;
+    protected $fromName;
+    public $subject;
     protected $data;
 
     /**
@@ -29,11 +30,16 @@ class BugologForm extends Mailable
      * @param string $fromEmail
      * 
      * @param string $fromName
+     * 
+     * @param string $subject
+     * 
+     * @param array $data
      */
-    public function __construct($fromEmail, $fromName, $data)
+    public function __construct($fromEmail, $fromName, $subject, $data)
     {
         $this->fromEmail = $fromEmail;
         $this->fromName = $fromName;
+        $this->subject = $subject;
         $this->data = $data;
     }
 
@@ -49,7 +55,7 @@ class BugologForm extends Mailable
             replyTo: [
                 new Address($this->fromEmail, $this->fromName),
             ],
-            subject: 'Test Email'
+            subject: $this->subject
         );
     }
 
@@ -63,8 +69,7 @@ class BugologForm extends Mailable
             with: [
                 'name' => $this->fromName,
                 'data' => $this->data
-                ]
+            ]
         );
     }
-
 }
