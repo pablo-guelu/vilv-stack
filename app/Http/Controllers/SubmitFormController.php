@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\BugologForm;
-use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Support\Facades\Mail;
 
 class SubmitFormController extends Controller

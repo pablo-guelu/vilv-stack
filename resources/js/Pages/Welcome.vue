@@ -7,35 +7,40 @@
             <v-container>
                 <v-row>
                     <v-col cols="12" md="6">
-                        <FormLabel :name="'Name'" required/>
-                        <v-text-field variant="outlined" v-model="data.name" placeholder="John Doe" type="text" ></v-text-field>
+                        <FormLabel :name="'Name'" required />
+                        <v-text-field variant="outlined" v-model="data.name" placeholder="John Doe"
+                            type="text"></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
-                        <FormLabel :name="'Subject'" required/>
-                        <v-text-field variant="outlined" v-model="data.subject" placeholder="Bug in version 1.0" type="text" ></v-text-field>
+                        <FormLabel :name="'Subject'" required />
+                        <v-text-field variant="outlined" v-model="data.subject" placeholder="Bug in version 1.0"
+                            type="text"></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row>
                     <v-col cols="12" md="6">
                         <FormLabel :name="'Email'" required />
-                        <v-text-field variant="outlined" v-model="data.email" placeholder="john.doe@example.com" type="email"></v-text-field>
+                        <v-text-field variant="outlined" v-model="data.email" placeholder="john.doe@example.com"
+                            type="email"></v-text-field>
                     </v-col>
                     <v-col cols="12" md="6">
                         <FormLabel :name="'Product'" />
-                        <v-text-field variant="outlined" v-model="data.product" placeholder="Product" type="text" ></v-text-field>
+                        <v-text-field variant="outlined" v-model="data.product" placeholder="Product"
+                            type="text"></v-text-field>
                     </v-col>
                 </v-row>
                 <v-row class="mt-6 mb-8">
                     <div class="h-100 px-3">
-                        <FormLabel :name="'Issue Description'" required :info="'vuetify.com'"/>
+                        <FormLabel :name="'Issue Description'" required :info="'vuetify.com'" />
                         <div class="mt-4 mb-16" style="height: 300px;">
-                            <QuillEditor ref="editor" theme="snow" toolbar="full" v-model:content="data.issueDescription" content-type="html"/>
+                            <QuillEditor theme="snow" :toolbar="toolbarOptions" v-model:content="data.issueDescription"
+                                content-type="html" />
                         </div>
                     </div>
                 </v-row>
                 <v-row class="">
                     <v-col cols="12" md="6">
-                        <FormLabel :name="'Attachments'"/>
+                        <FormLabel :name="'Attachments'" />
                         <v-file-input variant="outlined" v-model="data.files" label="Attachments" prepend-icon=""
                             append-inner-icon="mdi-paperclip" multiple></v-file-input>
                     </v-col>
@@ -68,25 +73,48 @@ const data = reactive({
 
 const setDefaultData = () => {
     data.name = 'Paul Doe'
-    data.subject = 'Bug in version 1.0'
+    data.subject = 'Test in blade'
     data.email = 'support@bugolog.com'
-    data.issueDescription = '<h1><span style="color: rgb(102, 185, 102);">This</span> a test HTML</h1><h1><br></h1><p><strong><em>Nothing else to add apart from</em></strong><strong style="color: rgb(230, 0, 0);"><em> seeing how the HTML is displayed in the email</em></strong></p><p><br></p>'
+    data.issueDescription = `<h2>this is a test of a image</h2>`
     data.product = 'Bugolog'
-}   
+}
 
+
+const toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+  ['link', 'formula'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+    
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+  ['clean']                                         // remove formatting button
+];
 
 onMounted(() => {
     setDefaultData()
 })
 
-const editor = ref()
-
 const submitForm = () => {
-    router.post('/send', data)
+    router.post('/send', data,
+        {
+            headers: {
+                'Content-Type': 'text/html'
+            },
+        })
+
 }
 
 const getHtml = () => {
-    // let dataEditor = editor.value.getHtml();
     console.log(data.issueDescription)
 }
 
