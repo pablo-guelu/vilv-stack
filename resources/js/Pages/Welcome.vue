@@ -30,7 +30,7 @@
                     </v-col>
                 </v-row>
                 <v-row class="mt-6 mb-8">
-                    <div class="h-100 px-3">
+                    <div class="h-100 px-3 w-100">
                         <FormLabel :name="'Issue Description'" required :info="'vuetify.com'" />
                         <div class="mt-4 mb-16" style="height: 300px;">
                             <QuillEditor theme="snow" :toolbar="toolbarOptions" v-model:content="data.issueDescription"
@@ -41,7 +41,7 @@
                 <v-row class="">
                     <v-col cols="12" md="6">
                         <FormLabel :name="'Attachments'" />
-                        <v-file-input variant="outlined" v-model="data.files" label="Attachments" prepend-icon=""
+                        <v-file-input variant="outlined" v-model="data.files" prepend-icon=""
                             append-inner-icon="mdi-paperclip" multiple></v-file-input>
                     </v-col>
                 </v-row>
@@ -56,11 +56,11 @@
 </template>
 
 <script lang="ts" setup>
-import { useForm, router } from '@inertiajs/vue3'
-import { QuillEditor, Quill } from '@vueup/vue-quill'
+import { router } from '@inertiajs/vue3'
+import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import FormLabel from '@/Components/FormLabel.vue'
-import { onMounted, reactive, ref } from 'vue';
+import { onMounted, reactive } from 'vue';
 
 const data = reactive({
     name: '',
@@ -75,7 +75,7 @@ const setDefaultData = () => {
     data.name = 'Paul Doe'
     data.subject = 'Test in blade'
     data.email = 'support@bugolog.com'
-    data.issueDescription = `<h2>this is a test of a image</h2>`
+    data.issueDescription = '<h2>this is a test of a image</h2>'
     data.product = 'Bugolog'
 }
 
@@ -105,17 +105,6 @@ onMounted(() => {
 })
 
 const submitForm = () => {
-    router.post('/send', data,
-        {
-            headers: {
-                'Content-Type': 'text/html'
-            },
-        })
-
+    router.post('/send', data)
 }
-
-const getHtml = () => {
-    console.log(data.issueDescription)
-}
-
 </script>

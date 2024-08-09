@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\BugologForm;
+use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Support\Facades\Mail;
 
 class SubmitFormController extends Controller
@@ -12,6 +13,8 @@ class SubmitFormController extends Controller
     // Handle form submission
     public function submitForm(Request $request)
     {
+
+        // dd($request->all());
         // Validate and process the form data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -24,11 +27,11 @@ class SubmitFormController extends Controller
         $email = $validatedData['email'];
         $subject = $validatedData['subject'];
         $issueDescription = $validatedData['issueDescription'];
+        $files = $request->file('files');
 
-        $mailable = new BugologForm($email, $name, $subject, $issueDescription);
+        $mailable = new BugologForm($email, $name, $subject, $issueDescription, $files);
 
-        Mail::to('pablo.guelu@gmail.com') ///////////////////// This ig oging to be the client that set up bugolog, not the user
-            ->send($mailable);
+        Mail::to('pablo.guelu@gmail.com')->send($mailable);
 
         // Handle the form submission logic (e.g., save to database, send email, etc.)
 
