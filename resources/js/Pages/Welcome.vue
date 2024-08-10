@@ -1,8 +1,9 @@
 <template>
     <v-container style="max-width: 1250px;">
-        <v-card flat>
-            <v-card-title class="text-h2">Bugolog</v-card-title>
-        </v-card>
+        <div class="d-flex justify-space-between align-center my-16">
+            <div class="text-h2">Bugolog</div>
+            <v-btn icon="mdi-theme-light-dark" @click="toggleTheme"></v-btn>
+        </div>
         <form @submit.prevent="submitForm">
             <v-container>
                 <v-row>
@@ -38,18 +39,17 @@
                         </div>
                     </div>
                 </v-row>
-                <v-row class="">
+                <v-row >
                     <v-col cols="12" md="6">
                         <FormLabel :name="'Attachments'" />
                         <v-file-input variant="outlined" v-model="data.files" prepend-icon=""
                             append-inner-icon="mdi-paperclip" multiple></v-file-input>
                     </v-col>
-                </v-row>
-                <v-row>
-                    <v-col cols="12" class="d-flex justify-center justify-md-end">
-                        <v-btn type="submit" color="primary" size="large">Submit</v-btn>
+                    <v-col cols="12" md="6" class="d-flex w-100 justify-center justify-md-end align-center">
+                        <v-btn class="mt-0 mt-md-6"type="submit" color="primary" size="large">Submit</v-btn>
                     </v-col>
                 </v-row>
+
             </v-container>
         </form>
     </v-container>
@@ -61,6 +61,8 @@ import { QuillEditor } from '@vueup/vue-quill'
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import FormLabel from '@/Components/FormLabel.vue'
 import { onMounted, reactive } from 'vue';
+import { useTheme } from 'vuetify'
+
 
 const data = reactive({
     name: '',
@@ -81,23 +83,23 @@ const setDefaultData = () => {
 
 
 const toolbarOptions = [
-  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-  ['blockquote', 'code-block'],
-  ['link', 'formula'],
+    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+    ['blockquote', 'code-block'],
+    ['link', 'formula'],
 
-  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
-  [{ 'list': 'ordered'}, { 'list': 'bullet' }, { 'list': 'check' }],
-  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-  [{ 'direction': 'rtl' }],                         // text direction
-    
-  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+    [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'list': 'check' }],
+    [{ 'script': 'sub' }, { 'script': 'super' }],      // superscript/subscript
+    [{ 'indent': '-1' }, { 'indent': '+1' }],          // outdent/indent
+    [{ 'direction': 'rtl' }],                         // text direction
 
-  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-  [{ 'font': [] }],
-  [{ 'align': [] }],
+    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
 
-  ['clean']                                         // remove formatting button
+    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+    [{ 'font': [] }],
+    [{ 'align': [] }],
+
+    ['clean']                                         // remove formatting button
 ];
 
 onMounted(() => {
@@ -106,5 +108,10 @@ onMounted(() => {
 
 const submitForm = () => {
     router.post('/send', data)
+}
+
+const theme = useTheme()
+const toggleTheme = () => {
+    theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
 </script>
