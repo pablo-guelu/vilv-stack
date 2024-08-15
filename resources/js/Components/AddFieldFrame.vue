@@ -1,6 +1,6 @@
 <template>
     <v-card class="pa-3 my-6" variant="outlined" rounded="lg">
-        <div class="d-flex mb-4">
+        <div class="d-flex">
             <FormLabel :name="title" />
             <v-btn @click="addAction" size="small" color="success" icon="mdi-plus"></v-btn>
         </div>

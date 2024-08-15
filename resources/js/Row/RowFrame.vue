@@ -12,13 +12,13 @@
                         </FieldFrame>
                     </v-col>
                 </v-row>
-                <v-row v-else-if="row.columns.length === 2" class="">
+                <v-row v-else-if="row.columns.length === 2">
                     <v-col cols="12" md="6">
                         <FieldFrame v-if="row.columns[0].field" :row-index="index" :column-index="0" >
                             <SelectorFieldType :field="row.columns[0].field" />
                         </FieldFrame>
                     </v-col>
-                    <v-col cols="12" md="6">
+                    <v-col cols="12" md="6" class="border-s-md">
                         <FieldFrame v-if="row.columns[1].field" :row-index="index" :column-index="1" >
                             <SelectorFieldType :field="row.columns[1].field" />
                         </FieldFrame>

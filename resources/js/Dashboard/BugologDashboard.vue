@@ -7,8 +7,9 @@
                     <v-slot name="side-column">
                         <v-row class="w-100 " no-gutters>
                             <v-col>
-                                <AddRow></AddRow>
-                                <AddTextField></AddTextField>
+                                <AddRow/>
+                                <AddTextField/>
+                                <AddHTMLEditor/>
                             </v-col>
                         </v-row>
                     </v-slot>
@@ -34,6 +35,7 @@ import AddRow from '@/Row/AddRow.vue';
 import AddFieldDialog from '@/Dashboard/AddFieldDialog.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
+import AddHTMLEditor from '@/HTMLEditor/AddHTMLEditor.vue';
 
 const bugFormStore = useBugFormStore();
 const { addFieldDialogType } = storeToRefs(bugFormStore);

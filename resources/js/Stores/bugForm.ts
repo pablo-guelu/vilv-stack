@@ -15,7 +15,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         placeholder: '',
         required: true,
         value: '',
-        inputType: '',
+        inputType: 'text',
     })
 
     const defaultColumn = (): Column => {
