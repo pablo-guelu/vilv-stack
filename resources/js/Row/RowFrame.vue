@@ -1,11 +1,11 @@
 <template>
-    <v-sheet class="d-flex align-center w-100 row-border pa-4 my-6" :class="{'row-selected' : rowIndex === index}" @mouseover="showActions = true"
+    <v-sheet class="d-flex align-center w-100 row-border pa-4 my-6 row_frame" :class="{'row-selected' : rowIndex === index}" @mouseover="showActions = true"
         @mouseleave="showActions = false" @click="() => rowIndex =index" style="min-height: 80px">
-        <div v-if="showActions" class="me-6">
+        <div v-if="showActions" class="me-6 row_action_buttons">
             <v-btn color="red" size="small" fab icon="mdi-delete" @click="deleteRow(index)" />
         </div>
-            <div class="px-4 flex-grow-1 flex-shrink-0">
-                <v-row v-if="row.colsNumber < 2 &&  row.columns.length === 1" class="">
+            <div class="px-4 w-100">
+                <v-row v-if="row.colsNumber < 2 &&  row.columns.length === 1" >
                     <v-col cols="12">
                         <FieldFrame v-if="row.columns[0].field" :row-index="index" :column-index="0" >
                             <SelectorFieldType :field="row.columns[0].field" />
@@ -18,7 +18,7 @@
                             <SelectorFieldType :field="row.columns[0].field" />
                         </FieldFrame>
                     </v-col>
-                    <v-col cols="12" md="6" class="border-s-md">
+                    <v-col cols="12" md="6" :class="{'border-s-md' : mdAndUp}">
                         <FieldFrame v-if="row.columns[1].field" :row-index="index" :column-index="1" >
                             <SelectorFieldType :field="row.columns[1].field" />
                         </FieldFrame>
@@ -39,6 +39,9 @@ import { useBugFormStore } from '@/Stores/bugForm';
 import { Row } from '@/types';
 import { storeToRefs } from 'pinia';
 import { computed, ref } from 'vue';
+import { useDisplay } from 'vuetify';
+
+const { mdAndUp } = useDisplay();
 
 const props = defineProps<{
     index: number,
@@ -65,5 +68,15 @@ const columns = computed(() => formStructure.value.rows[props.index].columns);
 
 .row-selected {
     border: 2px solid #4CAF50;
+}
+
+.row_frame {
+    position: relative;
+}
+
+.row_action_buttons {
+    position: absolute;
+    top: 40%;
+    left: -20px;
 }
 </style>

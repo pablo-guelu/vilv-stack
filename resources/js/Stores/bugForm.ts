@@ -72,17 +72,20 @@ export const useBugFormStore = defineStore('bugForm', () => {
         formStructure.value.rows[rowIndex].columns[columnIndex].field = undefined
     }
 
-    const addHTMLEditor = () => {
-
-    }
-
     const requiredRule = (v: string) => !!v || 'Field is required';
 
     const createFieldData = ref();
 
+    const openAddFieldDialog = (fieldType: FieldType) =>  {
+        defaultField.value.type = fieldType;
+        addFieldDialogType.value = fieldType;
+        addFieldDialog.value = true
+    }
+
     return {
         addFieldDialog,
         addFieldDialogType,
+        openAddFieldDialog,
         formStructure,
         defaultField,
         addRow,

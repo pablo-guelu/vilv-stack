@@ -32,5 +32,5 @@ export interface Row {
 }
 
 export interface Column {
-    field: undefined | BugologField| TextField;
+    field: undefined | BugologField;
 }

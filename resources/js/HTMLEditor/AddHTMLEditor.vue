@@ -6,9 +6,11 @@
 
 <script lang="ts" setup>
 import AddFieldFrame from '@/Components/AddFieldFrame.vue';
-import { useAddField } from '@/Composables/addField';
+import { useBugFormStore } from '@/Stores/bugForm';
 import { FieldType } from '@/enums';
 
-const addHTMLField = () => useAddField(FieldType.HTML);
+
+const bugFormStore = useBugFormStore();
+const addHTMLField = () =>  bugFormStore.openAddFieldDialog(FieldType.HTML);
 
 </script>

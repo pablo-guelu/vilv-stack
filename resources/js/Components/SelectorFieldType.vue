@@ -1,20 +1,25 @@
 <template>
     <div v-if="field">
         <template v-if="isTextField" >
-            <BugologTextField :textField="(field as TextField)" />
+            <BugologTextField :field="(field as BugologField)" />
+        </template>
+        <template v-if="isHTMLField" >
+            <BugologHTMLEditor :field="(field as BugologField)" />
         </template>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { FieldType } from '@/enums';
+import BugologHTMLEditor from '@/HTMLEditor/BugologHTMLEditor.vue';
 import BugologTextField from '@/TextField/BugologTextField.vue';
-import { BugologField, TextField } from '@/types';
+import { BugologField } from '@/types';
 import { computed } from 'vue';
 
 const props = defineProps<{
-    field: BugologField | TextField
+    field: BugologField
 }>()
 
 const isTextField = computed(() => props.field.type === FieldType.TEXT);
+const isHTMLField = computed(() => props.field.type === FieldType.HTML);
 </script>

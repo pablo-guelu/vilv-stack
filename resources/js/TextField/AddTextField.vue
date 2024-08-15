@@ -1,14 +1,13 @@
 <template>
-    <AddFieldFrame :title="'Add Text Field'" :addAction="addTextField">
-
-    </AddFieldFrame>
+    <AddFieldFrame :title="'Add Text Field'" :addAction="addTextField" />
 </template>
 
 <script setup lang="ts">
 import AddFieldFrame from '@/Components/AddFieldFrame.vue';
-import { useAddField } from '@/Composables/addField';
 import { FieldType } from '@/enums';
+import { useBugFormStore } from '@/Stores/bugForm';
 
-const addTextField = () => useAddField(FieldType.TEXT);
+const bugFormStore = useBugFormStore();
+const addTextField = () =>  bugFormStore.openAddFieldDialog(FieldType.TEXT);
 
 </script>
