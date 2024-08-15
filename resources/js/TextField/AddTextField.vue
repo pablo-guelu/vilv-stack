@@ -6,11 +6,9 @@
 
 <script setup lang="ts">
 import AddFieldFrame from '@/Components/AddFieldFrame.vue';
-import FieldType from '@/Components/FieldType.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
-import { TextField } from '@/types';
+import {FieldType} from '@/enums';
 import { storeToRefs } from 'pinia';
-import { Ref, ref } from 'vue';
 
 const bugFormStore = useBugFormStore();
 const { addFieldDialog, addFieldDialogType } = storeToRefs(bugFormStore);

@@ -22,7 +22,7 @@
             </v-col>
         </v-row>
 
-        <AddFieldDialog :type="addFieldDialogType" />
+        <AddFieldDialog />
     </v-container>
     
 </template>
@@ -31,9 +31,9 @@
 import FormCanvas from './FormCanvas.vue';
 import AddTextField from '@/TextField/AddTextField.vue';
 import AddRow from '@/Row/AddRow.vue';
+import AddFieldDialog from '@/Dashboard/AddFieldDialog.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
-import AddFieldDialog from './AddFieldDialog.vue';
 
 const bugFormStore = useBugFormStore();
 const { addFieldDialogType } = storeToRefs(bugFormStore);

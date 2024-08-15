@@ -1,59 +1,49 @@
 <template>
     <v-dialog v-model="addFieldDialog">
-        <v-card rounded="large">
-            <v-form ref="fieldForm" fastfail>
-                <v-text-field variant="outlined" density="compact" label="Label*" :rules="rules"
-                    v-model="fieldData.label" />
-                <v-text-field variant="outlined" density="compact" label="Placeholder"
-                    v-model="fieldData.placeholder" />
-                <slot></slot>
-                <v-switch label="required" color="success" v-model="fieldData.required"></v-switch>
-            </v-form>
-            <v-card-actions>
-                <v-btn @click="createField" color="success">Add</v-btn>
-                <v-btn @click="addFieldDialog = false" color="info">Cancel</v-btn>
-            </v-card-actions>
-        </v-card>
+        <div class="d-flex justify-center w-100">
+            <v-card min-width="600px" class="pa-8" rounded="lg">
+
+                <v-form ref="fieldForm" fastfail @submit.prevent="createField">
+                    <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
+                        v-model="defaultField.label" />
+                    <v-text-field variant="outlined" density="compact" label="Placeholder"
+                        v-model="defaultField.placeholder" />
+                    <TextFieldSpecific v-if="addFieldDialogType === FieldType.TEXT " />
+                    
+                    <v-switch label="required" color="success" v-model="defaultField.required"></v-switch>
+                </v-form>
+
+                <v-card-actions class="d-flex justify-center">
+                    <v-btn variant="tonal" @click="createField" color="success" class="mx-3">Add</v-btn>
+                    <v-btn variant="tonal" @click="addFieldDialog = false" color="error" class="mx-3">Cancel</v-btn>
+                </v-card-actions>
+            </v-card>
+        </div>
     </v-dialog>
 </template>
 
 <script lang="ts" setup>
-import { Ref, ref } from 'vue';
+import { ref } from 'vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
-import { BugologField, TextField } from '@/types';
+import TextFieldSpecific from '@/TextField/TextFieldSpecific.vue';
 import { FieldType } from '@/enums';
 
-const props = defineProps<{
-    type: FieldType.TEXT | FieldType.HTML
-}>()
-
 const bugFormStore = useBugFormStore();
-const { addFieldDialog } = storeToRefs(bugFormStore);
-const { addField } = bugFormStore;
+const { addFieldDialog, addFieldDialogType, defaultField } = storeToRefs(bugFormStore);
+const { addField, requiredRule } = bugFormStore;
 
 const fieldForm = ref();
 
 const createField = async () => {
-    const {valid} = await fieldForm.value.validate();
+    const { valid } = await fieldForm.value.validate();
     if (valid) {
-        addField(fieldData.value);
+        addField(defaultField.value);
         fieldForm.value.reset();
+        addFieldDialog.value = false;
+    } else {
+        return
     }
-    addFieldDialog.value = false;
 }
-
-const fieldData: Ref<BugologField | TextField> = ref({
-    id: '',
-    label: '',
-    placeholder: '',
-    required: false,
-    value: '',
-    type: props.type
-})
-
-const rules = [
-    (value: string) => !!value || 'Required'
-]
 
 </script>

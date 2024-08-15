@@ -2,12 +2,13 @@ import { FieldType } from '@/enums';
 
 export interface BugologField {
     id: string;
-    type: FieldType.HTML;
+    type: FieldType;
     label: string;
     placeholder: string;
     required: boolean;
     value: string;
     info?: string;
+    inputType?: string;
 }
 
 export interface TextField {

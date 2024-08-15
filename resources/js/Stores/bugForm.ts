@@ -6,16 +6,17 @@ import { computed, Ref, ref } from "vue";
 export const useBugFormStore = defineStore('bugForm', () => {
 
     const addFieldDialog = ref(false);
-    const addFieldDialogType = ref(FieldType.TEXT);
+    const addFieldDialogType: Ref<FieldType> = ref(FieldType.TEXT);
 
-    const defaultTextField = {
+    const defaultField: Ref<BugologField> = ref({
         id: '',
         type: FieldType.TEXT,
         label: '',
         placeholder: '',
         required: true,
-        value: ''
-    }
+        value: '',
+        inputType: '',
+    })
 
     const defaultColumn = (): Column => {
         return {
@@ -49,7 +50,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const currentRow = computed(() => formStructure.value.rows[rowIndex.value])
 
-    const addField = (fieldData: BugologField | TextField) => {
+    const addField = (fieldData: BugologField) => {
         
         if (formStructure.value.rows.length < 1) {
             addRow(1)
@@ -75,16 +76,22 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     }
 
+    const requiredRule = (v: string) => !!v || 'Field is required';
+
+    const createFieldData = ref();
+
     return {
         addFieldDialog,
         addFieldDialogType,
         formStructure,
-        defaultTextField,
+        defaultField,
         addRow,
         deleteRow,
         addField,
         rowIndex,
         columnIndex,
-        deleteColumn
+        deleteColumn,
+        requiredRule,
+        createFieldData
     }
 })
