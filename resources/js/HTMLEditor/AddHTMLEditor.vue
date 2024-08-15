@@ -11,5 +11,4 @@ import { FieldType } from '@/enums';
 
 const addHTMLField = () => useAddField(FieldType.HTML);
 
-
 </script>
