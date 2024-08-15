@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Actions\ReplaceBase64byEmbeddedPath;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -21,6 +22,7 @@ class BugologForm extends Mailable
     public $subject;
     public $data;
     public $files;
+    public $imagePathsAttached;
 
     public function __construct($fromEmail, $fromName, $subject, $data, $files)
     {
@@ -29,6 +31,7 @@ class BugologForm extends Mailable
         $this->subject = $subject;
         $this->data = $data;
         $this->files = $files;
+        $this->imagePathsAttached = [];
     }
 
     public function envelope(): Envelope
@@ -39,17 +42,6 @@ class BugologForm extends Mailable
                 new Address($this->fromEmail, $this->fromName),
             ],
             subject: $this->subject
-        );
-    }
-
-    public function content(): Content
-    {
-        return new Content(
-            view: 'emails.bugolog',
-            with: [
-                'name' => $this->fromName,
-                'issueDescription' => $this->data
-            ]
         );
     }
 
@@ -66,5 +58,18 @@ class BugologForm extends Mailable
 
         return $attachments;
     }
+
+    public function content(): Content
+    {
+
+        return new Content(
+            view: 'emails.bugolog',
+            with: [
+                'name' => $this->fromName,
+                'issueDescription' => $this->data
+            ]
+        );
+    }
+
 
 }

@@ -13,8 +13,6 @@ class SubmitFormController extends Controller
     // Handle form submission
     public function submitForm(Request $request)
     {
-
-        // dd($request->all());
         // Validate and process the form data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
