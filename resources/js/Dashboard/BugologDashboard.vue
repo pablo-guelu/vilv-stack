@@ -6,8 +6,11 @@
                 <v-sheet class="pa-4" min-height="268" rounded="lg">
                     <v-slot name="side-column">
                         <v-row class="w-100 " no-gutters>
-                            <v-col>
-                                <AddRow/>
+                            <v-col class="w-100">
+                                <div class="mb-10">
+                                    <AddRow :cols-number="1" />
+                                    <AddRow :cols-number="2" />
+                                </div>
                                 <AddTextField/>
                                 <AddHTMLEditor/>
                             </v-col>

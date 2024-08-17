@@ -1,6 +1,6 @@
 <template>
     <div>
-        <AddFieldFrame title="Add HTML Editor" :addAction="addHTMLField" />
+        <AddFieldFrame title="HTML Editor" :addAction="addHTMLField" />
     </div>
 </template>
 

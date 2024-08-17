@@ -1,6 +1,6 @@
 <template>
-    <v-sheet class="pa-8" rounded="lg">
-        <v-sheet class="d-flex justify-space-between w-100 mb-16">
+    <v-sheet class="pa-2 pa-md-8" rounded="lg">
+        <v-sheet class="d-flex justify-space-between w-100 mb-4 mb-md-16">
             <div class="text-h4">Preview</div>
         </v-sheet>
 

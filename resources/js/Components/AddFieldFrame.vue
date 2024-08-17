@@ -1,20 +1,26 @@
 <template>
-    <v-card class="pa-3 my-6" variant="outlined" rounded="lg">
-        <div class="d-flex">
-            <FormLabel :name="title" />
-            <v-btn @click="addAction" size="small" color="success" icon="mdi-plus"></v-btn>
-        </div>
-        <div>
-            <slot></slot>
-        </div>
-    </v-card>
+    <div class="w-100 pa-2">
+        <v-btn :color="color" append-icon="mdi-plus" :text="title" variant="outlined" class="text-none" size="x-large"
+        density="compact" @click="addAction"></v-btn>
+    </div>
 </template>
 
 <script lang="ts" setup>
-import FormLabel from './FormLabel.vue';
 
-const props = defineProps<{
+import { useBugFormStore } from '@/Stores/bugForm';
+import { storeToRefs } from 'pinia';
+const bugFormStore = useBugFormStore();
+const { editFieldMode } = storeToRefs(bugFormStore);
+
+editFieldMode.value = false;
+
+const props = withDefaults(defineProps<{
     title: string
+    color?: string
     addAction: () => void
-}>()
+}>(), {
+    title: '',
+    color: 'primary',
+    addAction: () => {}
+})
 </script>

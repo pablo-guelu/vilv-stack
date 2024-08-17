@@ -1,5 +1,5 @@
 <template>
-    <AddFieldFrame :title="'Add Text Field'" :addAction="addTextField" />
+    <AddFieldFrame :title="'Text Field'" :addAction="addTextField" />
 </template>
 
 <script setup lang="ts">
@@ -8,6 +8,6 @@ import { FieldType } from '@/enums';
 import { useBugFormStore } from '@/Stores/bugForm';
 
 const bugFormStore = useBugFormStore();
-const addTextField = () =>  bugFormStore.openAddFieldDialog(FieldType.TEXT);
+const addTextField = () => bugFormStore.openAddFieldDialog(FieldType.TEXT);
 
 </script>
