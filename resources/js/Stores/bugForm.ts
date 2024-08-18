@@ -1,6 +1,5 @@
 import { FieldType } from "@/enums";
-import BugologTextField from "@/TextField/BugologTextField.vue";
-import { BugologField, Column, FormStructure, Row, TextField } from "@/types";
+import { BugologField, Column, FormStructure, Row } from "@/types";
 import { defineStore } from "pinia";
 import { computed, Ref, ref } from "vue";
 
@@ -17,6 +16,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
         required: true,
         value: '',
         inputType: 'text',
+        items: [],
+        multiple: false,
+        clearable: false,
     }
 
     const defaultField: Ref<BugologField> = ref({
@@ -27,11 +29,15 @@ export const useBugFormStore = defineStore('bugForm', () => {
         required: true,
         value: '',
         inputType: 'text',
+        items: [],
+        itemsString: '',
+        multiple: false,
+        clearable: false,
     })
 
     const defaultColumn = (): Column => {
         return {
-            field: undefined
+            field: { ...emptyField }
         }
     }
     const defaultRow = (colsN: number = 1): Row => {
@@ -50,6 +56,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const addRow = (columnsNumber: number = 1) => {
         formStructure.value.rows.push(defaultRow(columnsNumber))
         currentRowIndex.value = formStructure.value.rows.length - 1
+        currentColumnIndex.value = 0
     }
 
     const deleteRow = (index: number) => {
@@ -61,35 +68,37 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const currentRow = computed(() => formStructure.value.rows[currentRowIndex.value])
 
+    const currentField = computed(() => currentRow.value.columns[currentColumnIndex.value])
+
+    const selectFieldStringToArray = (itemsString: string) => {
+        if (itemsString) {
+            const itemsArray = itemsString.split(',').map(item => item.trim());
+            return itemsArray;
+        }
+    }
+
     const addField = (fieldData: BugologField) => {
 
-        if (formStructure.value.rows.length < 1) {
-            addRow(1)
-            addField(fieldData)
-        }
+        fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
 
-        if (currentRow.value.colsNumber === 1) {
-            currentRow.value.columns[0].field = { ...fieldData }
-        } else {
-            if (currentRow.value.columns[0].field === undefined) {
-                currentRow.value.columns[0].field = { ...fieldData }
-            } else {
-                currentRow.value.columns[1].field = { ...fieldData }
-            }
-        }
+        formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
+
     };
 
     const updateField = (fieldData: BugologField) => {
+
+        fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
+
         formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
     }
 
-    const deleteColumn = (rowIndex: number, columnIndex: number) => {
-        formStructure.value.rows[rowIndex].columns[columnIndex].field = undefined
+    const deleteField = (rowIndex: number, columnIndex: number) => {
+        formStructure.value.rows[rowIndex].columns[columnIndex].field = { ...emptyField }
     }
 
     const editFieldMode = ref(true);
 
-    const editColumn = (rowIndex: number, columnIndex: number) => {
+    const editField = (rowIndex: number, columnIndex: number) => {
         currentRowIndex.value = rowIndex;
         currentColumnIndex.value = columnIndex;
         editFieldMode.value = true;
@@ -101,17 +110,42 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const requiredRule = (v: string) => !!v || 'Field is required';
 
     const openAddFieldDialog = (fieldType: FieldType) => {
-        if (!editFieldMode.value) {
-            defaultField.value = { ...emptyField }
-            defaultField.value.type = fieldType;
-            addFieldDialogType.value = fieldType;
-            addFieldDialog.value = true
+
+        if (formStructure.value.rows.length < 1) {
+            warningMissingRow.value = true;
+            return
+        }
+
+        if (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field?.label === '') {
+            if (!editFieldMode.value) {
+                defaultField.value = { ...emptyField }
+                defaultField.value.type = fieldType;
+                addFieldDialogType.value = fieldType;
+                addFieldDialog.value = true
+            } else {
+
+                defaultField.value = formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!;
+
+                if (defaultField.value.type === FieldType.SELECT) {
+                    defaultField.value.itemsString = (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.items as any).join(', ');
+                }
+
+                addFieldDialog.value = true
+            }
+
         } else {
-            defaultField.value = formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!;
-            addFieldDialog.value = true
+            warningMissingRow.value = true;
+            return
         }
 
     }
+
+    const resetFieldData = () => {
+        defaultField.value = { ...emptyField }
+    }
+
+    const warningDeleteField = ref(false);
+    const warningMissingRow = ref(false);
 
     return {
         addFieldDialog,
@@ -126,8 +160,13 @@ export const useBugFormStore = defineStore('bugForm', () => {
         updateField,
         currentRowIndex,
         currentColumnIndex,
-        deleteColumn,
-        editColumn,
+        deleteField,
+        editField,
         requiredRule,
+        resetFieldData,
+        currentRow,
+        currentField,
+        warningDeleteField,
+        warningMissingRow
     }
 })

@@ -3,10 +3,12 @@
         currentRowIndex = rowIndex
         currentColumnIndex = columnIndex
         }">
-        <slot></slot>
-        <div v-if="field" class="action-buttons">
-            <v-btn class="edit-button" @click="editColumn(rowIndex, columnIndex)" icon="mdi-pencil" size="x-small" color="success" />
-            <v-btn class="delete-button" @click="deleteColumn(rowIndex, columnIndex)" icon="mdi-delete" size="x-small" color="success" />
+        <div v-if="field?.label">
+            <slot></slot>
+            <div v-if="field" class="action-buttons">
+                <v-btn class="edit-button" @click="editField(rowIndex, columnIndex)" icon="mdi-pencil" size="x-small" color="success" />
+                <v-btn class="delete-button" @click="deleteField(rowIndex, columnIndex)" icon="mdi-delete" size="x-small" color="success" />
+            </div>
         </div>
     </div>
 </template>
@@ -24,7 +26,7 @@ const props = defineProps<{
 
 const bugFormStore = useBugFormStore();
 const { currentRowIndex, currentColumnIndex } = storeToRefs(bugFormStore);
-const { deleteColumn, editColumn } = bugFormStore;
+const { deleteField, editField } = bugFormStore;
 </script>
 
 <style scoped>

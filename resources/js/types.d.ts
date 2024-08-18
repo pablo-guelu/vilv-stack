@@ -9,6 +9,10 @@ export interface BugologField {
     value: string;
     info?: string;
     inputType?: string;
+    items?: any[],
+    itemsString?: string,
+    multiple?: boolean,
+    clearable?: boolean,
 }
 
 export interface TextField {

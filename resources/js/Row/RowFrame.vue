@@ -1,7 +1,7 @@
 <template>
-    <v-sheet class="d-flex align-center w-100 row-border my-6 row_frame" @mouseover="showActions = true"
+    <v-sheet class="d-flex align-center w-100 my-6" @mouseover="showActions = true"
         @mouseleave="showActions = false" style="min-height: 80px">
-        <div v-show="showActions" class="me-3 row_action_buttons">
+        <div v-show="showActions" class="mx-3 row_action_buttons">
             <v-btn color="red" size="small" fab icon="mdi-delete" @click="deleteRow(index)" />
         </div>
         <div class="w-100">
@@ -26,7 +26,7 @@
             </v-row>
         </div>
 
-        <div class="d-flex align-center ps-4 ms-auto">
+        <div class="d-flex align-center px-4 ms-auto">
             <v-avatar color="surface-variant"> {{ index + 1 }} </v-avatar>
         </div>
     </v-sheet>
@@ -37,21 +37,14 @@ import FieldFrame from '@/Components/FieldFrame.vue';
 import SelectorFieldType from '@/Components/SelectorFieldType.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { Row } from '@/types';
-import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
-import { useDisplay } from 'vuetify';
-
-const { mdAndUp } = useDisplay();
+import { ref } from 'vue';
 
 const props = defineProps<{
     index: number,
     row: Row
 }>()
 
-console.log(props.row);
-
 const bugFormStore = useBugFormStore();
-const { formStructure, currentRowIndex } = storeToRefs(bugFormStore);
 const { deleteRow } = bugFormStore;
 
 const showActions = ref(false);
@@ -59,5 +52,10 @@ const showActions = ref(false);
 </script>
 
 <style>
+
+.row_border {
+    border: 2px dashed grey;
+    border-radius: 12px;
+}
 
 </style>

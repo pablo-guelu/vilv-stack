@@ -13,6 +13,7 @@
                                 </div>
                                 <AddTextField/>
                                 <AddHTMLEditor/>
+                                <AddSelectField/>
                             </v-col>
                         </v-row>
                     </v-slot>
@@ -27,6 +28,8 @@
         </v-row>
 
         <AddFieldDialog />
+        <WarningDialog v-model="warningMissingRow" :text="'Please add a row to add a Field'"/>
+
     </v-container>
     
 </template>
@@ -35,13 +38,15 @@
 import FormCanvas from './FormCanvas.vue';
 import AddTextField from '@/TextField/AddTextField.vue';
 import AddRow from '@/Row/AddRow.vue';
-import AddFieldDialog from '@/Dashboard/AddFieldDialog.vue';
+import AddFieldDialog from '@/Dashboard/Components/AddFieldDialog.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 import AddHTMLEditor from '@/HTMLEditor/AddHTMLEditor.vue';
+import AddSelectField from '@/Select/AddSelectField.vue';
+import WarningDialog from './Components/WarningDialog.vue';
 
 const bugFormStore = useBugFormStore();
-const { addFieldDialogType } = storeToRefs(bugFormStore);
+const { warningMissingRow } = storeToRefs(bugFormStore);
 
 
 </script>
