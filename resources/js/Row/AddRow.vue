@@ -1,5 +1,5 @@
 <template>
-    <AddFieldFrame :color="'success'" :title="`Row ${colsNumber} Column${colsNumber > 1 ? 's' : ''}`" :addAction="() => addRow(colsNumber)" />
+    <AddFieldFrame :color="'success'" :title="`Row ${colsNumber}-Column${colsNumber > 1 ? 's' : ''}`" :addAction="() => addRow(colsNumber)" />
 </template>
 
 <script lang="ts" setup>

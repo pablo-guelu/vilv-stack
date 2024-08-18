@@ -3,4 +3,5 @@ export enum FieldType {
     HTML = 'html',
     SELECT = 'select',
     FILES = 'files',
+    TEXT_AREA = 'textarea',
 }

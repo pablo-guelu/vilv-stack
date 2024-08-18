@@ -2,7 +2,7 @@
     <template v-if="field">
         <FormLabel :name="field.label" :required="field.required" />
         <v-sheet height="250px">
-            <QuillEditor theme="snow" :toolbar="toolbarConfig" v-model:content="field.value" content-type="html" />
+            <QuillEditor theme="snow" :toolbar="toolbarConfig" v-model:content="field.value" :placeholder="field.placeholder" content-type="html" />
         </v-sheet>
 
     </template>

@@ -15,6 +15,7 @@
                                 <AddHTMLEditor/>
                                 <AddSelectField/>
                                 <AddFileField/>
+                                <AddTextAreaField/>
                             </v-col>
                         </v-row>
                     </v-slot>
@@ -43,9 +44,10 @@ import AddFieldDialog from '@/Dashboard/Components/AddFieldDialog.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 import AddHTMLEditor from '@/HTMLEditor/AddHTMLEditor.vue';
-import AddSelectField from '@/Select/AddSelectField.vue';
+import AddSelectField from '@/SelectField/AddSelectField.vue';
 import WarningDialog from './Components/WarningDialog.vue';
 import AddFileField from '@/FileField/AddFileField.vue';
+import AddTextAreaField from '@/TextAreaField/AddTextAreaField.vue';
 
 const bugFormStore = useBugFormStore();
 const { warningMissingRow } = storeToRefs(bugFormStore);

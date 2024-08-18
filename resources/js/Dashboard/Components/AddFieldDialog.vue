@@ -29,7 +29,7 @@ import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 import TextFieldSpecific from '@/TextField/TextFieldSpecific.vue';
 import { FieldType } from '@/enums';
-import SelectFieldSpecific from '@/Select/SelectFieldSpecific.vue';
+import SelectFieldSpecific from '@/SelectField/SelectFieldSpecific.vue';
 
 import { useDisplay } from 'vuetify';
 const { mdAndUp } = useDisplay();
