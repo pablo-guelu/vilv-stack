@@ -9,11 +9,15 @@
         <template v-if="isSelectField" >
             <BugologSelectField :field="(field as BugologField)" />
         </template>
+        <template v-if="isFilesField" >
+            <BugologFilesField :field="(field as BugologField)" />
+        </template>
     </div>
 </template>
 
 <script lang="ts" setup>
 import { FieldType } from '@/enums';
+import BugologFilesField from '@/FileField/BugologFilesField.vue';
 import BugologHTMLEditor from '@/HTMLEditor/BugologHTMLEditor.vue';
 import BugologSelectField from '@/Select/BugologSelectField.vue';
 import BugologTextField from '@/TextField/BugologTextField.vue';
@@ -27,4 +31,5 @@ const props = defineProps<{
 const isTextField = computed(() => props.field.type === FieldType.TEXT);
 const isHTMLField = computed(() => props.field.type === FieldType.HTML);
 const isSelectField = computed(() => props.field.type === FieldType.SELECT);
+const isFilesField = computed(() => props.field.type === FieldType.FILES);
 </script>

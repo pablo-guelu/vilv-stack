@@ -19,6 +19,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         items: [],
         multiple: false,
         clearable: false,
+        fileInput: null
     }
 
     const defaultField: Ref<BugologField> = ref({
@@ -33,6 +34,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         itemsString: '',
         multiple: false,
         clearable: false,
+        fileInput: null,
     })
 
     const defaultColumn = (): Column => {

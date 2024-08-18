@@ -13,6 +13,7 @@ export interface BugologField {
     itemsString?: string,
     multiple?: boolean,
     clearable?: boolean,
+    fileInput?: File | File[] | null | undefined
 }
 
 export interface TextField {
