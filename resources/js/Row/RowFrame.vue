@@ -2,7 +2,7 @@
     <v-sheet class="d-flex align-center w-100 my-6" @mouseover="showActions = true"
         @mouseleave="showActions = false" style="min-height: 80px">
         <div v-show="showActions" class="mx-3 row_action_buttons">
-            <v-btn color="red" size="small" fab icon="mdi-delete" @click="deleteRow(index)" />
+            <v-btn color="red" size="small" fab icon="mdi-delete" @click="() => warningDeleteRow = true" />
         </div>
         <div class="w-100">
             <v-row v-if="row.colsNumber < 2 && row.columns.length === 1">
@@ -37,6 +37,7 @@ import FieldFrame from '@/Components/FieldFrame.vue';
 import SelectorFieldType from '@/Components/SelectorFieldType.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { Row } from '@/types';
+import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 
 const props = defineProps<{
@@ -45,7 +46,7 @@ const props = defineProps<{
 }>()
 
 const bugFormStore = useBugFormStore();
-const { deleteRow } = bugFormStore;
+const { warningDeleteRow } = storeToRefs(bugFormStore);
 
 const showActions = ref(false);
 

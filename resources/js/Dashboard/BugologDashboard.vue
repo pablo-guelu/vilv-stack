@@ -31,6 +31,8 @@
 
         <AddFieldDialog />
         <WarningDialog v-model="warningMissingRow" :text="'Please add a row to add a Field'"/>
+        <WarningDialog v-model="warningDeleteField" :text="'Are you sure you want to delete this Field?'" :warning-type="'info'" :action="() => deleteField(currentRowIndex, currentColumnIndex)"/>
+        <WarningDialog v-model="warningDeleteRow" :text="'Are you sure you want to delete this Row?'" :warning-type="'info'" :action="() => deleteRow(currentRowIndex)"/>
 
     </v-container>
     
@@ -50,7 +52,8 @@ import AddFileField from '@/FileField/AddFileField.vue';
 import AddTextAreaField from '@/TextAreaField/AddTextAreaField.vue';
 
 const bugFormStore = useBugFormStore();
-const { warningMissingRow } = storeToRefs(bugFormStore);
+const { warningMissingRow, warningDeleteField, warningDeleteRow, currentRowIndex, currentColumnIndex } = storeToRefs(bugFormStore);
+const { deleteField, deleteRow } = bugFormStore;
 
 
 </script>

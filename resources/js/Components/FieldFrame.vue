@@ -7,7 +7,7 @@
             <slot></slot>
             <div v-if="field" class="action-buttons">
                 <v-btn class="edit-button" @click="editField(rowIndex, columnIndex)" icon="mdi-pencil" size="x-small" color="success" />
-                <v-btn class="delete-button" @click="deleteField(rowIndex, columnIndex)" icon="mdi-delete" size="x-small" color="success" />
+                <v-btn class="delete-button" @click="() => warningDeleteField = true" icon="mdi-delete" size="x-small" color="success" />
             </div>
         </div>
     </div>
@@ -25,8 +25,8 @@ const props = defineProps<{
 }>();
 
 const bugFormStore = useBugFormStore();
-const { currentRowIndex, currentColumnIndex } = storeToRefs(bugFormStore);
-const { deleteField, editField } = bugFormStore;
+const { currentRowIndex, currentColumnIndex, warningDeleteField } = storeToRefs(bugFormStore);
+const { editField } = bugFormStore;
 </script>
 
 <style scoped>

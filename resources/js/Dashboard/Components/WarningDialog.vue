@@ -14,10 +14,8 @@
                 </v-card-text>
                 <v-card-actions class="align-self-center">
                     <v-btn color="error" @click="modelValue = false">Close</v-btn>
-                    <div v-if="$slots.actionButtons">
-                        <slot name="actionButtons">
-                            <v-btn color="success" @click="action">Confirm</v-btn>
-                        </slot>
+                    <div v-if="action">
+                        <v-btn color="success" @click="action">Confirm</v-btn>
                     </div>
                 </v-card-actions>
             </v-card>

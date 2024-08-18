@@ -64,6 +64,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const deleteRow = (index: number) => {
         formStructure.value.rows.splice(index, 1)
         currentRowIndex.value = formStructure.value.rows.length - 1
+        warningDeleteRow.value = false;
     }
 
     const currentColumnIndex = ref(0)
@@ -96,6 +97,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const deleteField = (rowIndex: number, columnIndex: number) => {
         formStructure.value.rows[rowIndex].columns[columnIndex].field = { ...emptyField }
+        warningDeleteField.value = false;
     }
 
     const editFieldMode = ref(true);
@@ -147,6 +149,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     }
 
     const warningDeleteField = ref(false);
+    const warningDeleteRow = ref(false);
     const warningMissingRow = ref(false);
 
     return {
@@ -169,6 +172,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         currentRow,
         currentField,
         warningDeleteField,
+        warningDeleteRow,
         warningMissingRow
     }
 })
