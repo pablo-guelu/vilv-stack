@@ -1,7 +1,6 @@
 <template>
-    <v-sheet class="d-flex align-center w-100 my-6" @mouseover="showActions = true"
-        @mouseleave="showActions = false" style="min-height: 80px">
-        <div v-show="showActions" class="mx-3 row_action_buttons">
+    <v-sheet class="d-flex align-center w-100 my-6 row_container" style="min-height: 80px">
+        <div class="mx-3 row_action_buttons">
             <v-btn color="red" size="small" fab icon="mdi-delete" @click="() => warningDeleteRow = true" />
         </div>
         <div class="w-100">
@@ -48,11 +47,20 @@ const props = defineProps<{
 const bugFormStore = useBugFormStore();
 const { warningDeleteRow } = storeToRefs(bugFormStore);
 
-const showActions = ref(false);
-
 </script>
 
 <style>
+
+.row_container {
+    position: relative;
+}
+
+.row_action_buttons {
+    position: absolute;
+    left: -40px;
+    top: 40%;
+    z-index: 1;
+}
 
 .row_border {
     border: 2px dashed grey;
