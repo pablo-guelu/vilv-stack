@@ -42,7 +42,7 @@
 import FormCanvas from './FormCanvas.vue';
 import AddTextField from '@/TextField/AddTextField.vue';
 import AddRow from '@/Row/AddRow.vue';
-import AddFieldDialog from '@/Dashboard/Components/AddFieldDialog.vue';
+import AddFieldDialog from '@/Form/Components/AddFieldDialog.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 import AddHTMLEditor from '@/HTMLEditor/AddHTMLEditor.vue';

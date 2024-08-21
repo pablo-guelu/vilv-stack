@@ -1,5 +1,11 @@
 import { FieldType } from '@/enums';
 
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+}
+
 export interface BugologField {
     id: string;
     type: FieldType;
@@ -38,4 +44,10 @@ export interface Row {
 
 export interface Column {
     field: undefined | BugologField;
+}
+
+export interface Form {
+    id: string;
+    title: string;
+    form_structure: FormStructure;
 }

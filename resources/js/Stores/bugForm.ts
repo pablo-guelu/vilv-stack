@@ -1,5 +1,5 @@
 import { FieldType } from "@/enums";
-import { BugologField, Column, FormStructure, Row } from "@/types";
+import { BugologField, Column, Form, FormStructure, Row } from "@/types";
 import { defineStore } from "pinia";
 import { computed, Ref, ref } from "vue";
 
@@ -7,6 +7,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const addFieldDialog = ref(false);
     const addFieldDialogType: Ref<FieldType> = ref(FieldType.TEXT);
+
+    const formId = ref('');
+    const formTitle = ref('');
 
     const emptyField: BugologField = {
         id: '',
@@ -49,9 +52,27 @@ export const useBugFormStore = defineStore('bugForm', () => {
         }
     }
 
+    const emptyFormStructure = (): FormStructure => {
+        return { rows: [] }
+    }
+
     const formStructure: Ref<FormStructure> = ref({
         rows: [defaultRow()]
     })
+
+    const emptyForm = () => {
+        return {
+            id: '',
+            title: '',
+            form_structure: emptyFormStructure()
+        }
+    }
+
+    const form: Ref<Form> = ref({
+        id: formId.value,
+        title: formTitle.value,
+        form_structure: formStructure.value
+    });
 
     const currentRowIndex = ref(0)
 
@@ -152,11 +173,22 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const warningDeleteRow = ref(false);
     const warningMissingRow = ref(false);
 
+    function $reset() {
+        formId.value = '';
+        formTitle.value = '';
+        formStructure.value = emptyFormStructure();
+        form.value = emptyForm();
+    }
+
     return {
         addFieldDialog,
         addFieldDialogType,
         editFieldMode,
         openAddFieldDialog,
+        form,
+        emptyForm,
+        formId,
+        formTitle,
         formStructure,
         defaultField,
         addRow,
@@ -173,6 +205,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         currentField,
         warningDeleteField,
         warningDeleteRow,
-        warningMissingRow
+        warningMissingRow,
+        $reset
     }
 })

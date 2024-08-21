@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -31,6 +32,24 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    // Disable auto-incrementing
+    public $incrementing = false;
+
+    // Set the primary key type to string
+    protected $keyType = 'string';
+
+    // Automatically generate UUIDs for new models
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->id)) {
+                $model->id = (string) Str::uuid();
+            }
+        });
+    }
 
     /**
      * Get the attributes that should be cast.
