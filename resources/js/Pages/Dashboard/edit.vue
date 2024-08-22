@@ -17,8 +17,6 @@ const props = defineProps<{
     form: Form
 }>();
 
-console.log(props.form);
-
 const bugStore = useBugFormStore();
 const { formStructure, formTitle, formId } = storeToRefs(bugStore);
 
