@@ -8,9 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useUserStore } from '@/Stores/user';
 import NavBar from './Components/NavBar.vue';
-import { storeToRefs } from 'pinia';
-import { User } from '@/types';
 
 </script>

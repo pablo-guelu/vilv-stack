@@ -149,10 +149,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
         if (defaultField.value.type === FieldType.SELECT) {
             defaultField.value.itemsString = (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.items as any).join(', ');
-        } else {
-            defaultField.value.itemsString = '';
         }
-
     }
 
     const resetFieldData = () => {

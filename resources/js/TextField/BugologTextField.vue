@@ -1,7 +1,7 @@
 <template>
     <template v-if="field">
         <FormLabel :name="field.label" :required="field.required"/>
-        <v-text-field variant="outlined" v-model="field.value" :placeholder="field.placeholder"
+        <v-text-field :variant="field.variant" v-model="field.value" :placeholder="field.placeholder"
             :type="field.inputType" ></v-text-field>
     </template>
 </template>

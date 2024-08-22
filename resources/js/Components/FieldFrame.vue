@@ -4,8 +4,6 @@
         <div v-if="!field.empty" >
             <slot></slot>
             <div v-if="field" class="action-buttons">
-                <v-btn class="edit-button" @click="editField(rowIndex, columnIndex)" icon="mdi-pencil" size="x-small"
-                    color="success" />
                 <v-btn class="delete-button" @click="() => warningDeleteField = true" icon="mdi-delete" size="x-small"
                     color="success" />
             </div>
@@ -27,7 +25,7 @@ const props = defineProps<{
 
 const bugFormStore = useBugFormStore();
 const { currentRowIndex, currentColumnIndex, warningDeleteField, sideEditorMode } = storeToRefs(bugFormStore);
-const { editField, openSideEditor } = bugFormStore;
+const { openSideEditor } = bugFormStore;
 
 const handleClickFieldFrame = () => {
     currentRowIndex.value = props.rowIndex

@@ -3,7 +3,7 @@
         <v-card width="400px" class="pa-8" rounded="lg">
             <v-card-title v-text="'Form Editor'" class="px-0 mb-3" />
             <v-form ref="fieldForm" fastfail>
-                <v-select variant="outlined" density="compact" :items="variants" v-model="selectedVariant" ></v-select>
+                <v-select variant="outlined" density="compact" :items="variants" v-model="selectedVariant" @update:model-value="updateVariant" ></v-select>
             </v-form>
 
             <v-card-actions class="d-flex justify-center">
@@ -14,12 +14,12 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 
 const bugFormStore = useBugFormStore();
-const { } = storeToRefs(bugFormStore);
+const { formStructure } = storeToRefs(bugFormStore);
 const { } = bugFormStore;
 
 const variants = ref([
@@ -32,10 +32,17 @@ const variants = ref([
     "solo-filled"
 ])
 
-const selectedVariant = ref('outlined');
+const selectedVariant = ref();
+
 
 const updateVariant = () => {
-    
+    for ( let row = 0; row < formStructure.value.rows.length; row++) {
+        if (formStructure.value.rows[row].columns) {
+            for (let column = 0; column < formStructure.value.rows[row].columns.length; column++) {
+                formStructure.value.rows[row].columns[column].field!.variant = selectedVariant.value;
+            }
+        }
+    }
 }
 
 
