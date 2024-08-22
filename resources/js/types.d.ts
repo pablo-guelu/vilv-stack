@@ -19,7 +19,9 @@ export interface BugologField {
     itemsString?: string,
     multiple?: boolean,
     clearable?: boolean,
-    fileInput?: File | File[] | null | undefined
+    fileInput?: File | File[] | null | undefined,
+    variant: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled",
+    empty?: boolean;
 }
 
 export interface TextField {

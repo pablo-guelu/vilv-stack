@@ -1,12 +1,12 @@
-import { FieldType } from "@/enums";
+import { FieldType, SideEditionMode } from "@/enums";
 import { BugologField, Column, Form, FormStructure, Row } from "@/types";
+import { router } from "@inertiajs/vue3";
 import { defineStore } from "pinia";
 import { computed, Ref, ref } from "vue";
 
 export const useBugFormStore = defineStore('bugForm', () => {
 
-    const addFieldDialog = ref(false);
-    const addFieldDialogType: Ref<FieldType> = ref(FieldType.TEXT);
+    const sideFieldEditorType: Ref<FieldType> = ref(FieldType.TEXT);
 
     const formId = ref('');
     const formTitle = ref('');
@@ -22,7 +22,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
         items: [],
         multiple: false,
         clearable: false,
-        fileInput: null
+        fileInput: null,
+        variant: 'outlined',
+        empty: false
     }
 
     const defaultField: Ref<BugologField> = ref({
@@ -38,6 +40,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         multiple: false,
         clearable: false,
         fileInput: null,
+        variant: 'outlined',
+        empty: false
     })
 
     const defaultColumn = (): Column => {
@@ -102,22 +106,18 @@ export const useBugFormStore = defineStore('bugForm', () => {
     }
 
     const addField = (fieldData: BugologField) => {
-
-        fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
-
+        if (fieldData.type === FieldType.SELECT) fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
         formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
-
     };
 
     const updateField = (fieldData: BugologField) => {
-
-        fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
-
+        if (fieldData.type === FieldType.SELECT) fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
         formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
     }
 
     const deleteField = (rowIndex: number, columnIndex: number) => {
         formStructure.value.rows[rowIndex].columns[columnIndex].field = { ...emptyField }
+        formStructure.value.rows[rowIndex].columns[columnIndex].field!.empty = true;
         warningDeleteField.value = false;
     }
 
@@ -128,39 +128,29 @@ export const useBugFormStore = defineStore('bugForm', () => {
         currentColumnIndex.value = columnIndex;
         editFieldMode.value = true;
         defaultField.value = formStructure.value.rows[rowIndex].columns[columnIndex].field!;
-        addFieldDialogType.value = defaultField.value.type;
-        addFieldDialog.value = true
+        sideFieldEditorType.value = defaultField.value.type;
     }
 
     const requiredRule = (v: string) => !!v || 'Field is required';
 
-    const openAddFieldDialog = (fieldType: FieldType) => {
+    const openSideEditor = (fieldType: FieldType) => {
+
+        sideFieldEditorType.value = fieldType;
+        sideEditorMode.value = SideEditionMode.FIELD;
 
         if (formStructure.value.rows.length < 1) {
             warningMissingRow.value = true;
             return
         }
 
-        if (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field?.label === '') {
-            if (!editFieldMode.value) {
-                defaultField.value = { ...emptyField }
-                defaultField.value.type = fieldType;
-                addFieldDialogType.value = fieldType;
-                addFieldDialog.value = true
-            } else {
+        formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.empty = false;
+        defaultField.value = formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!
+        defaultField.value.type = fieldType;
 
-                defaultField.value = formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!;
-
-                if (defaultField.value.type === FieldType.SELECT) {
-                    defaultField.value.itemsString = (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.items as any).join(', ');
-                }
-
-                addFieldDialog.value = true
-            }
-
+        if (defaultField.value.type === FieldType.SELECT) {
+            defaultField.value.itemsString = (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.items as any).join(', ');
         } else {
-            warningMissingRow.value = true;
-            return
+            defaultField.value.itemsString = '';
         }
 
     }
@@ -180,11 +170,38 @@ export const useBugFormStore = defineStore('bugForm', () => {
         form.value = emptyForm();
     }
 
+    const newForm = () => {
+        router.visit('/form/create', {
+            onSuccess: () => {
+                $reset();
+            }
+        });
+    }
+
+    const formEditorMode = ref(true);
+
+    const sideEditorMode = ref(SideEditionMode.FORM);
+
+    const saveForm = () => {
+        if (route().current('form.create')) {
+            // CREATE
+            router.post('/form', {
+                form_structure: JSON.stringify(formStructure.value),
+                title: formTitle.value,
+            });
+            // UPDATE
+        } else {
+            router.put(`/form/${formId.value}`, {
+                form_structure: JSON.stringify(formStructure.value),
+                title: formTitle.value,
+            });
+        }
+    }
+
     return {
-        addFieldDialog,
-        addFieldDialogType,
+        sideFieldEditorType,
         editFieldMode,
-        openAddFieldDialog,
+        openSideEditor,
         form,
         emptyForm,
         formId,
@@ -206,6 +223,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
         warningDeleteField,
         warningDeleteRow,
         warningMissingRow,
-        $reset
+        $reset,
+        newForm,
+        sideEditorMode,
+        saveForm
     }
 })

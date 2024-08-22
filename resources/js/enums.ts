@@ -5,3 +5,8 @@ export enum FieldType {
     FILES = 'files',
     TEXT_AREA = 'textarea',
 }
+
+export enum SideEditionMode {
+    FORM,
+    FIELD,
+}

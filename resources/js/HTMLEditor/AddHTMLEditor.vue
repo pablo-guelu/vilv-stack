@@ -9,8 +9,7 @@ import AddFieldFrame from '@/Components/AddFieldFrame.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { FieldType } from '@/enums';
 
-
 const bugFormStore = useBugFormStore();
-const addHTMLField = () =>  bugFormStore.openAddFieldDialog(FieldType.HTML);
+const addHTMLField = () =>  bugFormStore.openSideEditor(FieldType.HTML);
 
 </script>

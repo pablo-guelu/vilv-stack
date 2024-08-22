@@ -1,32 +1,39 @@
 <template>
-    <div class="field-frame field_border rounded-lg pa-4" :class="{'field_selected' : (currentRowIndex === rowIndex && currentColumnIndex === columnIndex)}" @click="() => {
-        currentRowIndex = rowIndex
-        currentColumnIndex = columnIndex
-        }">
-        <div v-if="field?.label">
+    <v-card flat class="field-frame field_border rounded-lg pa-4"
+        :class="{ 'field_selected': (currentRowIndex === rowIndex && currentColumnIndex === columnIndex && sideEditorMode === SideEditionMode.FIELD) }" @click="handleClickFieldFrame">
+        <div v-if="!field.empty" >
             <slot></slot>
             <div v-if="field" class="action-buttons">
-                <v-btn class="edit-button" @click="editField(rowIndex, columnIndex)" icon="mdi-pencil" size="x-small" color="success" />
-                <v-btn class="delete-button" @click="() => warningDeleteField = true" icon="mdi-delete" size="x-small" color="success" />
+                <v-btn class="edit-button" @click="editField(rowIndex, columnIndex)" icon="mdi-pencil" size="x-small"
+                    color="success" />
+                <v-btn class="delete-button" @click="() => warningDeleteField = true" icon="mdi-delete" size="x-small"
+                    color="success" />
             </div>
         </div>
-    </div>
+    </v-card>
 </template>
 
 <script lang="ts" setup>
+import { SideEditionMode } from '@/enums';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { BugologField } from '@/types';
 import { storeToRefs } from 'pinia';
 
 const props = defineProps<{
-    field: BugologField | undefined;
+    field: BugologField;
     rowIndex: number;
     columnIndex: number;
 }>();
 
 const bugFormStore = useBugFormStore();
-const { currentRowIndex, currentColumnIndex, warningDeleteField } = storeToRefs(bugFormStore);
-const { editField } = bugFormStore;
+const { currentRowIndex, currentColumnIndex, warningDeleteField, sideEditorMode } = storeToRefs(bugFormStore);
+const { editField, openSideEditor } = bugFormStore;
+
+const handleClickFieldFrame = () => {
+    currentRowIndex.value = props.rowIndex
+    currentColumnIndex.value = props.columnIndex
+    openSideEditor(props.field.type)
+}
 </script>
 
 <style scoped>

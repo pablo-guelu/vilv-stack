@@ -8,6 +8,6 @@ import { FieldType } from '@/enums';
 import { useBugFormStore } from '@/Stores/bugForm';
 
 const bugFormStore = useBugFormStore();
-const addSelectField = () => bugFormStore.openAddFieldDialog(FieldType.SELECT);
+const addSelectField = () => bugFormStore.openSideEditor(FieldType.SELECT);
 
 </script>

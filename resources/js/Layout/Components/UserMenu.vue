@@ -19,7 +19,7 @@
             <v-row>
                 <!-- <v-btn class="my-1 text-error" variant="text" prepend-icon="mdi-logout" @click="" text="logout" /> -->
                 <Link v-if="isUserAuth" class="ms-4" color="primary" as="button" href="/logout" method="post"> Logout </Link>
-                <Link v-else class="ms-4" color="primary" as="button" href="/login"> Login </Link>
+                <Link v-else class="ms-4" color="primary" as="button" href="/login" method="get"> Login </Link>
             </v-row>
         </v-card>
     </v-menu>
