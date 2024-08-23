@@ -1,6 +1,6 @@
 <template>
     <v-card flat class="field-frame field_border rounded-lg pa-4"
-        :class="{ 'field_selected': (currentRowIndex === rowIndex && currentColumnIndex === columnIndex && sideEditorMode === SideEditionMode.FIELD) }" @click="handleClickFieldFrame">
+        :class="{ 'field_selected': (currentRowIndex === rowIndex && currentColumnIndex === columnIndex && sideEditorMode === SideEditionMode.FIELD) }" @click="handleClickFieldFrame" :ripple="false" >
         <div v-if="!field.empty" >
             <slot></slot>
             <div v-if="field" class="action-buttons">

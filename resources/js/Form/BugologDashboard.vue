@@ -1,41 +1,34 @@
 <template>
 
-    <v-container fluid>
-        <v-row>
-            <v-col md="3">
-                <v-sheet min-height="268" rounded="lg">
+    <v-container class="h-100 pa-0" fluid>
 
-                    <v-row class="w-100 " no-gutters>
+        <v-row class="h-100">
+            <v-col md="3">
+                <v-sheet class="pt-16 px-4 h-100 border-e-sm" color="">
+                    <v-row class="w-100 mt-6" no-gutters>
                         <v-col class="w-100">
                             <div class="mb-10">
                                 <AddRow :cols-number="1" />
                                 <AddRow :cols-number="2" />
                             </div>
-                            <AddTextField />
-                            <AddHTMLEditor />
-                            <AddSelectField />
-                            <AddFileField />
-                            <AddTextAreaField />
+                            <template v-for="type in fieldTypes" :key="type">
+                                <AddFieldFrame :fieldType="type" />
+                            </template>
                         </v-col>
                     </v-row>
-
                 </v-sheet>
             </v-col>
 
             <v-col cols="6">
-                <v-sheet rounded="lg">
-                    <FormCanvas />
-                </v-sheet>
+                <FormCanvas />
             </v-col>
 
             <v-col cols="3">
-                <v-sheet min-height="268" rounded="lg">
-
-                    <v-tabs v-model="sideEditorMode" align-tabs="center" color="deep-purple-accent-4">
+                <v-sheet class="pt-6 h-100 border-s-sm">
+                    <v-tabs v-model="sideEditorMode" align-tabs="center">
                         <v-tab :value="SideEditionMode.FORM">Form</v-tab>
                         <v-tab :value="SideEditionMode.FIELD">Field</v-tab>
                     </v-tabs>
-
                     <v-tabs-window v-model="sideEditorMode">
                         <v-tabs-window-item :key="SideEditionMode.FORM" :value="SideEditionMode.FORM">
                             <FormSideEditor />
@@ -44,12 +37,8 @@
                             <FieldSideEditor />
                         </v-tabs-window-item>
                     </v-tabs-window>
-
-
-
                 </v-sheet>
             </v-col>
-
         </v-row>
 
         <WarningDialog v-model="warningMissingRow" :text="'Please add a row to add a Field'" />
@@ -64,22 +53,26 @@
 
 <script lang="ts" setup>
 import FormCanvas from './FormCanvas.vue';
-import AddTextField from '@/TextField/AddTextField.vue';
 import AddRow from '@/Row/AddRow.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
-import AddHTMLEditor from '@/HTMLEditor/AddHTMLEditor.vue';
-import AddSelectField from '@/SelectField/AddSelectField.vue';
 import WarningDialog from './Components/WarningDialog.vue';
-import AddFileField from '@/FileField/AddFileField.vue';
-import AddTextAreaField from '@/TextAreaField/AddTextAreaField.vue';
 import FieldSideEditor from './Components/FieldSideEditor.vue';
 import FormSideEditor from './Components/FormSideEditor.vue';
-import { SideEditionMode } from '@/enums';
+import { FieldType, SideEditionMode } from '@/enums';
+import { useDragAndDrop } from '@formkit/drag-and-drop/vue';
+import AddFieldFrame from '@/Components/AddFieldFrame.vue';
 
 const bugFormStore = useBugFormStore();
 const { warningMissingRow, warningDeleteField, warningDeleteRow, currentRowIndex, currentColumnIndex, sideEditorMode } = storeToRefs(bugFormStore);
 const { deleteField, deleteRow } = bugFormStore;
 
-
+const fieldTypes =
+    [
+        FieldType.TEXT,
+        FieldType.HTML,
+        FieldType.SELECT,
+        FieldType.FILES,
+        FieldType.TEXT_AREA,
+    ];
 </script>

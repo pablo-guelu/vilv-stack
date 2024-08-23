@@ -1,15 +1,13 @@
 <template>
     
-        <v-sheet class="d-flex justify-space-between w-100 mb-4 mb-md-16 pa-6" rounded="lg">
-            <div class="text-h4">Preview</div>
+        <div class="d-flex justify-space-between w-100 mt-8 p-2">
             <v-btn color="primary" href="/form">FORMS</v-btn>
             <v-btn color="primary" @click="saveForm">Save</v-btn>
             <v-btn color="primary" @click="newForm"> New</v-btn>
-        </v-sheet>
+        </div>
 
         <!-- FORM CANVAS -->
-
-        <v-card class="pa-8 mt-8" flat>
+        <v-card class="pt-8 ps-8 mt-4" border>
             <v-row>
                 <v-col cols="9">
                     <FormLabel name="Form Title" />
@@ -32,7 +30,7 @@ import { storeToRefs } from 'pinia';
 import RowFrame from '../Row/RowFrame.vue';
 import FormLabel from '@/Components/FormLabel.vue';
 import { router } from '@inertiajs/vue3';
-import { SideEditionMode } from '@/enums';
+import { useDragAndDrop } from "@formkit/drag-and-drop/vue";
 
 const bugFormStore = useBugFormStore();
 const { formStructure, formTitle, formId, sideEditorMode } = storeToRefs(bugFormStore);

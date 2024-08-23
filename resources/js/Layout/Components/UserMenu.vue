@@ -1,7 +1,7 @@
 <template>
     <v-menu v-model="show" location="bottom end" origin="top end" :close-on-content-click="false">
         <template v-slot:activator="{ props }">
-            <v-btn icon class="ms-2 text-white profile-icon" size="46" v-bind="props">
+            <v-btn icon class="ms-2 border-md" size="46" v-bind="props">
                 <div v-if="isUserAuth" >{{ user.name.charAt(0) }}</div>
                 <v-icon v-else icon="mdi-account" /> 
             </v-btn>

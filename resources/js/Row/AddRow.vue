@@ -1,9 +1,31 @@
 <template>
-    <AddFieldFrame :color="'success'" :title="`${colsNumber}-Column${colsNumber > 1 ? 's' : ''} Row`" :addAction="() => addRow(colsNumber)" />
+    <v-list-item class="w-100 rounded-lg border-sm my-4 pa-0" draggable="true" color="success">
+
+        <template v-slot:prepend="">
+            <div class="d-flex h-100 justify-center align-center rounded-s-lg border-e-sm" style="width: 50px;">
+                <v-btn color="transparent" flat block :ripple="false" >
+                    <v-icon size="x-large">
+                        {{ `mdi-numeric-${colsNumber}` }}
+                    </v-icon>
+                </v-btn>
+            </div>
+        </template>
+
+        <v-list-item-title class="text-none ps-4">{{ `${colsNumber} - Column${colsNumber > 1 ? 's' : ''} Row` }}</v-list-item-title>
+
+        <template v-slot:append="">
+            <div class="d-flex h-100 justify-center align-center rounded-e-lg border-s-sm" style="width: 50px; background-color: #6A1B9A;">
+                <v-btn size="" color="transparent" @click="addRow(colsNumber)" flat block>
+                    <v-icon size="large" color="white">
+                        mdi-plus
+                    </v-icon>
+                </v-btn>
+            </div>
+        </template>
+    </v-list-item>
 </template>
 
 <script lang="ts" setup>
-import AddFieldFrame from '@/Components/AddFieldFrame.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 
 const props = defineProps<{
@@ -14,3 +36,15 @@ const bugFormStore = useBugFormStore();
 const { addRow } = bugFormStore;
 
 </script>
+
+<style scoped>
+
+:deep(.v-list-item__append) {
+    height: 100%;
+}
+
+:deep(.v-list-item-title) {
+    height: 100%;
+}
+
+</style>

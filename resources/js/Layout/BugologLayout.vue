@@ -1,9 +1,11 @@
 <template>
     <v-app>
-        <NavBar />
-        <v-main>
-            <slot name="main"></slot>
-        </v-main>
+        <div class="d-flex flex-column h-100">
+            <NavBar />
+            <v-main class="flex-shrink-0">
+                <slot name="main"></slot>
+            </v-main>
+        </div>
     </v-app>
 </template>
 
