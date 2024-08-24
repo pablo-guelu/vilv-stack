@@ -15,7 +15,7 @@
 
         <template v-slot:append="">
             <div class="d-flex h-100 justify-center align-center rounded-e-lg border-s-sm" style="width: 50px; background-color: #6A1B9A;">
-                <v-btn size="" color="transparent" @click="addRow(colsNumber)" flat block>
+                <v-btn color="transparent" @click="addRow(colsNumber)" flat>
                     <v-icon size="large" color="white">
                         mdi-plus
                     </v-icon>

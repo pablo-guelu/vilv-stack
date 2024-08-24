@@ -1,7 +1,8 @@
 <template>
-    <v-card flat class="field-frame field_border rounded-lg pa-4"
-        :class="{ 'field_selected': (currentRowIndex === rowIndex && currentColumnIndex === columnIndex && sideEditorMode === SideEditionMode.FIELD) }" @click="handleClickFieldFrame" :ripple="false" >
-        <div v-if="!field.empty" >
+    <v-card :id="`field_${rowIndex}_${columnIndex}`" flat class="field_frame field_border rounded-lg pa-4" :ondrop="dropHandler" :ondragover="dragOverHandler"  :row_index="rowIndex" :col_index="columnIndex"
+        :class="{ 'field_selected': (currentRowIndex === rowIndex && currentColumnIndex === columnIndex && sideEditorMode === SideEditionMode.FIELD) }"
+        @click="handleClickFieldFrame" :ripple="false">
+        <div v-if="!field.empty">
             <slot></slot>
             <div v-if="field" class="action-buttons">
                 <v-btn class="delete-button" @click="() => warningDeleteField = true" icon="mdi-delete" size="x-small"
@@ -12,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-import { SideEditionMode } from '@/enums';
+import { FieldType, SideEditionMode } from '@/enums';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { BugologField } from '@/types';
 import { storeToRefs } from 'pinia';
@@ -24,7 +25,7 @@ const props = defineProps<{
 }>();
 
 const bugFormStore = useBugFormStore();
-const { currentRowIndex, currentColumnIndex, warningDeleteField, sideEditorMode } = storeToRefs(bugFormStore);
+const { currentRowIndex, currentColumnIndex, warningDeleteField, sideEditorMode, formStructure } = storeToRefs(bugFormStore);
 const { openSideEditor } = bugFormStore;
 
 const handleClickFieldFrame = () => {
@@ -32,10 +33,41 @@ const handleClickFieldFrame = () => {
     currentColumnIndex.value = props.columnIndex
     openSideEditor(props.field.type)
 }
+
+const dragOverHandler = (ev: DragEvent) => {
+    ev.preventDefault();
+    const dropZone = document.getElementById(`field_${props.rowIndex}_${props.columnIndex}`);
+    const dropElement = ev.target;
+
+    if (dropZone && dropElement && dropZone.contains(dropElement as Node)) {
+        sideEditorMode.value = SideEditionMode.FIELD;
+        currentRowIndex.value = props.rowIndex;
+        currentColumnIndex.value = props.columnIndex;
+    }
+    
+}
+
+const dropHandler = (ev: DragEvent) => {
+    
+    ev.preventDefault();
+    let type = ev.dataTransfer!.getData("type");
+    const dropZone = document.getElementById(`field_${props.rowIndex}_${props.columnIndex}`);
+    const dropElement = ev.target;
+
+    if (dropZone && dropElement && dropZone.contains(dropElement as Node) && Object.values(FieldType).includes(type as FieldType)) {
+        formStructure.value.rows[props.rowIndex].columns[props.columnIndex].field!.type = type as FieldType;
+        formStructure.value.rows[props.rowIndex].columns[props.columnIndex].field!.empty = false;
+
+        sideEditorMode.value = SideEditionMode.FIELD;
+        currentRowIndex.value = props.rowIndex;
+        currentColumnIndex.value = props.columnIndex;
+        openSideEditor(type as FieldType);
+    }
+}
 </script>
 
 <style scoped>
-.field-frame {
+.field_frame {
     position: relative;
 }
 

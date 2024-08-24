@@ -24,7 +24,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         clearable: false,
         fileInput: null,
         variant: 'outlined',
-        empty: false
+        empty: true
     }
 
     const defaultField: Ref<BugologField> = ref({
@@ -41,7 +41,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         clearable: false,
         fileInput: null,
         variant: 'outlined',
-        empty: false
+        empty: true
     })
 
     const defaultColumn = (): Column => {
@@ -201,6 +201,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         openSideEditor,
         form,
         emptyForm,
+        emptyField,
         formId,
         formTitle,
         formStructure,

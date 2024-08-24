@@ -6,19 +6,19 @@
         <div class="w-100">
             <v-row v-if="row.colsNumber < 2 && row.columns.length === 1">
                 <v-col cols="12">
-                    <FieldFrame :field="row.columns[0].field!" :row-index="index" :column-index="0">
+                    <FieldFrame class="droppable_field" :field="row.columns[0].field!" :row-index="index" :column-index="0" >
                         <SelectorFieldType :field="row.columns[0].field!" />
                     </FieldFrame>
                 </v-col>
             </v-row>
             <v-row v-else-if="row.columns.length === 2">
                 <v-col cols="12" md="6">
-                    <FieldFrame :field="row.columns[0].field!" :row-index="index" :column-index="0">
+                    <FieldFrame class="droppable_field" :field="row.columns[0].field!" :row-index="index" :column-index="0">
                         <SelectorFieldType :field="row.columns[0].field!" />
                     </FieldFrame>
                 </v-col>
                 <v-col cols="12" md="6">
-                    <FieldFrame :field="row.columns[1].field!" :row-index="index" :column-index="1">
+                    <FieldFrame class="droppable_field" :field="row.columns[1].field!" :row-index="index" :column-index="1">
                         <SelectorFieldType :field="row.columns[1].field!" />
                     </FieldFrame>
                 </v-col>
@@ -34,6 +34,7 @@
 <script lang="ts" setup>
 import FieldFrame from '@/Components/FieldFrame.vue';
 import SelectorFieldType from '@/Components/SelectorFieldType.vue';
+import { FieldType } from '@/enums';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { Row } from '@/types';
 import { storeToRefs } from 'pinia';
@@ -47,6 +48,7 @@ const props = defineProps<{
 const showDelete = ref(false);
 const bugFormStore = useBugFormStore();
 const { warningDeleteRow } = storeToRefs(bugFormStore);
+
 
 </script>
 
