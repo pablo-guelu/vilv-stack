@@ -36,6 +36,7 @@ export interface TextField {
 }
 
 export interface FormStructure {
+    variant: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled"; 
     rows: Row[];
 }
 

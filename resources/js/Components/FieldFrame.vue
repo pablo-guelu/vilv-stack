@@ -44,7 +44,6 @@ const dragOverHandler = (ev: DragEvent) => {
         currentRowIndex.value = props.rowIndex;
         currentColumnIndex.value = props.columnIndex;
     }
-    
 }
 
 const dropHandler = (ev: DragEvent) => {

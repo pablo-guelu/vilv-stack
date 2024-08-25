@@ -57,10 +57,14 @@ export const useBugFormStore = defineStore('bugForm', () => {
     }
 
     const emptyFormStructure = (): FormStructure => {
-        return { rows: [] }
+        return {
+            variant: 'outlined', 
+            rows: [] 
+        }
     }
 
     const formStructure: Ref<FormStructure> = ref({
+        variant: 'outlined',
         rows: [defaultRow()]
     })
 
