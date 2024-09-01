@@ -51,9 +51,9 @@ const dropHandler = (ev: DragEvent) => {
     ev.preventDefault();
     let type = ev.dataTransfer!.getData("type");
     const dropZone = document.getElementById(`field_${props.rowIndex}_${props.columnIndex}`);
-    const dropElement = ev.target;
+    const dropElement = ev.target as HTMLElement;
 
-    if (dropZone && dropElement && dropZone.contains(dropElement as Node) && Object.values(FieldType).includes(type as FieldType)) {
+    if (dropZone && dropElement && dropZone.contains(dropElement as Node) && dropElement.id !== 'form_canvas' && Object.values(FieldType).includes(type as FieldType)) {
         formStructure.value.rows[props.rowIndex].columns[props.columnIndex].field!.type = type as FieldType;
         formStructure.value.rows[props.rowIndex].columns[props.columnIndex].field!.empty = false;
 

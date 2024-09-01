@@ -8,8 +8,8 @@
                     <v-row class="w-100 mt-6" no-gutters>
                         <v-col class="w-100">
                             <div class="mb-10">
-                                <AddRow :cols-number="1" />
-                                <AddRow :cols-number="2" />
+                                <AddRow :cols-number="1" draggable="true" :id="'row_1'" :ondragstart="dragRowStartHandler" :ondragend="dragRowEndHandler" />
+                                <AddRow :cols-number="2" draggable="true" :id="'row_2'" :ondragstart="dragRowStartHandler" :ondragend="dragRowEndHandler" />
                             </div>
                             <template v-for="type in fieldTypes" :key="type">
                                 <AddFieldFrame :fieldType="type" draggable="true" :id="`${type}_field`"
@@ -82,8 +82,18 @@ const dragStartHandler = (ev: DragEvent) => {
     ev.dataTransfer!.effectAllowed = "copyMove";
 }
 
+const dragRowStartHandler = (ev: DragEvent) => {
+    (ev.currentTarget as HTMLElement).classList.add('row_draggable_selected');
+    ev.dataTransfer!.setData("columns", (ev.target as HTMLElement).id.split('_')[1]); // getting the field type without 'field_'
+    ev.dataTransfer!.effectAllowed = "copyMove";
+}
+
 const dragEndHandler = (ev: DragEvent) => {
     (ev.currentTarget as HTMLElement).classList.remove('draggable_selected');
+}
+
+const dragRowEndHandler = (ev: DragEvent) => {
+    (ev.currentTarget as HTMLElement).classList.remove('row_draggable_selected');
 }
 
 
@@ -94,4 +104,7 @@ const dragEndHandler = (ev: DragEvent) => {
     border: 2px solid #4CAF50 !important;
 }
 
+.row_draggable_selected {
+    border: 2px solid #9e29ec !important;
+}
 </style>

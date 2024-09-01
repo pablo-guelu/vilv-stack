@@ -1,9 +1,9 @@
 import { FieldType } from '@/enums';
 
 export interface User {
-    id: string;
-    name: string;
-    email: string;
+    id?: string;
+    name?: string;
+    email?: string;
 }
 
 export interface BugologField {
@@ -13,7 +13,8 @@ export interface BugologField {
     placeholder: string;
     required: boolean;
     value: string;
-    info?: string;
+    info?: boolean;
+    infoString?: string;
     inputType?: string;
     items?: any[],
     itemsString?: string,

@@ -17,6 +17,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         label: '',
         placeholder: '',
         required: true,
+        info: false,
+        infoString: '',
         value: '',
         inputType: 'text',
         items: [],
@@ -33,6 +35,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         label: '',
         placeholder: '',
         required: true,
+        info: false,
+        infoString: '',
         value: '',
         inputType: 'text',
         items: [],
@@ -59,7 +63,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const emptyFormStructure = (): FormStructure => {
         return {
             variant: 'outlined', 
-            rows: [] 
+            rows: [
+                defaultRow()
+            ] 
         }
     }
 
@@ -178,8 +184,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
             }
         });
     }
-
-    const formEditorMode = ref(true);
 
     const sideEditorMode = ref(SideEditionMode.FORM);
 

@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // \Illuminate\Auth\Middleware\RedirectIfAuthenticated::redirectUsing(function($request) {
+        //     return to_route('form.index');
+        // });
     }
 }

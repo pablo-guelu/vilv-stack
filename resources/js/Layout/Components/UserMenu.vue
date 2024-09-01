@@ -2,7 +2,7 @@
     <v-menu v-model="show" location="bottom end" origin="top end" :close-on-content-click="false">
         <template v-slot:activator="{ props }">
             <v-btn icon class="ms-2 border-md" size="46" v-bind="props">
-                <div v-if="isUserAuth" >{{ user.name.charAt(0) }}</div>
+                <div v-if="isUserAuth" >{{ user.name!.charAt(0) }}</div>
                 <v-icon v-else icon="mdi-account" /> 
             </v-btn>
         </template>
@@ -18,8 +18,8 @@
             </div>
             <v-row>
                 <!-- <v-btn class="my-1 text-error" variant="text" prepend-icon="mdi-logout" @click="" text="logout" /> -->
-                <Link v-if="isUserAuth" class="ms-4" color="primary" as="button" href="/logout" method="post"> Logout </Link>
-                <Link v-else class="ms-4" color="primary" as="button" href="/login" method="get"> Login </Link>
+                <v-btn v-if="isUserAuth" class="ma-2" variant="tonal" @click="logout" text="logout"/>
+                <v-btn v-else class="ma-2" color="primary" variant="tonal" @click="() => router.get('/login')" text="Login"/>
             </v-row>
         </v-card>
     </v-menu>
@@ -28,13 +28,16 @@
 
 <script lang="ts" setup>
 import { useUserStore } from '@/Stores/user';
-import { Link } from '@inertiajs/vue3';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
+import { router } from '@inertiajs/vue3';
 
 
 const show = ref(false);
 const userStore = useUserStore();
 const { user, isUserAuth } = storeToRefs(userStore);
+const { logout } = userStore;
+
+
 
 </script>

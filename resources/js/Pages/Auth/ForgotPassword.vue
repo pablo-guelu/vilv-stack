@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import GuestLayout from '@/Layouts/GuestLayout.vue';
-import InputError from '@/Components/InputError.vue';
-import InputLabel from '@/Components/InputLabel.vue';
-import PrimaryButton from '@/Components/PrimaryButton.vue';
-import TextInput from '@/Components/TextInput.vue';
+import Label from '@/Components/Label.vue';
+import BugologLayout from '@/Layout/BugologLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 
 defineProps<{
@@ -20,7 +17,7 @@ const submit = () => {
 </script>
 
 <template>
-    <GuestLayout>
+    <BugologLayout>
         <Head title="Forgot Password" />
 
         <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
@@ -32,11 +29,11 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
+        <v-form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
+                <Label for="email" :name="'Email'" />
 
-                <TextInput
+                <v-text-field
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -46,14 +43,14 @@ const submit = () => {
                     autocomplete="username"
                 />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <!-- <InputError class="mt-2" :message="form.errors.email" /> -->
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <v-btn :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Email Password Reset Link
-                </PrimaryButton>
+                </v-btn>
             </div>
-        </form>
-    </GuestLayout>
+        </v-form>
+    </BugologLayout>
 </template>

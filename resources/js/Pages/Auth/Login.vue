@@ -6,12 +6,12 @@
         <v-card max-width="600" class="pa-4" rounded="lg"   >
             <v-form @submit.prevent="submit">
                 <div>
-                    <FormLabel name="Email" />
+                    <Label name="Email" />
                     <v-text-field id="email" type="email" class="mt-1" v-model="form.email" required autofocus
                         autocomplete="username" />
                 </div>
                 <div class="mt-4">
-                    <FormLabel name="Password" />
+                    <Label name="Password" />
                     <v-text-field id="password" type="password" class="mt-1" v-model="form.password" required
                         autocomplete="current-password" />
                 </div>
@@ -26,7 +26,6 @@
                     Forgot your password?
                     </Link>
                     <v-btn variant="outlined" class="ms-4" color="primary" text="Log In" type="submit" />
-            
                 </div>
             </v-form>
         </v-card>
@@ -34,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import FormLabel from '@/Components/FormLabel.vue';
+import Label from '@/Components/Label.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 defineProps<{

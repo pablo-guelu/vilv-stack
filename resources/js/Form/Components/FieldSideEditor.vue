@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-center w-100">
         <v-card width="400px" class="pa-8" rounded="lg">
-            <v-card-title v-text="'Field Editor'" class="px-0 mb-3" />
+            <v-card-title v-text="'Field Editor'" class="px-0 mb-8" />
             <v-form ref="fieldForm" fastfail>
                 <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
                     v-model="defaultField.label" />
@@ -10,14 +10,22 @@
                 <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT" />
                 <SelectFieldSpecific v-if="sideFieldEditorType === FieldType.SELECT" />
 
-                <v-switch label="required" color="success" v-model="defaultField.required"></v-switch>
+                <div class="d-flex">
+                    <v-checkbox label="Required" v-model="defaultField.required" color="success"
+                        class="me-6"></v-checkbox>
+                    <v-checkbox label="Info Tooltip" v-model="defaultField.info" color="success"></v-checkbox>
+                </div>
+
+                <div v-if="defaultField.info">
+                    <div class="text-h6 mb-2">Info Text</div>
+                    <QuillEditor v-model:content="defaultField.infoString" content-type="html" />
+                </div>
+
             </v-form>
 
-            <!-- <v-card-actions class="d-flex justify-center">
-                <v-btn variant="tonal" @click="fieldUpdate" color="success"
-                    class="mx-3">Save</v-btn>
-                <v-btn variant="tonal" color="error" class="mx-3">Cancel</v-btn>
-            </v-card-actions> -->
+            <div class="w-100 d-flex justify-center mt-10">
+                <v-btn @click="saveForm" color="primary" class="mx-3" flat>Save</v-btn>
+            </div>
         </v-card>
     </div>
 </template>
@@ -29,20 +37,12 @@ import { storeToRefs } from 'pinia';
 import TextFieldSpecific from '@/TextField/TextFieldSpecific.vue';
 import { FieldType } from '@/enums';
 import SelectFieldSpecific from '@/SelectField/SelectFieldSpecific.vue';
+import { QuillEditor } from '@vueup/vue-quill';
 
 const bugFormStore = useBugFormStore();
-const { sideFieldEditorType, defaultField, editFieldMode } = storeToRefs(bugFormStore);
-const { requiredRule, updateField } = bugFormStore;
+const { sideFieldEditorType, defaultField } = storeToRefs(bugFormStore);
+const { requiredRule, saveForm } = bugFormStore;
 
 const fieldForm = ref();
-
-// const fieldUpdate = async () => {
-//     const { valid } = await fieldForm.value.validate();
-//     if (valid) {
-//         updateField(defaultField.value);
-//     } else {
-//         return
-//     }
-// }
 
 </script>

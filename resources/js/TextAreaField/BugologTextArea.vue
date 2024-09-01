@@ -1,6 +1,6 @@
 <template>
     <template v-if="field">
-        <FormLabel :name="field.label" :required="field.required"/>
+        <FormLabel :field="field" />
         <v-textarea :variant="field.variant" v-model="field.value" :placeholder="field.placeholder"/>
     </template>
 </template>

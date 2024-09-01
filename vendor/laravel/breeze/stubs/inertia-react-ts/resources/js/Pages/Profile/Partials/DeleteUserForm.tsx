@@ -1,5 +1,5 @@
 import { useRef, useState, FormEventHandler } from 'react';
-import DangerButton from '@/Components/DangerButton';
+import v-btn from '@/Components/v-btn';
 import InputError from '@/Components/InputError';
 import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
@@ -54,7 +54,7 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
                 </p>
             </header>
 
-            <DangerButton onClick={confirmUserDeletion}>Delete Account</DangerButton>
+            <v-btn onClick={confirmUserDeletion}>Delete Account</v-btn>
 
             <Modal show={confirmingUserDeletion} onClose={closeModal}>
                 <form onSubmit={deleteUser} className="p-6">
@@ -88,9 +88,9 @@ export default function DeleteUserForm({ className = '' }: { className?: string 
                     <div className="mt-6 flex justify-end">
                         <SecondaryButton onClick={closeModal}>Cancel</SecondaryButton>
 
-                        <DangerButton className="ms-3" disabled={processing}>
+                        <v-btn className="ms-3" disabled={processing}>
                             Delete Account
-                        </DangerButton>
+                        </v-btn>
                     </div>
                 </form>
             </Modal>

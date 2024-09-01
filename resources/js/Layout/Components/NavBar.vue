@@ -4,7 +4,7 @@
         <div class="d-flex justify-space-between align-center w-100">
             <div class="text-h2">{{ user ? user.name : '' }} Bugolog</div>
             <div>
-                <v-btn icon="mdi-theme-light-dark" @click="toggleTheme"></v-btn>
+                <v-btn :icon="theme.global.current.value.dark ? 'mdi-white-balance-sunny' : 'mdi-moon-waning-crescent'" @click="toggleTheme"></v-btn>
                 <UserMenu />
             </div>
         </div>

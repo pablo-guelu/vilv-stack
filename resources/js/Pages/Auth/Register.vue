@@ -3,9 +3,9 @@
 
         <Head title="Register" />
 
-        <form @submit.prevent="submit">
+        <v-form @submit.prevent="submit">
             <div>
-                <FormLabel name="Name" />
+                <Label name="Name" />
 
                 <v-text-field id="name" type="text" class="mt-1" v-model="form.name" required autofocus
                     autocomplete="name" />
@@ -13,7 +13,7 @@
             </div>
 
             <div class="mt-4">
-                <FormLabel name="Email" />
+                <Label name="Email" />
 
                 <v-text-field id="email" type="email" class="mt-1" v-model="form.email" required
                     autocomplete="username" />
@@ -21,13 +21,13 @@
             </div>
 
             <div class="mt-4">
-                <FormLabel name="Password" />
+                <Label name="Password" />
                 <v-text-field id="password" type="password" class="mt-1" v-model="form.password" required
                     autocomplete="current-password" />
             </div>
 
             <div class="mt-4">
-                <FormLabel name="Confirm Password" />
+                <Label name="Confirm Password" />
 
                 <v-text-field id="password_confirmation" type="password" class="mt-1"
                     v-model="form.password_confirmation" required autocomplete="new-password" />
@@ -43,12 +43,12 @@
                 <v-btn class="ms-4" text="Register" type="submit" />
 
             </div>
-        </form>
+        </v-form>
     </v-sheet>
 </template>
 
 <script setup lang="ts">
-import FormLabel from '@/Components/FormLabel.vue';
+import Label from '@/Components/Label.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 const form = useForm({

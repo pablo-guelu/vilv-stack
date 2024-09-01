@@ -1,5 +1,5 @@
 <template>
-    <v-sheet class="d-flex align-center w-100 my-6 row_container" style="min-height: 80px" @mouseover="showDelete = true" @mouseleave=" showDelete = false" >
+    <v-sheet class="d-flex align-center w-100 my-6 row_container px-5" style="min-height: 80px" @mouseover="showDelete = true" @mouseleave=" showDelete = false" >
         <div class="mx-3 row_action_buttons">
             <v-btn v-if="showDelete" color="red" size="small" fab icon="mdi-delete" @click="() => warningDeleteRow = true" />
         </div>
@@ -34,7 +34,6 @@
 <script lang="ts" setup>
 import FieldFrame from '@/Components/FieldFrame.vue';
 import SelectorFieldType from '@/Components/SelectorFieldType.vue';
-import { FieldType } from '@/enums';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { Row } from '@/types';
 import { storeToRefs } from 'pinia';
@@ -49,7 +48,6 @@ const showDelete = ref(false);
 const bugFormStore = useBugFormStore();
 const { warningDeleteRow } = storeToRefs(bugFormStore);
 
-
 </script>
 
 <style>
@@ -60,7 +58,7 @@ const { warningDeleteRow } = storeToRefs(bugFormStore);
 
 .row_action_buttons {
     position: absolute;
-    left: -40px;
+    left: -20px;
     top: 40%;
     z-index: 1;
 }

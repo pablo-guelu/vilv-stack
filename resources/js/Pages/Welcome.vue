@@ -14,7 +14,7 @@ import { storeToRefs } from 'pinia';
 
 const props = defineProps<{
     isUserAuth?: boolean;
-    user: User;
+    user?: User;
 }>();
 
 

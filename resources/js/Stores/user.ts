@@ -18,7 +18,13 @@ export const useUserStore = defineStore('user', () => {
     }
 
     const logout = () => {
-        router.visit('/logout')
+        user.value = {
+            id: '',
+            name:'',
+            email: ''
+        }
+        isUserAuth.value = false
+        router.post('/logout')
     }
 
     return {

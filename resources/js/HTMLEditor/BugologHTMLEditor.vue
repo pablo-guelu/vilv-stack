@@ -1,6 +1,6 @@
 <template>
     <template v-if="field">
-        <FormLabel :name="field.label" :required="field.required" />
+        <FormLabel :field="field" />
         <v-sheet height="250px">
             <QuillEditor theme="snow" :toolbar="toolbarConfig" v-model:content="field.value" :placeholder="field.placeholder" content-type="html" />
         </v-sheet>
