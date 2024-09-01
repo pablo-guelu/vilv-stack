@@ -1,4 +1,4 @@
-import { FieldType, SideEditionMode } from "@/enums";
+import { BugologMode, FieldType, FormMode, SideEditionMode } from "@/enums";
 import { BugologField, Column, Form, FormStructure, Row } from "@/types";
 import { router } from "@inertiajs/vue3";
 import { defineStore } from "pinia";
@@ -203,6 +203,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
         }
     }
 
+    const formMode = ref(FormMode.EDIT);
+    const bugologMode = ref(BugologMode.FORM);
+
     return {
         sideFieldEditorType,
         editFieldMode,
@@ -232,6 +235,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         $reset,
         newForm,
         sideEditorMode,
-        saveForm
+        saveForm,
+        bugologMode,
+        formMode
     }
 })

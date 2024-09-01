@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-center w-100">
-        <v-card width="400px" class="pa-8" rounded="lg">
+        <v-card width="400px" class="py-8 px-2" rounded="lg">
             <v-card-title v-text="'Form Settings'" class="px-0 mb-3" />
             <v-form ref="fieldForm" fastfail>
                 <v-select label="Form Variant" :variant="formStructure.variant" density="compact" :items="variants" v-model="selectedVariant" @update:model-value="updateVariant" ></v-select>

@@ -1,6 +1,6 @@
 <template>
     <div class="d-flex justify-center w-100">
-        <v-card width="400px" class="pa-8" rounded="lg">
+        <v-card width="400px" class="py-8 px-2" rounded="lg">
             <v-card-title v-text="'Field Editor'" class="px-0 mb-8" />
             <v-form ref="fieldForm" fastfail>
                 <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"

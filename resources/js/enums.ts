@@ -11,6 +11,16 @@ export enum SideEditionMode {
     FIELD,
 }
 
+export enum BugologMode {
+    FORM,
+    INFO
+}
+
+export enum FormMode {
+    EDIT,
+    PREVIEW
+}
+
 export const IconsFieldTypes = {
     [FieldType.TEXT]: 'mdi-form-textbox',
     [FieldType.HTML]: 'mdi-format-text',
