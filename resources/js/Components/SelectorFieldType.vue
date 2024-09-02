@@ -15,6 +15,9 @@
         <template v-if="isTextAreaField" >
             <BugologTextArea :field="(field as BugologField)" />
         </template>
+        <template v-if="isRadioField" >
+            <BugologRadioField :field="(field as BugologField)" />
+        </template>
     </div>
 </template>
 
@@ -22,6 +25,7 @@
 import { FieldType } from '@/enums';
 import BugologFilesField from '@/FileField/BugologFilesField.vue';
 import BugologHTMLEditor from '@/HTMLEditor/BugologHTMLEditor.vue';
+import BugologRadioField from '@/RadioField/BugologRadioField.vue';
 import BugologSelectField from '@/SelectField/BugologSelectField.vue';
 import BugologTextArea from '@/TextAreaField/BugologTextArea.vue';
 import BugologTextField from '@/TextField/BugologTextField.vue';
@@ -37,4 +41,5 @@ const isHTMLField = computed(() => props.field.type === FieldType.HTML);
 const isSelectField = computed(() => props.field.type === FieldType.SELECT);
 const isFilesField = computed(() => props.field.type === FieldType.FILES);
 const isTextAreaField = computed(() => props.field.type === FieldType.TEXT_AREA);
+const isRadioField = computed(() => props.field.type === FieldType.RADIO);
 </script>

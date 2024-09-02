@@ -59,12 +59,13 @@ import { storeToRefs } from 'pinia';
 import WarningDialog from './Components/WarningDialog.vue';
 import FieldSideEditor from './Components/FieldSideEditor.vue';
 import FormSideEditor from './Components/FormSideEditor.vue';
-import { FieldType, SideEditionMode } from '@/enums';
+import { FieldType, FormMode, SideEditionMode } from '@/enums';
 import AddFieldFrame from '@/Components/AddFieldFrame.vue';
 import FormCanvas from './FormCanvas.vue';
+import { watch } from 'vue';
 
 const bugFormStore = useBugFormStore();
-const { warningMissingRow, warningDeleteField, warningDeleteRow, currentRowIndex, currentColumnIndex, sideEditorMode } = storeToRefs(bugFormStore);
+const { warningMissingRow, warningDeleteField, warningDeleteRow, currentRowIndex, currentColumnIndex, sideEditorMode, formMode } = storeToRefs(bugFormStore);
 const { deleteField, deleteRow } = bugFormStore;
 
 const fieldTypes =
@@ -74,6 +75,7 @@ const fieldTypes =
         FieldType.SELECT,
         FieldType.FILES,
         FieldType.TEXT_AREA,
+        FieldType.RADIO,
     ];
 
 const dragStartHandler = (ev: DragEvent) => {
@@ -96,6 +98,11 @@ const dragRowEndHandler = (ev: DragEvent) => {
     (ev.currentTarget as HTMLElement).classList.remove('row_draggable_selected');
 }
 
+watch(formMode, ()=> {
+    if(formMode.value === FormMode.PREVIEW) {
+        sideEditorMode.value = SideEditionMode.FORM;
+    }
+})
 
 </script>
 

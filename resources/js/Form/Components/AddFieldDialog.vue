@@ -2,7 +2,6 @@
     <v-dialog>
         <div class="d-flex justify-center w-100">
             <v-card :min-width="mdAndUp ? 600 : 300" max-width="600px" class="pa-8" rounded="lg">
-
                 <v-form ref="fieldForm" fastfail>
                     <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
                         v-model="defaultField.label" />
@@ -10,7 +9,6 @@
                         v-model="defaultField.placeholder" />
                     <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT " />
                     <SelectFieldSpecific v-if="sideFieldEditorType === FieldType.SELECT" />
-                    
                     <v-switch label="required" color="success" v-model="defaultField.required"></v-switch>
                 </v-form>
 

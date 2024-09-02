@@ -11,17 +11,27 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const formId = ref('');
     const formTitle = ref('');
 
+    const defaultRadioOption = () => {
+        return {
+            id: '',
+            value: '',
+            label: ''
+        }
+    }
+
     const emptyField: BugologField = {
         id: '',
         type: FieldType.TEXT,
         label: '',
         placeholder: '',
-        required: true,
+        required: false,
         info: false,
         infoString: '',
         value: '',
         inputType: 'text',
         items: [],
+        itemsString: '',
+        radioGroup: [{ ...defaultRadioOption() }],
         multiple: false,
         clearable: false,
         fileInput: null,
@@ -34,17 +44,18 @@ export const useBugFormStore = defineStore('bugForm', () => {
         type: FieldType.TEXT,
         label: '',
         placeholder: '',
-        required: true,
+        required: false,
         info: false,
         infoString: '',
         value: '',
         inputType: 'text',
         items: [],
         itemsString: '',
+        radioGroup: [{ ...defaultRadioOption() }],
         multiple: false,
         clearable: false,
         fileInput: null,
-        variant: 'outlined',
+        variant: 'outlined',    
         empty: true
     })
 
@@ -128,6 +139,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const deleteField = (rowIndex: number, columnIndex: number) => {
         formStructure.value.rows[rowIndex].columns[columnIndex].field = { ...emptyField }
         formStructure.value.rows[rowIndex].columns[columnIndex].field!.empty = true;
+        defaultField.value = { ...emptyField }
         warningDeleteField.value = false;
     }
 

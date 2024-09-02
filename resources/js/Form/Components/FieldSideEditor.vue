@@ -5,11 +5,11 @@
             <v-form ref="fieldForm" fastfail>
                 <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
                     v-model="defaultField.label" autofocus />
-                <v-text-field variant="outlined" density="compact" label="Placeholder"
+                <v-text-field v-if="needsPlaceHolder" variant="outlined" density="compact" label="Placeholder"
                     v-model="defaultField.placeholder" />
                 <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT" />
                 <SelectFieldSpecific v-if="sideFieldEditorType === FieldType.SELECT" />
-
+                <RadioGroupFieldSpecific v-if="sideFieldEditorType === FieldType.RADIO" />
                 <div class="d-flex">
                     <v-checkbox label="Required" v-model="defaultField.required" color="success"
                         class="me-6"></v-checkbox>
@@ -31,18 +31,25 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 import TextFieldSpecific from '@/TextField/TextFieldSpecific.vue';
 import { FieldType } from '@/enums';
 import SelectFieldSpecific from '@/SelectField/SelectFieldSpecific.vue';
 import { QuillEditor } from '@vueup/vue-quill';
+import RadioGroupFieldSpecific from '@/RadioField/RadioGroupFieldSpecific.vue';
 
 const bugFormStore = useBugFormStore();
 const { sideFieldEditorType, defaultField } = storeToRefs(bugFormStore);
 const { requiredRule, saveForm } = bugFormStore;
 
 const fieldForm = ref();
+
+const noNeedsPlaceHolder = [FieldType.RADIO, FieldType.SELECT];
+
+const needsPlaceHolder = computed(() => {
+    return !noNeedsPlaceHolder.includes(sideFieldEditorType.value);
+})
 
 </script>

@@ -6,6 +6,12 @@ export interface User {
     email?: string;
 }
 
+
+export interface Radio {
+    id: string | number;
+    value: string;
+    label: string;
+}
 export interface BugologField {
     id: string;
     type: FieldType;
@@ -18,6 +24,7 @@ export interface BugologField {
     inputType?: string;
     items?: any[],
     itemsString?: string,
+    radioGroup?: Radio[], 
     multiple?: boolean,
     clearable?: boolean,
     fileInput?: File | File[] | null | undefined,

@@ -23,6 +23,7 @@
 </template>
 
 <script lang="ts" setup>
+import { FieldType } from '@/enums';
 import { BugologField } from '@/types';
 import { ref } from 'vue';
 
