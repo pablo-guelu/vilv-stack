@@ -109,8 +109,9 @@ const dropRowHandler = (ev: DragEvent) => {
     let numbreOfCols = ev.dataTransfer!.getData("columns");
     const dropZone = document.getElementById('form_canvas');
     const dropElement = ev.target as HTMLElement;
+    console.log(ev.currentTarget, ev.dataTransfer!.getData("type"));
 
-    if (dropZone && dropElement && dropElement.id === 'form_canvas') {
+    if (dropZone && dropElement && (ev.currentTarget as HTMLElement) && ev.dataTransfer!.getData("type") === '') {
         addRow(Number(numbreOfCols));
 
         sideEditorMode.value = SideEditionMode.FIELD;

@@ -4,7 +4,7 @@
             <v-card-title v-text="'Field Editor'" class="px-0 mb-8" />
             <v-form ref="fieldForm" fastfail>
                 <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
-                    v-model="defaultField.label" />
+                    v-model="defaultField.label" autofocus />
                 <v-text-field variant="outlined" density="compact" label="Placeholder"
                     v-model="defaultField.placeholder" />
                 <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT" />

@@ -12,7 +12,7 @@
                                 <AddRow :cols-number="2" draggable="true" :id="'row_2'" :ondragstart="dragRowStartHandler" :ondragend="dragRowEndHandler" />
                             </div>
                             <template v-for="type in fieldTypes" :key="type">
-                                <AddFieldFrame :fieldType="type" draggable="true" :id="`${type}_field`"
+                                <AddFieldFrame :fieldType="type" draggable="true" :id="`${type}_field`" class="field_type_draggable"
                                     :ondragstart="dragStartHandler" :ondragend="dragEndHandler" />
                             </template>
                         </v-col>
