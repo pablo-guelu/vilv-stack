@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <div v-else>
-                    <v-textarea label="Info Text" v-model="defaultParagraph.text" variant="outlined" />
+                    <ParagraphFieldSpecific />
                 </div>
 
             </v-form>
@@ -45,14 +45,15 @@ import SelectFieldSpecific from '@/SelectField/SelectFieldSpecific.vue';
 import { QuillEditor } from '@vueup/vue-quill';
 import RadioGroupFieldSpecific from '@/RadioField/RadioGroupFieldSpecific.vue';
 import CheckboxSpecific from '@/Checkbox/CheckboxSpecific.vue';
+import ParagraphFieldSpecific from '@/Paragraph/ParagraphFieldSpecific.vue';
 
 const bugFormStore = useBugFormStore();
-const { sideFieldEditorType, defaultField, defaultParagraph } = storeToRefs(bugFormStore);
+const { sideFieldEditorType, defaultField } = storeToRefs(bugFormStore);
 const { requiredRule, saveForm } = bugFormStore;
 
 const fieldForm = ref();
 
-const noNeedsPlaceHolder = [FieldType.RADIO, FieldType.SELECT, FieldType.CHECKBOX];
+const noNeedsPlaceHolder = [FieldType.RADIO, FieldType.SELECT, FieldType.CHECKBOX, FieldType.PARAGRAPH];
 
 const needsPlaceHolder = computed(() => {
     return !noNeedsPlaceHolder.includes(sideFieldEditorType.value);

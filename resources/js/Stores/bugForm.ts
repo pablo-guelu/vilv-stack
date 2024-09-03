@@ -42,6 +42,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         radioGroup: [{ ...defaultRadioOption() }],
         checkboxMultiple: false,
         checkboxGroup: [{ ...defaultCheckBox() }],
+        paragraph: '',
+        paragraphHTML: false,
         multiple: false,
         clearable: false,
         fileInput: null,
@@ -64,21 +66,14 @@ export const useBugFormStore = defineStore('bugForm', () => {
         radioGroup: [{ ...defaultRadioOption() }],
         checkboxMultiple: false,
         checkboxGroup: [{ ...defaultCheckBox() }],
+        paragraph: '',
+        paragraphHTML: false,
         multiple: false,
         clearable: false,
         fileInput: null,
         variant: 'outlined',    
         empty: true
     })
-
-    const emptyParagraph: Paragraph = {
-        text: ''
-    }
-
-    const defaultParagraph: Ref<Paragraph> = ref({
-        text: ''
-    })
-
     const defaultColumn = (): Column => {
         return {
             field: { ...emptyField },
@@ -160,7 +155,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         formStructure.value.rows[rowIndex].columns[columnIndex].field = { ...emptyField }
         formStructure.value.rows[rowIndex].columns[columnIndex].field!.empty = true;
         defaultField.value = { ...emptyField }
-        defaultParagraph.value = { ...emptyParagraph }
         warningDeleteField.value = false;
     }
 
@@ -192,11 +186,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
         if (defaultField.value.type === FieldType.SELECT) {
             defaultField.value.itemsString = (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.items as any).join(', ');
-        }
-
-        if (defaultField.value.type === FieldType.PARAGRAPH) {
-            defaultField.value.empty = true;
-            formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].paragraph = { ...defaultParagraph.value }
         }
     }
 
@@ -276,6 +265,5 @@ export const useBugFormStore = defineStore('bugForm', () => {
         saveForm,
         bugologMode,
         formMode,
-        defaultParagraph
     }
 })

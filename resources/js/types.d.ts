@@ -33,6 +33,8 @@ export interface BugologField {
     radioGroup?: Radio[],
     checkboxMultiple?: false,
     checkboxGroup?: Checkbox[],
+    paragraph?: string,
+    paragraphHTML?: boolean,
     multiple?: boolean,
     clearable?: boolean,
     fileInput?: File | File[] | null | undefined,

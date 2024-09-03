@@ -7,19 +7,19 @@
             <v-row v-if="row.colsNumber < 2 && row.columns.length === 1">
                 <v-col cols="12">
                     <FieldFrame class="droppable_field" :field="row.columns[0].field!" :row-index="index" :column-index="0" >
-                        <SelectorFieldType :field="row.columns[0].field!" :paragraph="row.columns[0].paragraph" />
+                        <SelectorFieldType :field="row.columns[0].field!" />
                     </FieldFrame>
                 </v-col>
             </v-row>
             <v-row v-else-if="row.columns.length === 2">    
                 <v-col cols="12" md="6">
                     <FieldFrame class="droppable_field" :field="row.columns[0].field!" :row-index="index" :column-index="0">
-                        <SelectorFieldType :field="row.columns[0].field!" :paragraph="row.columns[0].paragraph"/>
+                        <SelectorFieldType :field="row.columns[0].field!" />
                     </FieldFrame>
                 </v-col>
                 <v-col cols="12" md="6">
                     <FieldFrame class="droppable_field" :field="row.columns[1].field!" :row-index="index" :column-index="1">
-                        <SelectorFieldType :field="row.columns[1].field!" :paragraph="row.columns[1].paragraph" />
+                        <SelectorFieldType :field="row.columns[1].field!" />
                     </FieldFrame>
                 </v-col>
             </v-row>

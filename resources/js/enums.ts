@@ -6,7 +6,7 @@ export enum FieldType {
     TEXT_AREA = 'Textarea',
     RADIO = 'Radio',
     CHECKBOX = 'Checkbox',
-    PARAGRAPH = 'Info Paragraph',
+    PARAGRAPH = 'Paragraph',
 }
 
 export enum SideEditionMode {

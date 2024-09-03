@@ -22,7 +22,7 @@
             <BugologCheckboxField :field="(field as BugologField)" />
         </template>
         <template v-if="isParagraphField">
-            <BugologParagraph :text="paragraph!.text" />
+            <BugologParagraph :field="(field as BugologField)" />
         </template>
     </div>
 </template>
@@ -37,12 +37,11 @@ import BugologSelectField from '@/SelectField/BugologSelectField.vue';
 import BugologTextArea from '@/TextAreaField/BugologTextArea.vue';
 import BugologTextField from '@/TextField/BugologTextField.vue';
 import BugologParagraph from '@/Paragraph/BugologParagraph.vue';
-import { BugologField, Paragraph } from '@/types';
+import { BugologField } from '@/types';
 import { computed } from 'vue';
 
 const props = defineProps<{
     field: BugologField,
-    paragraph?: Paragraph
 }>()
 
 const isTextField = computed(() => props.field.type === FieldType.TEXT);
