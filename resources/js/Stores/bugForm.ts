@@ -1,5 +1,5 @@
 import { BugologMode, FieldType, FormMode, SideEditionMode } from "@/enums";
-import { BugologField, Column, Form, FormStructure, Row } from "@/types";
+import { BugologField, Column, Form, FormStructure, Paragraph, Row } from "@/types";
 import { router } from "@inertiajs/vue3";
 import { defineStore } from "pinia";
 import { computed, Ref, ref } from "vue";
@@ -71,9 +71,17 @@ export const useBugFormStore = defineStore('bugForm', () => {
         empty: true
     })
 
+    const emptyParagraph: Paragraph = {
+        text: ''
+    }
+
+    const defaultParagraph: Ref<Paragraph> = ref({
+        text: ''
+    })
+
     const defaultColumn = (): Column => {
         return {
-            field: { ...emptyField }
+            field: { ...emptyField },
         }
     }
     const defaultRow = (colsN: number = 1): Row => {
@@ -152,6 +160,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         formStructure.value.rows[rowIndex].columns[columnIndex].field = { ...emptyField }
         formStructure.value.rows[rowIndex].columns[columnIndex].field!.empty = true;
         defaultField.value = { ...emptyField }
+        defaultParagraph.value = { ...emptyParagraph }
         warningDeleteField.value = false;
     }
 
@@ -183,6 +192,11 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
         if (defaultField.value.type === FieldType.SELECT) {
             defaultField.value.itemsString = (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.items as any).join(', ');
+        }
+
+        if (defaultField.value.type === FieldType.PARAGRAPH) {
+            defaultField.value.empty = true;
+            formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].paragraph = { ...defaultParagraph.value }
         }
     }
 
@@ -261,6 +275,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         sideEditorMode,
         saveForm,
         bugologMode,
-        formMode
+        formMode,
+        defaultParagraph
     }
 })

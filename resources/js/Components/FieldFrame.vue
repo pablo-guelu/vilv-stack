@@ -2,7 +2,7 @@
     <v-card :id="`field_${rowIndex}_${columnIndex}`" flat class="field_frame field_border rounded-lg pa-4" :ondrop="dropHandler" :ondragover="dragOverHandler"  :row_index="rowIndex" :col_index="columnIndex"
         :class="{ 'field_selected': (currentRowIndex === rowIndex && currentColumnIndex === columnIndex && sideEditorMode === SideEditionMode.FIELD) }"
         @click="handleClickFieldFrame" :ripple="false">
-        <div v-if="!field.empty">
+        <div v-if="!field.empty || formStructure.rows[rowIndex].columns[columnIndex].paragraph">
             <slot></slot>
             <div v-if="field" class="action-buttons">
                 <v-btn class="delete-button" @click="() => warningDeleteField = true" icon="mdi-delete" size="x-small"

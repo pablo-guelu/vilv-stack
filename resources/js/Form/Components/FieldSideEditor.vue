@@ -3,29 +3,33 @@
         <v-card width="400px" class="py-8 px-2" rounded="lg">
             <v-card-title v-text="`Field Editor - ${defaultField.type}`" class="px-0 mb-8" />
             <v-form ref="fieldForm" fastfail>
-                <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
-                    v-model="defaultField.label" autofocus />
-                <v-text-field v-if="needsPlaceHolder" variant="outlined" density="compact" label="Placeholder"
-                    v-model="defaultField.placeholder" />
-                <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT" />
-                <SelectFieldSpecific v-if="sideFieldEditorType === FieldType.SELECT" />
-                <RadioGroupFieldSpecific v-if="sideFieldEditorType === FieldType.RADIO" />
-                <CheckboxSpecific v-if="sideFieldEditorType === FieldType.CHECKBOX" />
-                <div class="d-flex">
-                    <v-checkbox label="Required" v-model="defaultField.required" color="success"
-                        class="me-6"></v-checkbox>
-                    <v-checkbox label="Info Tooltip" v-model="defaultField.info" color="success"></v-checkbox>
+                <div v-if="sideFieldEditorType !== FieldType.PARAGRAPH">
+                    <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
+                        v-model="defaultField.label" autofocus />
+                    <v-text-field v-if="needsPlaceHolder" variant="outlined" density="compact" label="Placeholder"
+                        v-model="defaultField.placeholder" />
+                    <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT" />
+                    <SelectFieldSpecific v-if="sideFieldEditorType === FieldType.SELECT" />
+                    <RadioGroupFieldSpecific v-if="sideFieldEditorType === FieldType.RADIO" />
+                    <CheckboxSpecific v-if="sideFieldEditorType === FieldType.CHECKBOX" />
+                    <div class="d-flex">
+                        <v-checkbox label="Required" v-model="defaultField.required" color="success"
+                            class="me-6"></v-checkbox>
+                        <v-checkbox label="Info Tooltip" v-model="defaultField.info" color="success"></v-checkbox>
+                    </div>
+                    <div v-if="defaultField.info">
+                        <div class="text-h6 mb-2">Info Text</div>
+                        <QuillEditor v-model:content="defaultField.infoString" content-type="html" />
+                    </div>
                 </div>
-
-                <div v-if="defaultField.info">
-                    <div class="text-h6 mb-2">Info Text</div>
-                    <QuillEditor v-model:content="defaultField.infoString" content-type="html" />
+                <div v-else>
+                    <v-textarea label="Info Text" v-model="defaultParagraph.text" variant="outlined" />
                 </div>
 
             </v-form>
 
             <div class="w-100 d-flex justify-center mt-10">
-                <v-btn @click="saveForm" color="primary" class="mx-3" flat>Save</v-btn>
+                <v-btn @click="saveForm" color="primary" class="mx-3" flat block append-icon="mdi-content-save" >Save</v-btn>
             </div>
         </v-card>
     </div>
@@ -43,7 +47,7 @@ import RadioGroupFieldSpecific from '@/RadioField/RadioGroupFieldSpecific.vue';
 import CheckboxSpecific from '@/Checkbox/CheckboxSpecific.vue';
 
 const bugFormStore = useBugFormStore();
-const { sideFieldEditorType, defaultField } = storeToRefs(bugFormStore);
+const { sideFieldEditorType, defaultField, defaultParagraph } = storeToRefs(bugFormStore);
 const { requiredRule, saveForm } = bugFormStore;
 
 const fieldForm = ref();

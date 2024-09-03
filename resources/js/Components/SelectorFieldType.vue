@@ -21,6 +21,9 @@
         <template v-if="isCheckboxField">
             <BugologCheckboxField :field="(field as BugologField)" />
         </template>
+        <template v-if="isParagraphField">
+            <BugologParagraph :text="paragraph!.text" />
+        </template>
     </div>
 </template>
 
@@ -33,11 +36,13 @@ import BugologRadioField from '@/RadioField/BugologRadioField.vue';
 import BugologSelectField from '@/SelectField/BugologSelectField.vue';
 import BugologTextArea from '@/TextAreaField/BugologTextArea.vue';
 import BugologTextField from '@/TextField/BugologTextField.vue';
-import { BugologField } from '@/types';
+import BugologParagraph from '@/Paragraph/BugologParagraph.vue';
+import { BugologField, Paragraph } from '@/types';
 import { computed } from 'vue';
 
 const props = defineProps<{
-    field: BugologField
+    field: BugologField,
+    paragraph?: Paragraph
 }>()
 
 const isTextField = computed(() => props.field.type === FieldType.TEXT);
@@ -47,4 +52,5 @@ const isFilesField = computed(() => props.field.type === FieldType.FILES);
 const isTextAreaField = computed(() => props.field.type === FieldType.TEXT_AREA);
 const isRadioField = computed(() => props.field.type === FieldType.RADIO);
 const isCheckboxField = computed(() => props.field.type === FieldType.CHECKBOX);
+const isParagraphField = computed(() => props.field.type === FieldType.PARAGRAPH);
 </script>

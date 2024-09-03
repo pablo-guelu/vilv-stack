@@ -19,7 +19,9 @@
                 </v-row>
             </template>
         </div>
-        <v-btn variant="flat" color="primary" append-icon="mdi-plus" class="mt-2 mb-6" text="Add checkbox" @click="addCheckbox" />
+        <div class="text-center">
+            <v-btn variant="flat" color="primary" append-icon="mdi-plus" class="mt-2 mb-6" text="Add checkbox" @click="addCheckbox" />
+        </div>
     </div>
 </template>
 

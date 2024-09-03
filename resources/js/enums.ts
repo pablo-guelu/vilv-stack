@@ -6,6 +6,7 @@ export enum FieldType {
     TEXT_AREA = 'Textarea',
     RADIO = 'Radio',
     CHECKBOX = 'Checkbox',
+    PARAGRAPH = 'Info Paragraph',
 }
 
 export enum SideEditionMode {
@@ -30,5 +31,6 @@ export const IconsFieldTypes = {
     [FieldType.FILES]: 'mdi-file-upload',
     [FieldType.TEXT_AREA]: 'mdi-form-textarea',
     [FieldType.RADIO]: 'mdi-radiobox-marked',
-    [FieldType.CHECKBOX]: 'mdi-checkbox-intermediate'
+    [FieldType.CHECKBOX]: 'mdi-checkbox-intermediate',
+    [FieldType.PARAGRAPH]: 'mdi-card-text-outline'
 }

@@ -40,6 +40,13 @@ export interface BugologField {
     empty?: boolean;
 }
 
+export interface Paragraph{
+    text: string;
+    cardBgColor?: string;
+    textColor?: string;
+    elevation?: number;
+}
+
 export interface TextField {
     id?: string;
     type: FieldType.TEXT;
@@ -62,7 +69,8 @@ export interface Row {
 }
 
 export interface Column {
-    field: undefined | BugologField;
+    field?: undefined | BugologField;
+    paragraph?: Paragraph;
 }
 
 export interface Form {

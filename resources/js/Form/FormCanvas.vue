@@ -11,8 +11,8 @@
             <v-window v-model="formMode">
                 <!-- EDIT FORM AND INFO PAGE -->
                 <v-window-item :value="FormMode.EDIT">
-                    <v-card class="pt-8 ps-4 mt-4" border>
-                        <v-row class="ps-6 pe-10 mb-5">
+                    <v-card class="pt-8 px-4 mt-4" border>
+                        <v-row class="px-4 mb-5">
                             <v-tooltip text="Dashboard">
                                 <template v-slot:activator="{ props }">
                                     <v-btn v-bind="props" href="/form" variant="tonal"
@@ -20,19 +20,19 @@
                                 </template>
                             </v-tooltip>
                             <div class="ms-auto">
-                                <v-tooltip text="Preview">
+                                <v-tooltip location="top" text="Preview">
                                     <template v-slot:activator="{ props }">
                                         <v-btn v-bind="props" class="mx-3" @click="formMode = FormMode.PREVIEW"
                                             variant="tonal" icon="mdi-eye-check-outline"></v-btn>
                                     </template>
                                 </v-tooltip>
-                                <v-tooltip text="Save form">
+                                <v-tooltip location="top" text="Save form">
                                     <template v-slot:activator="{ props }">
                                         <v-btn v-bind="props" class="mx-3" @click="saveForm" variant="tonal"
                                             icon="mdi-content-save"></v-btn>
                                     </template>
                                 </v-tooltip>
-                                <v-tooltip text="New form">
+                                <v-tooltip location="top" text="New form">
                                     <template v-slot:activator="{ props }">
                                         <v-btn v-bind="props" @click="newForm" variant="tonal" icon="mdi-plus"></v-btn>
                                     </template>
@@ -53,7 +53,7 @@
                                 </div>
                             </v-col>
                         </v-row>
-                        <v-sheet v-if="formStructure.rows.length > 0" id="form_canvas" :ondragover="dragRowOverHandler"
+                        <v-sheet id="form_canvas" :min-height="100" :ondragover="dragRowOverHandler"
                             :ondrop="dropRowHandler">
                             <template v-for="row, rowIndex in formStructure.rows" :key="`row-${rowIndex}`">
                                 <RowFrame :index="rowIndex" :row="row" />
@@ -128,4 +128,5 @@ const dropRowHandler = (ev: DragEvent) => {
 .droppable_form {
     border: 2px solid #9e29ec !important;
 }
+
 </style>
