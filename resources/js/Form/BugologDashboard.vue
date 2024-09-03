@@ -76,6 +76,7 @@ const fieldTypes =
         FieldType.FILES,
         FieldType.TEXT_AREA,
         FieldType.RADIO,
+        FieldType.CHECKBOX,
     ];
 
 const dragStartHandler = (ev: DragEvent) => {

@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-center w-100">
         <v-card width="400px" class="py-8 px-2" rounded="lg">
-            <v-card-title v-text="'Field Editor'" class="px-0 mb-8" />
+            <v-card-title v-text="`Field Editor - ${defaultField.type}`" class="px-0 mb-8" />
             <v-form ref="fieldForm" fastfail>
                 <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
                     v-model="defaultField.label" autofocus />
@@ -10,6 +10,7 @@
                 <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT" />
                 <SelectFieldSpecific v-if="sideFieldEditorType === FieldType.SELECT" />
                 <RadioGroupFieldSpecific v-if="sideFieldEditorType === FieldType.RADIO" />
+                <CheckboxSpecific v-if="sideFieldEditorType === FieldType.CHECKBOX" />
                 <div class="d-flex">
                     <v-checkbox label="Required" v-model="defaultField.required" color="success"
                         class="me-6"></v-checkbox>
@@ -39,6 +40,7 @@ import { FieldType } from '@/enums';
 import SelectFieldSpecific from '@/SelectField/SelectFieldSpecific.vue';
 import { QuillEditor } from '@vueup/vue-quill';
 import RadioGroupFieldSpecific from '@/RadioField/RadioGroupFieldSpecific.vue';
+import CheckboxSpecific from '@/Checkbox/CheckboxSpecific.vue';
 
 const bugFormStore = useBugFormStore();
 const { sideFieldEditorType, defaultField } = storeToRefs(bugFormStore);
@@ -46,7 +48,7 @@ const { requiredRule, saveForm } = bugFormStore;
 
 const fieldForm = ref();
 
-const noNeedsPlaceHolder = [FieldType.RADIO, FieldType.SELECT];
+const noNeedsPlaceHolder = [FieldType.RADIO, FieldType.SELECT, FieldType.CHECKBOX];
 
 const needsPlaceHolder = computed(() => {
     return !noNeedsPlaceHolder.includes(sideFieldEditorType.value);

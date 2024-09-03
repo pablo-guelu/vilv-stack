@@ -12,19 +12,27 @@ export interface Radio {
     value: string;
     label: string;
 }
+
+export interface Checkbox {
+    id: string | number;
+    value: string;
+    label: string;
+}
 export interface BugologField {
     id: string;
     type: FieldType;
     label: string;
     placeholder: string;
     required: boolean;
-    value: string;
+    value: string | string[];
     info?: boolean;
     infoString?: string;
     inputType?: string;
     items?: any[],
     itemsString?: string,
-    radioGroup?: Radio[], 
+    radioGroup?: Radio[],
+    checkboxMultiple?: false,
+    checkboxGroup?: Checkbox[],
     multiple?: boolean,
     clearable?: boolean,
     fileInput?: File | File[] | null | undefined,

@@ -19,6 +19,14 @@ export const useBugFormStore = defineStore('bugForm', () => {
         }
     }
 
+    const defaultCheckBox = () => {
+        return {
+            id: '',
+            value: '',
+            label: ''
+        }
+    }
+
     const emptyField: BugologField = {
         id: '',
         type: FieldType.TEXT,
@@ -32,6 +40,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         items: [],
         itemsString: '',
         radioGroup: [{ ...defaultRadioOption() }],
+        checkboxMultiple: false,
+        checkboxGroup: [{ ...defaultCheckBox() }],
         multiple: false,
         clearable: false,
         fileInput: null,
@@ -52,6 +62,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         items: [],
         itemsString: '',
         radioGroup: [{ ...defaultRadioOption() }],
+        checkboxMultiple: false,
+        checkboxGroup: [{ ...defaultCheckBox() }],
         multiple: false,
         clearable: false,
         fileInput: null,

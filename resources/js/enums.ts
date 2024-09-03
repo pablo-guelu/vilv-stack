@@ -1,10 +1,11 @@
 export enum FieldType {
-    TEXT = 'text',
-    HTML = 'html',
-    SELECT = 'select',
-    FILES = 'files',
-    TEXT_AREA = 'textarea',
-    RADIO = 'radio',
+    TEXT = 'Text',
+    HTML = 'HTML',
+    SELECT = 'Select',
+    FILES = 'Files',
+    TEXT_AREA = 'Textarea',
+    RADIO = 'Radio',
+    CHECKBOX = 'Checkbox',
 }
 
 export enum SideEditionMode {
@@ -28,5 +29,6 @@ export const IconsFieldTypes = {
     [FieldType.SELECT]: 'mdi-form-select',
     [FieldType.FILES]: 'mdi-file-upload',
     [FieldType.TEXT_AREA]: 'mdi-form-textarea',
-    [FieldType.RADIO]: 'mdi-radiobox-marked'
+    [FieldType.RADIO]: 'mdi-radiobox-marked',
+    [FieldType.CHECKBOX]: 'mdi-checkbox-intermediate'
 }

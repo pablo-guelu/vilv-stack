@@ -18,10 +18,14 @@
         <template v-if="isRadioField" >
             <BugologRadioField :field="(field as BugologField)" />
         </template>
+        <template v-if="isCheckboxField">
+            <BugologCheckboxField :field="(field as BugologField)" />
+        </template>
     </div>
 </template>
 
 <script lang="ts" setup>
+import BugologCheckboxField from '@/Checkbox/BugologCheckboxField.vue';
 import { FieldType } from '@/enums';
 import BugologFilesField from '@/FileField/BugologFilesField.vue';
 import BugologHTMLEditor from '@/HTMLEditor/BugologHTMLEditor.vue';
@@ -42,4 +46,5 @@ const isSelectField = computed(() => props.field.type === FieldType.SELECT);
 const isFilesField = computed(() => props.field.type === FieldType.FILES);
 const isTextAreaField = computed(() => props.field.type === FieldType.TEXT_AREA);
 const isRadioField = computed(() => props.field.type === FieldType.RADIO);
+const isCheckboxField = computed(() => props.field.type === FieldType.CHECKBOX);
 </script>
