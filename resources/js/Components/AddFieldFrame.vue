@@ -35,7 +35,9 @@ const props = defineProps<{
     fieldType: FieldType
 }>();
 
-const addField = () => bugFormStore.openSideEditor(props.fieldType);
+const addField = () => {
+    bugFormStore.openSideEditor(props.fieldType)
+};
 
 </script>
 

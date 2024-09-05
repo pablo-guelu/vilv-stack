@@ -100,7 +100,7 @@ const { requiredRule, newForm, saveForm, addRow } = bugFormStore
 const enableFormTitleEdit = ref(false);
 enableFormTitleEdit.value = formTitle.value === ''
 
-watch([formTitle, route.name], () => {
+watch(formTitle, () => {
     if (formTitle.value === '') { enableFormTitleEdit.value = true }
 })
 

@@ -7,7 +7,7 @@
                         <v-btn class="pt-2" icon="mdi-delete" variant="plain" density="compact" @click="deleteItem(index)" ></v-btn>
                     </v-col>
                     <v-col>
-                        <v-text-field class="pe-2" label="label" v-model="fieldItems![index]" variant="outlined" density="compact" ></v-text-field>
+                        <v-text-field class="pe-2" label="item" v-model="fieldItems![index]" variant="outlined" density="compact" ></v-text-field>
                     </v-col>
                 </v-row>
             </template>
