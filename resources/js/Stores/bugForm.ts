@@ -13,7 +13,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const defaultRadioOption = () => {
         return {
-            id: '',
+            id: `radioGroup-${Date.now()}`,
             value: '',
             label: ''
         }
@@ -38,10 +38,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
         value: '',
         inputType: 'text',
         items: [],
-        itemsString: '',
-        radioGroup: [{ ...defaultRadioOption() }],
+        radioGroup: [],
         checkboxMultiple: false,
-        checkboxGroup: [{ ...defaultCheckBox() }],
+        checkboxGroup: [],
         paragraph: '',
         paragraphHTML: false,
         multiple: false,
@@ -62,8 +61,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         value: '',
         inputType: 'text',
         items: [],
-        itemsString: '',
-        radioGroup: [{ ...defaultRadioOption() }],
+        radioGroup: [{...defaultRadioOption()}],
         checkboxMultiple: false,
         checkboxGroup: [{ ...defaultCheckBox() }],
         paragraph: '',
@@ -134,22 +132,22 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const currentField = computed(() => currentRow.value.columns[currentColumnIndex.value])
 
-    const selectFieldStringToArray = (itemsString: string) => {
-        if (itemsString) {
-            const itemsArray = itemsString.split(',').map(item => item.trim());
-            return itemsArray;
-        }
-    }
+    // const selectFieldStringToArray = (itemsString: string) => {
+    //     if (itemsString) {
+    //         const itemsArray = itemsString.split(',').map(item => item.trim());
+    //         return itemsArray;
+    //     }
+    // }
 
-    const addField = (fieldData: BugologField) => {
-        if (fieldData.type === FieldType.SELECT) fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
-        formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
-    };
+    // const addField = (fieldData: BugologField) => {
+    //     if (fieldData.type === FieldType.SELECT) fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
+    //     formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
+    // };
 
-    const updateField = (fieldData: BugologField) => {
-        if (fieldData.type === FieldType.SELECT) fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
-        formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
-    }
+    // const updateField = (fieldData: BugologField) => {
+    //     if (fieldData.type === FieldType.SELECT) fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
+    //     formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
+    // }
 
     const deleteField = (rowIndex: number, columnIndex: number) => {
         formStructure.value.rows[rowIndex].columns[columnIndex].field = { ...emptyField }
@@ -172,8 +170,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const openSideEditor = (fieldType: FieldType) => {
 
-        sideFieldEditorType.value = fieldType;
-        sideEditorMode.value = SideEditionMode.FIELD;
+        defaultField.value = { ...emptyField }
 
         if (formStructure.value.rows.length < 1) {
             warningMissingRow.value = true;
@@ -181,12 +178,14 @@ export const useBugFormStore = defineStore('bugForm', () => {
         }
 
         formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.empty = false;
-        defaultField.value = formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!
-        defaultField.value.type = fieldType;
+        formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.type = fieldType;
 
-        if (defaultField.value.type === FieldType.SELECT) {
-            defaultField.value.itemsString = (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.items as any).join(', ');
-        }
+        // if (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.type === FieldType.SELECT) {
+        //     formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.itemsString = (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.items as any).join(', ');
+        // }
+
+        sideFieldEditorType.value = fieldType;
+        sideEditorMode.value = SideEditionMode.FIELD;
     }
 
     const resetFieldData = () => {
@@ -246,8 +245,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         defaultField,
         addRow,
         deleteRow,
-        addField,
-        updateField,
+        // addField,
+        // updateField,
         currentRowIndex,
         currentColumnIndex,
         deleteField,
@@ -265,5 +264,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         saveForm,
         bugologMode,
         formMode,
+        defaultRadioOption,
     }
 })

@@ -28,8 +28,7 @@ export interface BugologField {
     info?: boolean;
     infoString?: string;
     inputType?: string;
-    items?: any[],
-    itemsString?: string,
+    items?: string[],
     radioGroup?: Radio[],
     checkboxMultiple?: false,
     checkboxGroup?: Checkbox[],
@@ -79,4 +78,10 @@ export interface Form {
     id: string;
     title: string;
     form_structure: FormStructure;
+}
+
+export interface SelectItem {
+    id: string;
+    label: string;
+    value: string;
 }

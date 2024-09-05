@@ -15,7 +15,7 @@ import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 
 const bugFormStore = useBugFormStore();
-const { formStructure, formTitle } = storeToRefs(bugFormStore);
+const { formStructure } = storeToRefs(bugFormStore);
 const { } = bugFormStore;
 
 const variants = ref([

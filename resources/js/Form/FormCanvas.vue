@@ -1,9 +1,16 @@
 <template>
 
-    <v-tabs v-model="bugologMode" class="my-10">
-        <v-tab :value="BugologMode.FORM">Form</v-tab>
-        <v-tab :value="BugologMode.INFO">Info Page</v-tab>
-    </v-tabs>
+    <div class="d-flex justify-space-between align-center">
+        <v-tabs v-model="bugologMode" class="my-10">
+            <v-tab :value="BugologMode.FORM">
+                <v-icon class="me-2">mdi-format-align-justify</v-icon>
+                Form</v-tab>
+            <v-tab :value="BugologMode.INFO">
+                <v-icon class="me-2">mdi-email-fast-outline</v-icon>
+                Message / Log</v-tab>
+        </v-tabs>
+        <v-btn prepend-icon="mdi-plus" variant="tonal" color="primary" @click="newForm">New Form</v-btn>
+    </div>
 
     <v-tabs-window v-model="bugologMode">
         <v-tabs-window-item :value="BugologMode.FORM">
@@ -13,28 +20,26 @@
                 <v-window-item :value="FormMode.EDIT">
                     <v-card class="pt-8 px-4 mt-4" border>
                         <v-row class="px-4 mb-5">
-                            <v-tooltip text="Dashboard">
+
+                            <v-tooltip location="top" text="Preview">
+                                <template v-slot:activator="{ props }">
+                                    <v-btn v-bind="props" class="mx-3" @click="formMode = FormMode.PREVIEW"
+                                        variant="tonal" icon="mdi-eye-outline"></v-btn>
+                                </template>
+                            </v-tooltip>
+                            <v-tooltip location="top" text="Dashboard">
                                 <template v-slot:activator="{ props }">
                                     <v-btn v-bind="props" href="/form" variant="tonal"
                                         icon="mdi-monitor-dashboard"></v-btn>
                                 </template>
                             </v-tooltip>
+
                             <div class="ms-auto">
-                                <v-tooltip location="top" text="Preview">
-                                    <template v-slot:activator="{ props }">
-                                        <v-btn v-bind="props" class="mx-3" @click="formMode = FormMode.PREVIEW"
-                                            variant="tonal" icon="mdi-eye-check-outline"></v-btn>
-                                    </template>
-                                </v-tooltip>
+
                                 <v-tooltip location="top" text="Save form">
                                     <template v-slot:activator="{ props }">
-                                        <v-btn v-bind="props" class="mx-3" @click="saveForm" variant="tonal"
+                                        <v-btn v-bind="props" class="mx-3" color="primary" @click="saveForm"
                                             icon="mdi-content-save"></v-btn>
-                                    </template>
-                                </v-tooltip>
-                                <v-tooltip location="top" text="New form">
-                                    <template v-slot:activator="{ props }">
-                                        <v-btn v-bind="props" @click="newForm" variant="tonal" icon="mdi-plus"></v-btn>
                                     </template>
                                 </v-tooltip>
                             </div>
@@ -55,8 +60,8 @@
                         </v-row>
                         <v-sheet id="form_canvas" :min-height="100" :ondragover="dragRowOverHandler"
                             :ondrop="dropRowHandler">
-                            <template v-for="row, rowIndex in formStructure.rows" :key="`row-${rowIndex}`">
-                                <RowFrame :index="rowIndex" :row="row" />
+                            <template v-for="row, index in formStructure.rows">
+                                <RowFrame :index="index" :row="row" />
                             </template>
                         </v-sheet>
                     </v-card>
@@ -68,8 +73,8 @@
             </v-window>
         </v-tabs-window-item>
 
-        <v-tabs-window-item :value="BugologMode.INFO" >
-            INFO
+        <v-tabs-window-item :value="BugologMode.INFO">
+            <PreviewMessage :formStructure="formStructure" />
         </v-tabs-window-item>
 
     </v-tabs-window>
@@ -84,6 +89,9 @@ import RowFrame from '../Row/RowFrame.vue';
 import { ref, watch } from 'vue';
 import { BugologMode, FormMode, SideEditionMode } from '@/enums';
 import PreviewForm from './Components/PreviewForm.vue';
+import { useDragAndDrop } from '@formkit/drag-and-drop/vue';
+import { Row } from '@/types';
+import PreviewMessage from './Components/PreviewMessage.vue';
 
 const bugFormStore = useBugFormStore();
 const { formStructure, formTitle, currentRowIndex, currentColumnIndex, sideEditorMode, formMode, bugologMode } = storeToRefs(bugFormStore);
@@ -128,5 +136,4 @@ const dropRowHandler = (ev: DragEvent) => {
 .droppable_form {
     border: 2px solid #9e29ec !important;
 }
-
 </style>

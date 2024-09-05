@@ -23,6 +23,9 @@
                 <RowPreviewFrame :row="row" />
             </template>
         </v-sheet>
+        <div class="d-flex justify-center">
+            <v-btn class="ma-6" prepend-icon="mdi-eye-outline" variant="tonal" color="primary">Preview Message</v-btn>
+        </div>
     </v-card>
 </template>
 
