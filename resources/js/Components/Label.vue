@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex align-center w-100 my-2">
+    <div class="d-flex align-center w-100 mb-4">
         <div class="text-h5 me-1">{{ name }}</div>
     </div>
 

@@ -2,7 +2,7 @@ import { User } from "@/types";
 import { defineStore } from "pinia";
 import { Ref, ref } from "vue";
 import { router } from '@inertiajs/vue3'
-import { PlanType } from "@/enums";
+import { IndexMode, PlanType } from "@/enums";
 
 export const useUserStore = defineStore('user', () => {
 
@@ -16,7 +16,9 @@ export const useUserStore = defineStore('user', () => {
         company_website: '',
         company_logo: [],
         redirect_url: '',
-        plan_type: PlanType.FREE
+        plan_type: PlanType.FREE,
+        recepients: [],
+        afterSubmittingMessage: ''
     })
 
     const setUser = (userData: any) => {
@@ -33,10 +35,13 @@ export const useUserStore = defineStore('user', () => {
         router.post('/logout')
     }
 
+    const indexMode = ref(IndexMode.SETTINGS)
+
     return {
         isUserAuth,
         user,
         setUser,
-        logout
+        logout,
+        indexMode
     }
 })

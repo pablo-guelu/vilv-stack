@@ -1,17 +1,13 @@
 <template>
-    <v-list>
-        <v-list-item-group>
-            <v-list-item v-for="form, index in forms" :key="`form-${index}`" class="d-flex justify-space-between w-100" >
-
-                <v-list-item-title v-text="form.title"></v-list-item-title>
-
-                <v-list-item-action>
-                    <v-btn @click="editForm(form.id)">Edit</v-btn>
-                    <v-btn @click="deleteForm(form.id)">Delete</v-btn>
-                </v-list-item-action>
-            </v-list-item>
-        </v-list-item-group>
-    </v-list>
+    <template v-for="form, index in forms" :key="`form-${index}`">
+        <v-card class="d-flex border rounded-lg ma-4 pa-2" style="box-sizing: border-box;">
+            <v-card-title>{{ form.title }}</v-card-title>
+            <div class="ms-auto">
+                <v-btn @click="editForm(form.id)" icon="mdi-pencil" flat class="border mx-2" />
+                <v-btn @click="deleteForm(form.id)" icon="mdi-delete" flat class="border mx-2" />
+            </div>
+        </v-card>
+    </template>
 </template>
 
 <script lang="ts" setup>

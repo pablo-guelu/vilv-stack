@@ -1,39 +1,51 @@
 <template>
-    <v-sheet class="d-flex justify-center align-center h-100">
 
-        <Head title="Log in" />
+    <Head title="Log in" />
+    <BugologLayout>
+        <template v-slot:main>
+            <v-sheet class="d-flex justify-center h-100">
 
-        <v-card max-width="600" class="pa-4" rounded="lg"   >
-            <v-form @submit.prevent="submit">
-                <div>
-                    <Label name="Email" />
-                    <v-text-field id="email" type="email" class="mt-1" v-model="form.email" required autofocus
-                        autocomplete="username" />
-                </div>
-                <div class="mt-4">
-                    <Label name="Password" />
-                    <v-text-field id="password" type="password" class="mt-1" v-model="form.password" required
-                        autocomplete="current-password" />
-                </div>
-                <div class="block mt-4">
-                    <label class="d-flex">
-                        <v-checkbox label="Remember" v-model:checked="form.remember" />
-                    </label>
-                </div>
-                <div class="d-flex justify-end mt-4">
-                    <Link v-if="canResetPassword" :href="route('password.request')"
-                        class="">
-                    Forgot your password?
-                    </Link>
-                    <v-btn variant="outlined" class="ms-4" color="primary" text="Log In" type="submit" />
-                </div>
-            </v-form>
-        </v-card>
-    </v-sheet>
+                <v-card width="600" height="700" class="pa-4 mt-16 rounded-lg border" flat>
+                    <v-form @submit.prevent="submit" class="d-flex flex-column h-100">
+                        <div>
+                            <Label name="Email" />
+                            <v-text-field id="email" variant="outlined" type="email" class="mt-1" v-model="form.email"
+                                required autofocus autocomplete="username" />
+                        </div>
+                        <div class="mt-4">
+                            <Label name="Password" />
+                            <v-text-field id="password" variant="outlined" type="password" class="mt-1"
+                                v-model="form.password" required autocomplete="current-password" />
+                        </div>
+                        <div class="block mt-4">
+                            <label class="d-flex">
+                                <v-checkbox label="Remember" v-model:checked="form.remember" />
+                            </label>
+                        </div>
+                        <div class="d-flex flex-column align-center mt-auto">
+                            <div style="width: 50%;">
+                                <v-btn variant="tonal" append-icon="mdi-login" block color="primary" text="Log In"
+                                    type="submit" />
+                            </div>
+                            <div class="d-flex flex-column flex-md-row justify-space-between my-12 w-100">
+                                <Link v-if="canResetPassword" :href="route('password.request')" class="mb-4">
+                                Forgot your password?
+                                </Link>
+                                <Link :href="route('register')" class="">
+                                Don't have an account?
+                                </Link>
+                            </div>
+                        </div>
+                    </v-form>
+                </v-card>
+            </v-sheet>
+        </template>
+    </BugologLayout>
 </template>
 
 <script setup lang="ts">
 import Label from '@/Components/Label.vue';
+import BugologLayout from '@/Layout/BugologLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
 defineProps<{

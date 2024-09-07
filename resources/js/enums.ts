@@ -40,3 +40,8 @@ export enum PlanType {
     PRO,
     ENTERPRISE
 }
+
+export enum IndexMode {
+    FORMS,
+    SETTINGS
+}

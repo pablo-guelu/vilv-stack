@@ -1,7 +1,7 @@
 <template>
   <v-app-bar class="justify-space-between">
     <template #title>
-      <div class="d-inline-flex align-center text-h4 font-weight-bold my-5 text-primary" @click="router.visit('/')" style="cursor: pointer;">
+      <div class="d-inline-flex align-center text-h4 font-weight-bold my-5 text-primary" @click="isUserAuth ? router.visit('/form') : router.visit('/')" style="cursor: pointer;">
         <v-icon icon="$vuetify" start />
         Bugolog
       </div>
@@ -17,7 +17,7 @@
     <template #append>
       <div class="pe-6" >
         <v-btn :icon="theme.global.current.value.dark ? 'mdi-white-balance-sunny' : 'mdi-moon-waning-crescent'"
-          @click="toggleTheme"></v-btn>
+          @click="toggleTheme" class="border"</v-btn>
         <UserMenu />
       </div>
 
@@ -29,6 +29,11 @@
 import UserMenu from '@/Layout/Components/UserMenu.vue';
 import { useTheme } from 'vuetify';
 import { router } from '@inertiajs/vue3';
+import { useUserStore } from '@/Stores/user';
+import { storeToRefs } from 'pinia';
+
+const userStore = useUserStore();
+const { isUserAuth } = storeToRefs(userStore);
 
 const theme = useTheme()
 const toggleTheme = () => {
@@ -37,11 +42,10 @@ const toggleTheme = () => {
 
 const menu = [
   'Home',
-  'About',
-  'Testimonials',
-  'Work',
-  'Team',
   'Features',
   'Pricing',
+  'Demo',
+  'Contact',
+  'Docs'
 ]
 </script>

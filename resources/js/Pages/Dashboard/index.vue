@@ -2,39 +2,25 @@
     <BugologLayout>
         <template v-slot:main>
             <div class="h-100">
-                <v-sheet class="d-flex flex-column align-center h-100" >
+                <v-sheet class="d-flex flex-column align-center h-100 ma-10">
                     <LeftDrawer />
 
                     <v-sheet class="ma-4 rounded-lg w-100 justify-self-center" max-width="1200px">
-                        <v-data-table :headers="headers" :items="forms" class="elevation-1 border">
-                            <template v-slot:top>
-                                <v-toolbar flat class="rounded-t-lg">
-                                    <v-toolbar-title>Forms</v-toolbar-title>
-                                    <v-divider class="mx-4" inset vertical></v-divider>
-                                    <v-spacer></v-spacer>
-                                    <v-btn color="primary" variant="flat" class="me-6" @click="bugFormStore.newForm" >
-                                        New Form
-                                    </v-btn>
-                                </v-toolbar>
-                            </template>
-                            <template v-slot:header="{ props: { headers } }">
-                                <thead>
-                                    <tr>
-                                        <th v-for="header in headers" :key="header.key"
-                                            class="text-capitalize"
-                                            style="background-color: #f5f5f5; font-weight: bold;">
-                                            {{ header.title }}
-                                        </th>
-                                    </tr>
-                                </thead>
-                            </template>
-                            <template v-slot:item.actions="{ item }">
-                                <div class="d-flex justify-center">
-                                    <v-btn icon="mdi-pencil" size="small" class="me-2" @click="editForm(item.id)" />
-                                    <v-btn icon="mdi-delete" size="small" @click="deleteForm(item.id)" />
-                                </div>
-                            </template>
-                        </v-data-table>
+
+                        <v-tabs v-model="indexMode">
+                            <v-tab value="IndexMode.SETTINGS">Settings</v-tab>
+                            <v-tab value="IndexMode.FORMS">Forms</v-tab>
+                        </v-tabs>
+
+                        <v-tabs-window v-model="indexMode">
+                            <v-tabs-window-item value="IndexMode.SETTINGS">
+                                <Settings />
+                            </v-tabs-window-item>
+                            <v-tabs-window-item value="IndexMode.FORMS">
+                                <FormsList :forms="forms" />
+                            </v-tabs-window-item>
+                        </v-tabs-window>
+
                     </v-sheet>
                 </v-sheet>
             </div>
@@ -51,6 +37,9 @@ import { useBugFormStore } from '@/Stores/bugForm';
 import { router } from '@inertiajs/vue3'
 import UserInfo from '@/User/UserInfo.vue';
 import LeftDrawer from '@/Layout/Components/LeftDrawer.vue';
+import Settings from '@/User/Settings.vue'
+import { IndexMode } from '@/enums';
+import FormsList from '@/Form/FormsList.vue';
 
 const props = defineProps<{
     isUserAuth: boolean;
@@ -59,7 +48,7 @@ const props = defineProps<{
 }>();
 
 const userStore = useUserStore();
-const { user, isUserAuth } = storeToRefs(userStore);
+const { user, isUserAuth, indexMode } = storeToRefs(userStore);
 
 const bugFormStore = useBugFormStore();
 
