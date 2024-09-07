@@ -12,7 +12,7 @@ Route::get('/', function () {
         'user' => Auth::user(),
         'isUserAuth' => Auth::check(),
     ]);
-});
+})->name('landing');
 
 Route::resource('/form', FormController::class)->middleware(['auth']);
 

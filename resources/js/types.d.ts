@@ -1,11 +1,15 @@
-import { FieldType } from '@/enums';
+import { FieldType, PlanType } from '@/enums';
 
 export interface User {
     id?: string;
     name?: string;
     email?: string;
+    company_name?: string;
+    company_website?: string;
+    company_logo?: File | File[] | null | undefined;
+    redirect_url?: string;
+    plan_type?: PlanType;
 }
-
 
 export interface Radio {
     id: string | number;

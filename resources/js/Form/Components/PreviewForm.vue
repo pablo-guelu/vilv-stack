@@ -1,14 +1,8 @@
 <template>
     <v-card class="pt-8 mt-4" border>
         <v-row class="w-100">
-            <v-tooltip text="Edit Form">
-                <template v-slot:activator="{ props }">
-                    <v-btn v-bind="props" class="ms-auto me-6"
-                        @click="formMode = FormMode.EDIT"
-                        variant="tonal"
-                        icon="mdi-file-edit-outline"></v-btn>
-                </template>
-            </v-tooltip>
+            <v-btn class="ms-auto me-6" @click="formMode = FormMode.EDIT" variant="tonal"
+                prepend-icon="mdi-file-edit-outline" text="Back to Edit"></v-btn>
         </v-row>
         <v-row>
             <v-col cols="12">
@@ -24,19 +18,19 @@
             </template>
         </v-sheet>
         <div class="d-flex justify-center">
-            <v-btn class="ma-6" prepend-icon="mdi-eye-outline" variant="tonal" color="primary">Preview Message</v-btn>
+            <v-btn class="ma-6" prepend-icon="mdi-eye-outline" variant="tonal" color="primary" @click="() => bugologMode = BugologMode.MESSAGE" >Preview Message</v-btn>
         </div>
     </v-card>
 </template>
 
 <script lang="ts" setup>
-import { FormMode } from '@/enums';
+import { BugologMode, FormMode } from '@/enums';
 import RowPreviewFrame from '@/Row/RowPreviewFrame.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 
 const bugFormStore = useBugFormStore();
-const { formStructure, formTitle, formMode } = storeToRefs(bugFormStore);
+const { formStructure, formTitle, formMode, bugologMode } = storeToRefs(bugFormStore);
 
 </script>
 

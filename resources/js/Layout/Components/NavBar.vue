@@ -1,8 +1,8 @@
 <template>
-    <v-app-bar class="px-3 border-b-sm" flat>
+    <v-app-bar class="border-b-sm" flat>
         
-        <div class="d-flex justify-space-between align-center w-100">
-            <div @click="router.visit('/form')" class="text-h2">{{ user ? user.name : '' }} Bugolog</div>
+        <div class="d-flex justify-space-between align-center w-100 h-100 px-6">
+            <div @click="router.visit('/form')" class="text-h3">Bugolog</div>
             <div>
                 <v-btn :icon="theme.global.current.value.dark ? 'mdi-white-balance-sunny' : 'mdi-moon-waning-crescent'" @click="toggleTheme"></v-btn>
                 <UserMenu />

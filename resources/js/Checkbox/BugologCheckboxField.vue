@@ -16,5 +16,4 @@ const props = defineProps<{
     field: BugologField
 }>()
 
-
 </script>

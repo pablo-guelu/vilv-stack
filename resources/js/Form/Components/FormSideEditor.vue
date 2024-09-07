@@ -1,10 +1,14 @@
 <template>
     <div class="d-flex justify-center w-100">
-        <v-card width="400px" class="py-8 px-2" rounded="lg">
+        <v-card width="400px" class="py-8 px-2" rounded="lg" flat>
             <v-card-title v-text="'Form Settings'" class="px-0 mb-3" />
             <v-form ref="fieldForm" fastfail>
                 <v-select label="Form Variant" :variant="formStructure.variant" density="compact" :items="variants" v-model="selectedVariant" @update:model-value="updateVariant" ></v-select>
             </v-form>
+
+            <div class="w-100 d-flex justify-center mt-10">
+                <v-btn @click="saveForm" color="primary" class="mx-3" flat block append-icon="mdi-content-save" >Save</v-btn>
+            </div>
         </v-card>
     </div>
 </template>
@@ -16,7 +20,7 @@ import { storeToRefs } from 'pinia';
 
 const bugFormStore = useBugFormStore();
 const { formStructure } = storeToRefs(bugFormStore);
-const { } = bugFormStore;
+const {saveForm } = bugFormStore;
 
 const variants = ref([
     "filled",

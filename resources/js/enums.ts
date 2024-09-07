@@ -16,7 +16,7 @@ export enum SideEditionMode {
 
 export enum BugologMode {
     FORM,
-    INFO
+    MESSAGE
 }
 
 export enum FormMode {
@@ -33,4 +33,10 @@ export const IconsFieldTypes = {
     [FieldType.RADIO]: 'mdi-radiobox-marked',
     [FieldType.CHECKBOX]: 'mdi-checkbox-intermediate',
     [FieldType.PARAGRAPH]: 'mdi-card-text-outline'
+}
+
+export enum PlanType {
+    FREE,
+    PRO,
+    ENTERPRISE
 }

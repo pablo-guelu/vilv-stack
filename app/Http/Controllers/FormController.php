@@ -27,7 +27,10 @@ class FormController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Dashboard/create');
+        return Inertia::render('Dashboard/create', [
+            'user' => Auth::user(),
+            'isUserAuth' => Auth::check(),
+        ]);
     }
 
     /**
@@ -59,6 +62,8 @@ class FormController extends Controller
     public function edit(Form $form)
     {
         return Inertia::render('Dashboard/edit', [
+            'user' => Auth::user(),
+            'isUserAuth' => Auth::check(),
             'form' => $form,
         ]);
     }

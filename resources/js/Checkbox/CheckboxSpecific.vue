@@ -1,11 +1,11 @@
 <template>
     <div>
         <div class="mt-4">
-            <v-checkbox v-model="defaultField.checkboxMultiple" v-on:update:model-value="checkBoxValue" label="Allow Select Multiple Checkboxes" />
+            <v-checkbox v-model="field!.checkboxMultiple" @update:modelValue="checkBoxValue" label="Allow Select Multiple Checkboxes" />
         </div>
         <p class="text-body-1 mb-4">Checkbox Options:</p>
         <div>
-            <template v-for="checkbox, index in defaultField.checkboxGroup" :key="checkbox.id">
+            <template v-for="checkbox, index in checkboxOptions" :key="checkbox.id">
                 <v-row no-gutters>
                     <v-col cols="1">
                         <v-btn class="pt-2" icon="mdi-delete" variant="plain" density="compact" @click="deleteCheckbox(index)" ></v-btn>
@@ -28,24 +28,39 @@
 <script lang="ts" setup>
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 
 const bugFormStore = useBugFormStore();
-const { defaultField } = storeToRefs(bugFormStore);
+const { formStructure, currentRowIndex, currentColumnIndex } = storeToRefs(bugFormStore);
+const { defaultCheckBox } = bugFormStore;
 
-const addCheckbox = (index: number) => {
-    defaultField.value.checkboxGroup!.push({ id: `${defaultField.value.label}-checkbox-${index}`, label: '', value: '' });
-}
+const field = computed(() => formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field);
+
+const checkboxOptions = computed({
+    get: () => formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field?.checkboxGroup || [{...defaultCheckBox()}],
+    set: (newValue) => {
+        if (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field) {
+            formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.checkboxGroup = newValue;
+        }
+    }
+});
+
+const addCheckbox = () => {
+    const newOption = { id: `checkbox-${Date.now()}`, label: '', value: '' };
+    checkboxOptions.value = [...checkboxOptions.value, newOption];
+};
 
 const deleteCheckbox = (index: number) => {
-    defaultField.value.radioGroup!.splice(index, 1);
-}
+    const updatedOptions = [...checkboxOptions.value];
+    updatedOptions.splice(index, 1);
+    checkboxOptions.value = updatedOptions;
+};
 
 const checkBoxValue = () => {
-    if (defaultField.value.checkboxMultiple) {
-        defaultField.value.value = [];
+    if (field.value!.checkboxMultiple) {
+        field.value!.value = [];
     } else {
-        defaultField.value.value = '';
+        field.value!.value = '';
     }
 }
 

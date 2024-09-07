@@ -18,7 +18,11 @@
             </div>
             <v-row>
                 <!-- <v-btn class="my-1 text-error" variant="text" prepend-icon="mdi-logout" @click="" text="logout" /> -->
-                <v-btn v-if="isUserAuth" class="ma-2" variant="tonal" @click="logout" text="logout"/>
+                <div v-if="isUserAuth" class="d-flex flex-column">
+                    <v-btn class="ma-2" prepend-icon="mdi-view-dashboard" color="primary" variant="tonal" @click="() => router.get('/form')" text="Dashboard"/>
+                    <v-btn class="mt-8" variant="tonal" @click="logout" text="logout"/>
+                    
+                </div>
                 <v-btn v-else class="ma-2" color="primary" variant="tonal" @click="() => router.get('/login')" text="Login"/>
             </v-row>
         </v-card>

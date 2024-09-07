@@ -2,6 +2,7 @@ import { User } from "@/types";
 import { defineStore } from "pinia";
 import { Ref, ref } from "vue";
 import { router } from '@inertiajs/vue3'
+import { PlanType } from "@/enums";
 
 export const useUserStore = defineStore('user', () => {
 
@@ -10,7 +11,12 @@ export const useUserStore = defineStore('user', () => {
     const user: Ref<User> = ref({
         id: '',
         name:'',
-        email: ''
+        email: '',
+        company_name: '',
+        company_website: '',
+        company_logo: [],
+        redirect_url: '',
+        plan_type: PlanType.FREE
     })
 
     const setUser = (userData: any) => {

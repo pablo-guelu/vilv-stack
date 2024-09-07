@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-center w-100">
-        <v-card width="400px" class="py-8 px-2" rounded="lg">
-            <!-- <v-card-title v-text="`Field Editor - ${field!.type}`" class="px-0 mb-8" /> -->
+        <v-card width="400px" class="py-8 px-2" rounded="lg" flat>
+            <v-card-title v-text="`Field Editor - ${field!.type}`" class="px-0 mb-8" />
             <v-form ref="fieldForm" fastfail>
                 <div v-if="sideFieldEditorType !== FieldType.PARAGRAPH">
                     <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
@@ -11,7 +11,7 @@
                     <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT" v-model:inputType="field!.inputType" />
                     <SelectFieldSpecific v-if="sideFieldEditorType === FieldType.SELECT" />
                     <RadioGroupFieldSpecific v-if="sideFieldEditorType === FieldType.RADIO" />
-                    <!-- <CheckboxSpecific v-if="sideFieldEditorType === FieldType.CHECKBOX" /> -->
+                    <CheckboxSpecific v-if="sideFieldEditorType === FieldType.CHECKBOX" />
                     <div class="d-flex">
                         <v-checkbox label="Required" v-model="field!.required" color="success"
                             class="me-6"></v-checkbox>

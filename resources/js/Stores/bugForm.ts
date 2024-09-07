@@ -39,9 +39,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
             value: '',
             inputType: 'text',
             items: [''],
-            radioGroup: [{ ...defaultCheckBox() }],
+            radioGroup: [{ ...defaultRadioOption() }],
             checkboxMultiple: false,
-            checkboxGroup: [],
+            checkboxGroup: [{ ...defaultCheckBox() }],
             paragraph: '',
             paragraphHTML: false,
             multiple: false,
@@ -52,28 +52,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         }
     }
 
-    const defaultField: Ref<BugologField> = ref({
-        id: '',
-        type: FieldType.TEXT,
-        label: '',
-        placeholder: '',
-        required: false,
-        info: false,
-        infoString: '',
-        value: '',
-        inputType: 'text',
-        items: [],
-        radioGroup: [{ ...defaultRadioOption() }],
-        checkboxMultiple: false,
-        checkboxGroup: [{ ...defaultCheckBox() }],
-        paragraph: '',
-        paragraphHTML: false,
-        multiple: false,
-        clearable: false,
-        fileInput: null,
-        variant: 'outlined',
-        empty: true
-    })
     const defaultColumn = (): Column => {
         return {
             field: { ...emptyField() },
@@ -154,7 +132,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const deleteField = (rowIndex: number, columnIndex: number) => {
         formStructure.value.rows[rowIndex].columns[columnIndex].field = { ...emptyField() }
         formStructure.value.rows[rowIndex].columns[columnIndex].field!.empty = true;
-        defaultField.value = { ...emptyField() }
         warningDeleteField.value = false;
     }
 
@@ -164,15 +141,11 @@ export const useBugFormStore = defineStore('bugForm', () => {
         currentRowIndex.value = rowIndex;
         currentColumnIndex.value = columnIndex;
         editFieldMode.value = true;
-        defaultField.value = formStructure.value.rows[rowIndex].columns[columnIndex].field!;
-        sideFieldEditorType.value = defaultField.value.type;
     }
 
     const requiredRule = (v: string) => !!v || 'Field is required';
 
     const openSideEditor = (fieldType: FieldType) => {
-
-        defaultField.value = { ...emptyField() }
 
         if (formStructure.value.rows.length < 1) {
             warningMissingRow.value = true;
@@ -190,8 +163,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         sideEditorMode.value = SideEditionMode.FIELD;
     }
 
-    const resetFieldData = () => {
-        defaultField.value = { ...emptyField() }
+    const resetFieldData = (field: BugologField) => {
+        field = { ...emptyField() }
     }
 
     const warningDeleteField = ref(false);
@@ -244,7 +217,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         formId,
         formTitle,
         formStructure,
-        defaultField,
         addRow,
         deleteRow,
         // addField,
@@ -267,5 +239,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         bugologMode,
         formMode,
         defaultRadioOption,
+        defaultCheckBox
     }
 })

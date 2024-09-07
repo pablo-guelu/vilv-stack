@@ -4,7 +4,7 @@
 
         <v-row class="h-100">
             <v-col md="3">
-                <v-sheet class="pt-16 px-4 h-100 border-e-sm" color="">
+                <v-sheet class="px-4 h-100 border-e-sm" style="padding-top: 105px;">
                     <v-row class="w-100 mt-6" no-gutters>
                         <v-col class="w-100">
                             <div class="mb-10">

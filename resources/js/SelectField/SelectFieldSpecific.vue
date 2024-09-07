@@ -12,7 +12,7 @@
                 </v-row>
             </template>
         </div>
-        <v-btn variant="flat" color="primary" append-icon="mdi-plus" class="mt-2 mb-6" text="Add Option" @click="addItem" />
+        <v-btn variant="flat" color="primary" append-icon="mdi-plus" class="mt-2 mb-6" text="Add Item" @click="addItem" />
 </template>
 
 <script lang="ts" setup>

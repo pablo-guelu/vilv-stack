@@ -1,15 +1,17 @@
 <template>
     <v-app>
-        <div class="d-flex flex-column h-100">
-            <NavBar />
-            <v-main class="flex-shrink-0">
-                <slot name="main"></slot>
-            </v-main>
-        </div>
+
+        <AppBar />
+
+        <v-main class="flex-shrink-0 h-100" style="box-sizing: border-box;">
+
+            <slot name="main"></slot>
+
+        </v-main>
+
     </v-app>
 </template>
 
 <script lang="ts" setup>
-import NavBar from './Components/NavBar.vue';
-
+import AppBar from '@/LandingPage/components/app/AppBar.vue';
 </script>

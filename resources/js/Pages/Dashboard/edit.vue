@@ -10,12 +10,17 @@
 import BugologDashboard from '@/Form/BugologDashboard.vue';
 import BugologLayout from '@/Layout/BugologLayout.vue';
 import { storeToRefs } from 'pinia';
-import { Form } from "@/types";
+import { Form, User } from "@/types";
 import { useBugFormStore } from '@/Stores/bugForm';
+import { useUserHydration } from '@/Composables/User';
 
 const props = defineProps<{
     form: Form
+    isUserAuth: boolean;
+    user: User;
 }>();
+
+useUserHydration(props.user, props.isUserAuth);
 
 const bugStore = useBugFormStore();
 const { formStructure, formTitle, formId } = storeToRefs(bugStore);

@@ -1,12 +1,13 @@
 <template>
     <BugologLayout >
         <template v-slot:main>
-            <div>WELCOME</div>
+            <Landing />
         </template>
     </BugologLayout>
 </template>
 
 <script lang="ts" setup>
+import Landing from '@/LandingPage/Landing.vue';
 import BugologLayout from '@/Layout/BugologLayout.vue';
 import { useUserStore } from '@/Stores/user';
 import { User } from '@/types';
