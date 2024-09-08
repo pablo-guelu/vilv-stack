@@ -41,6 +41,12 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'id' => Str::uuid(),
+            'company_name' => '',
+            'company_website' => '',
+            'company_logo' => '',
+            'after_submit_message' => '',
+            'recepients' => [],
         ]);
 
         event(new Registered($user));

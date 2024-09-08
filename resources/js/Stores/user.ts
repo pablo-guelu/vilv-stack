@@ -17,8 +17,9 @@ export const useUserStore = defineStore('user', () => {
         company_logo: [],
         redirect_url: '',
         plan_type: PlanType.FREE,
-        recepients: [],
-        afterSubmittingMessage: ''
+        recipients: [],
+        afterSubmittingMessage: '',
+        redirect_after_submit: false
     })
 
     const setUser = (userData: any) => {
@@ -29,7 +30,8 @@ export const useUserStore = defineStore('user', () => {
         user.value = {
             id: '',
             name:'',
-            email: ''
+            email: '',
+            recipients: []
         }
         isUserAuth.value = false
         router.post('/logout')
@@ -37,11 +39,16 @@ export const useUserStore = defineStore('user', () => {
 
     const indexMode = ref(IndexMode.SETTINGS)
 
+    const updateSettings = () => {
+        router.post('/user/settings', user.value)
+    }
+
     return {
         isUserAuth,
         user,
         setUser,
         logout,
-        indexMode
+        indexMode,
+        updateSettings
     }
 })

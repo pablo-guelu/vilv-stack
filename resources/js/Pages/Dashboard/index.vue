@@ -5,18 +5,18 @@
                 <v-sheet class="d-flex flex-column align-center h-100 ma-10">
                     <LeftDrawer />
 
-                    <v-sheet class="ma-4 rounded-lg w-100 justify-self-center" max-width="1200px">
+                    <v-sheet class="ma-4 rounded-lg w-100 justify-self-center" max-width="1200px" color="transparent">
 
-                        <v-tabs v-model="indexMode">
-                            <v-tab value="IndexMode.SETTINGS">Settings</v-tab>
-                            <v-tab value="IndexMode.FORMS">Forms</v-tab>
+                        <v-tabs v-model="indexMode" slider-color="primary">
+                            <v-tab :value="IndexMode.SETTINGS">Settings</v-tab>
+                            <v-tab :value="IndexMode.FORMS">Forms</v-tab>
                         </v-tabs>
 
                         <v-tabs-window v-model="indexMode">
-                            <v-tabs-window-item value="IndexMode.SETTINGS">
+                            <v-tabs-window-item :value="IndexMode.SETTINGS">
                                 <Settings />
                             </v-tabs-window-item>
-                            <v-tabs-window-item value="IndexMode.FORMS">
+                            <v-tabs-window-item :value="IndexMode.FORMS">
                                 <FormsList :forms="forms" />
                             </v-tabs-window-item>
                         </v-tabs-window>
@@ -33,13 +33,11 @@ import BugologLayout from '@/Layout/BugologLayout.vue';
 import { useUserStore } from '@/Stores/user';
 import { storeToRefs } from 'pinia';
 import { Form, User } from "@/types";
-import { useBugFormStore } from '@/Stores/bugForm';
 import { router } from '@inertiajs/vue3'
-import UserInfo from '@/User/UserInfo.vue';
 import LeftDrawer from '@/Layout/Components/LeftDrawer.vue';
 import Settings from '@/User/Settings.vue'
-import { IndexMode } from '@/enums';
 import FormsList from '@/Form/FormsList.vue';
+import { IndexMode } from '@/enums';
 
 const props = defineProps<{
     isUserAuth: boolean;
@@ -50,9 +48,7 @@ const props = defineProps<{
 const userStore = useUserStore();
 const { user, isUserAuth, indexMode } = storeToRefs(userStore);
 
-const bugFormStore = useBugFormStore();
-
-user.value = { ...props.user }
+user.value = { ...props.user.data }
 isUserAuth.value = props.isUserAuth
 
 const headers = [

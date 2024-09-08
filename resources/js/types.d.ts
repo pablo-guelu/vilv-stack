@@ -7,8 +7,11 @@ export interface User {
     company_name?: string;
     company_website?: string;
     company_logo?: File | File[] | null | undefined;
+    redirect_after_submit?: boolean;
     redirect_url?: string;
     plan_type?: PlanType;
+    recipients: string[];
+    afterSubmittingMessage?: string;
 }
 
 export interface Radio {

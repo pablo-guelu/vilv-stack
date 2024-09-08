@@ -15,14 +15,14 @@ import { storeToRefs } from 'pinia';
 
 const props = defineProps<{
     isUserAuth?: boolean;
-    user?: User;
+    user: User;
 }>();
 
 
 const userStore = useUserStore();
 const { user, isUserAuth } = storeToRefs(userStore);
 
-user.value = {...props.user}
+user.value = {...props.user.data}
 isUserAuth.value = props.isUserAuth
 
 </script>

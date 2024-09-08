@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreFormRequest;
 use App\Http\Requests\UpdateFormRequest;
+use App\Http\Resources\UserResource;
 use App\Models\Form;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -15,8 +16,9 @@ class FormController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
         return Inertia::render('Dashboard/index', [
-            'user' => Auth::user(),
+            'user' => new UserResource($user), 
             'isUserAuth' => Auth::check(),
             'forms' => Form::where('user_id', Auth::id())->get(),
         ]);
