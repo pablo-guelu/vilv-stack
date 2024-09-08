@@ -45,6 +45,8 @@ export interface BugologField {
     clearable?: boolean,
     fileInput?: File | File[] | null | undefined,
     variant: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled",
+    hint?: string;
+    persistentHint?: boolean;
     empty?: boolean;
 }
 

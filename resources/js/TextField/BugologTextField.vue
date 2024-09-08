@@ -2,7 +2,7 @@
     <template v-if="field">
         <FormLabel :field="field" />
         <v-text-field :variant="field.variant" v-model="field.value" :placeholder="field.placeholder"
-            :type="field.inputType" ></v-text-field>
+            :type="field.inputType" :hint="field.hint" :persistent-hint="field.persistentHint" ></v-text-field>
     </template>
 </template>
 

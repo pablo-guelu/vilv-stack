@@ -1,7 +1,7 @@
 <template>
     <template v-if="field">
         <FormLabel :field="field" />
-        <v-textarea :variant="field.variant" v-model="field.value" :placeholder="field.placeholder"/>
+        <v-textarea :variant="field.variant" v-model="field.value" :placeholder="field.placeholder" :hint="field.hint" :persistent-hint="field.persistentHint" />
     </template>
 </template>
 

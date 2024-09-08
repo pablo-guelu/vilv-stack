@@ -21,6 +21,10 @@
                         <div class="text-h6 mb-2">Info Tooltip</div>
                         <QuillEditor v-model:content="field!.infoString" content-type="html" />
                     </div>
+                    <div v-if="field!.type !== FieldType.RADIO && field!.type !== FieldType.HTML">
+                        <v-text-field variant="outlined" density="compact" label="Hint" v-model="field!.hint" />
+                        <v-checkbox label="Persistent Hint" v-model="field!.persistentHint" color="success" />
+                    </div>
                 </div>
                 <div v-else>
                     <ParagraphFieldSpecific />
