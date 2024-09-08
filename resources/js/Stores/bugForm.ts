@@ -189,19 +189,34 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const sideEditorMode = ref(SideEditionMode.FORM);
 
     const saveForm = () => {
+        const cleanFormStructure = JSON.parse(JSON.stringify(formStructure.value));
+        
+        cleanFormStructure.rows = cleanFormStructure.rows.map((row: any) => ({
+            ...row,
+            columns: row.columns.map((column: any) => ({
+                ...column,
+                field: removeValueFromField(column.field)
+            }))
+        }));
+
         if (route().current('form.create')) {
             // CREATE
             router.post('/form', {
-                form_structure: JSON.stringify(formStructure.value),
+                form_structure: JSON.stringify(cleanFormStructure),
                 title: formTitle.value,
             });
-            // UPDATE
         } else {
+            // UPDATE
             router.put(`/form/${formId.value}`, {
-                form_structure: JSON.stringify(formStructure.value),
+                form_structure: JSON.stringify(cleanFormStructure),
                 title: formTitle.value,
             });
         }
+    }
+
+    const removeValueFromField = (field: any) => {
+        const { value, ...fieldWithoutValue } = field;
+        return fieldWithoutValue;
     }
 
     const formMode = ref(FormMode.EDIT);
