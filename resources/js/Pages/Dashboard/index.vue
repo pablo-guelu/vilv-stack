@@ -50,6 +50,9 @@ const { user, isUserAuth, indexMode } = storeToRefs(userStore);
 
 user.value = { ...props.user.data }
 isUserAuth.value = props.isUserAuth
+if (user.value.redirect_url !== '') {
+    user.value.redirect_after_submit = true;
+}
 
 const headers = [
     { title: 'Title', key: 'title', sortable: true, align: 'start' },

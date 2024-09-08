@@ -37,10 +37,24 @@ export const useUserStore = defineStore('user', () => {
         router.post('/logout')
     }
 
-    const indexMode = ref(IndexMode.SETTINGS)
+    const indexMode = ref(IndexMode.FORMS)
 
     const updateSettings = () => {
-        router.post('/user/settings', user.value)
+        router.post('/user/settings', {
+            redirect_url: user.value.redirect_url,
+            after_submitting_message: user.value.afterSubmittingMessage,
+            recipients: user.value.recipients
+        })
+    }
+
+    const updateProjectInfo = () => {
+        router.post('/user/project', {
+            name: user.value.name,
+            email: user.value.email,
+            company_name: user.value.company_name,
+            company_website: user.value.company_website,
+            company_logo: user.value.company_logo
+        })
     }
 
     return {
@@ -49,6 +63,7 @@ export const useUserStore = defineStore('user', () => {
         setUser,
         logout,
         indexMode,
-        updateSettings
+        updateSettings,
+        updateProjectInfo
     }
 })

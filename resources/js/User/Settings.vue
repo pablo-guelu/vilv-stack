@@ -64,7 +64,7 @@ import { useUserStore } from '@/Stores/user';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
@@ -106,6 +106,7 @@ const deleteRecipient = (index: number) => {
         user.value.recipients.splice(index, 1);
     }
 }
+
 
 </script>
 

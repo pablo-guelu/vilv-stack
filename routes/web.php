@@ -20,6 +20,7 @@ Route::resource('/form', FormController::class)->middleware(['auth']);
 Route::post('/send', [SubmitFormController::class, 'submitForm']);
 
 Route::post('/user/settings', [UserController::class, 'updateSettings'])->middleware(['auth']);
+Route::post('/user/project', [UserController::class, 'updateProjectInfo'])->middleware(['auth']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

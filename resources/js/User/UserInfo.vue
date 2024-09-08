@@ -3,7 +3,7 @@
     <v-card class="pa-6 mx-auto mt-8 w-100" style="box-sizing: border-box;" flat>
         <v-card-title class="text-h5 mb-6">Project Info</v-card-title>
         <v-card-text class="">
-            <v-form @submit.prevent="">
+            <v-form @submit.prevent="updateProjectInfo">
                 <v-row>
                     <v-col cols="12">
                         <v-text-field v-model="user.name" label="Name" required variant="outlined" density="compact"></v-text-field>
@@ -46,5 +46,6 @@ import { storeToRefs } from 'pinia';
 
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
+const { updateProjectInfo } = userStore;
 
 </script>
