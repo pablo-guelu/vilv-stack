@@ -11,6 +11,7 @@ export interface User {
     redirect_url?: string;
     plan_type?: PlanType;
     recipients: string[];
+    ccs: string[];
     afterSubmittingMessage?: string;
 }
 

@@ -27,6 +27,8 @@
 
                 <v-row>
                     <v-col>
+
+                        <!-- RECIEPIENTS -->
                         <Label name="Recipients" info
                             infoString="This are the email addresses that will receive the form submissions." />
                         <v-row class="mt-4" v-if="user.recipients.length > 0">
@@ -36,7 +38,29 @@
                         <v-row>
                             <v-col cols="12" md="6">
                                 <v-text-field v-model="currentRecipient" variant="outlined" density="compact"
-                                    placeholder="john@doe.com" @keydown="handleKeydown" ref="recipientInput" :rules="[emailRule, sameEmailRule]">
+                                    placeholder="john@doe.com" @keydown="handleKeydown" ref="recipientInput"
+                                    :rules="[emailRule, sameEmailRule]">
+                                </v-text-field>
+                            </v-col>
+                            <v-col cols="12" md="2">
+                                <v-btn @click="addRecipient" append-icon="mdi-plus" color="primary" class="w-100">
+                                    Add
+                                </v-btn>
+                            </v-col>
+                        </v-row>
+
+                        <!-- CC -->
+                        <Label name="CCs" info
+                            infoString="With copy to" />
+                        <v-row class="mt-4" v-if="user.ccs.length > 0">
+                            <v-chip v-for="cc, index in user.ccs" :key="cc" class="ma-2" closable
+                                @click:close="deleteCc(index)"> {{ cc }}</v-chip>
+                        </v-row>
+                        <v-row>
+                            <v-col cols="12" md="6">
+                                <v-text-field v-model="currentRecipient" variant="outlined" density="compact"
+                                    placeholder="john@doe.com" @keydown="handleKeydown" ref="recipientInput"
+                                    :rules="[emailRule, sameEmailRule]">
                                 </v-text-field>
                             </v-col>
                             <v-col cols="12" md="2">
@@ -55,7 +79,6 @@
             </v-form>
         </v-card-text>
     </v-card>
-
 </template>
 
 <script lang="ts" setup>
@@ -86,6 +109,16 @@ const addRecipient = () => {
     }
 }
 
+const addCc = () => {
+    if (
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(currentRecipient.value)
+        && !user.value.ccs.includes(currentRecipient.value)
+    ) {
+        user.value.ccs.push(currentRecipient.value);
+        currentRecipient.value = '';
+    }
+}
+
 const handleKeydown = (event: KeyboardEvent) => {
     if (event.key === 'Enter' || event.key === ' ' || event.key === ',') {
         event.preventDefault();
@@ -107,6 +140,11 @@ const deleteRecipient = (index: number) => {
     }
 }
 
+const deleteCc = (index: number) => {
+    if (index >= 0 && index < user.value.ccs.length) {
+        user.value.ccs.splice(index, 1);
+    }
+}
 
 </script>
 

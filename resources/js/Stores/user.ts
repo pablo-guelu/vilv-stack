@@ -18,6 +18,7 @@ export const useUserStore = defineStore('user', () => {
         redirect_url: '',
         plan_type: PlanType.FREE,
         recipients: [],
+        ccs: [],
         afterSubmittingMessage: '',
         redirect_after_submit: false
     })

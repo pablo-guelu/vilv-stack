@@ -29,6 +29,7 @@ class UserResource extends JsonResource
             'plan_type' => $this->plan_type ?? '',
             'after_submit_message' => $this->after_submit_message ?? '',
             'recipients' => $this->recipients ?? [],
+            'ccs' => $this->ccs ?? [],
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

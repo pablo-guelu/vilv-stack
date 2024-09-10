@@ -1,5 +1,4 @@
 <template>
-
     <div class="d-flex justify-space-between align-center">
         <v-tabs v-model="bugologMode" class="my-10">
             <v-tab :value="BugologMode.FORM">
@@ -24,12 +23,31 @@
                 <v-window-item :value="FormMode.EDIT">
                     <v-card class="pt-8 px-4 mt-4" border>
                         <v-row class="px-4 mb-5">
+
+                            <!-- SAVE -->
                             <v-tooltip location="top" text="Save form">
                                 <template v-slot:activator="{ props }">
                                     <v-btn v-bind="props" class="mx-3" color="primary" @click="saveForm"
                                         icon="mdi-content-save"></v-btn>
                                 </template>
                             </v-tooltip>
+
+                            <!-- IMPORT -->
+                            <v-tooltip location="top" text="Import form">
+                                <template v-slot:activator="{ props }">
+                                    <v-btn v-bind="props" class="mx-3" color="primary" @click="importForm"
+                                        icon="mdi-file-import-outline"></v-btn>
+                                </template>
+                            </v-tooltip>
+
+                            <!-- EXPORT -->
+                            <v-tooltip location="top" text="Export form">
+                                <template v-slot:activator="{ props }">
+                                    <v-btn v-bind="props" class="mx-3" color="primary" @click="exportForm"
+                                        icon="mdi-file-export-outline"></v-btn>
+                                </template>
+                            </v-tooltip>
+
                             <div class="ms-auto">
                                 <v-tooltip location="top" text="Preview">
                                     <template v-slot:activator="{ props }">
@@ -73,8 +91,6 @@
         </v-tabs-window-item>
 
     </v-tabs-window>
-
-
 </template>
 
 <script lang="ts" setup>
@@ -88,7 +104,7 @@ import PreviewMessage from './Components/PreviewMessage.vue';
 
 const bugFormStore = useBugFormStore();
 const { formStructure, formTitle, currentRowIndex, currentColumnIndex, sideEditorMode, formMode, bugologMode } = storeToRefs(bugFormStore);
-const { requiredRule, newForm, saveForm, addRow } = bugFormStore
+const { requiredRule, newForm, saveForm, addRow, exportForm, importForm } = bugFormStore
 
 const enableFormTitleEdit = ref(false);
 enableFormTitleEdit.value = formTitle.value === ''

@@ -1,5 +1,6 @@
 import { BugologMode, FieldType, FormMode, SideEditionMode } from "@/enums";
 import { BugologField, Column, Form, FormStructure, Paragraph, Row } from "@/types";
+import { cleanFormStructure } from "@/utils";
 import { router } from "@inertiajs/vue3";
 import { defineStore } from "pinia";
 import { computed, Ref, ref } from "vue";
@@ -112,23 +113,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const currentField = computed(() => currentRow.value.columns[currentColumnIndex.value])
 
-    // const selectFieldStringToArray = (itemsString: string) => {
-    //     if (itemsString) {
-    //         const itemsArray = itemsString.split(',').map(item => item.trim());
-    //         return itemsArray;
-    //     }
-    // }
-
-    // const addField = (fieldData: BugologField) => {
-    //     if (fieldData.type === FieldType.SELECT) fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
-    //     formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
-    // };
-
-    // const updateField = (fieldData: BugologField) => {
-    //     if (fieldData.type === FieldType.SELECT) fieldData.items = selectFieldStringToArray(fieldData.itemsString!);
-    //     formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = { ...fieldData }
-    // }
-
     const deleteField = (rowIndex: number, columnIndex: number) => {
         formStructure.value.rows[rowIndex].columns[columnIndex].field = { ...emptyField() }
         formStructure.value.rows[rowIndex].columns[columnIndex].field!.empty = true;
@@ -154,10 +138,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
         formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.empty = false;
         formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.type = fieldType;
-
-        // if (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.type === FieldType.SELECT) {
-        //     formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.itemsString = (formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.items as any).join(', ');
-        // }
 
         sideFieldEditorType.value = fieldType;
         sideEditorMode.value = SideEditionMode.FIELD;
@@ -189,38 +169,69 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const sideEditorMode = ref(SideEditionMode.FORM);
 
     const saveForm = () => {
-        const cleanFormStructure = JSON.parse(JSON.stringify(formStructure.value));
-        
-        cleanFormStructure.rows = cleanFormStructure.rows.map((row: any) => ({
-            ...row,
-            columns: row.columns.map((column: any) => ({
-                ...column,
-                field: removeValueFromField(column.field)
-            }))
-        }));
+        const cleanStructure = cleanFormStructure(formStructure.value);
 
         if (route().current('form.create')) {
             // CREATE
             router.post('/form', {
-                form_structure: JSON.stringify(cleanFormStructure),
+                form_structure: JSON.stringify(cleanStructure),
                 title: formTitle.value,
             });
         } else {
             // UPDATE
             router.put(`/form/${formId.value}`, {
-                form_structure: JSON.stringify(cleanFormStructure),
+                form_structure: JSON.stringify(cleanStructure),
                 title: formTitle.value,
             });
         }
     }
 
-    const removeValueFromField = (field: any) => {
-        const { value, ...fieldWithoutValue } = field;
-        return fieldWithoutValue;
-    }
-
     const formMode = ref(FormMode.EDIT);
     const bugologMode = ref(BugologMode.FORM);
+
+
+    const exportForm = () => {
+        const cleanStructure = cleanFormStructure(formStructure.value);
+
+        const formData = {
+            title: formTitle.value,
+            structure: cleanStructure
+        };
+
+        const jsonString = JSON.stringify(formData, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${formTitle.value || 'form'}.json`;
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+    }
+
+    const importForm = () => {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = '.json';
+        input.onchange = (event) => {
+            const file = (event.target as HTMLInputElement).files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const jsonString = e.target?.result as string;
+                    const formData = JSON.parse(jsonString);
+                    formStructure.value = formData.structure;
+                    formTitle.value = formData.title;
+                };
+                reader.readAsText(file);
+            }
+        };
+        input.click();
+    }
 
     return {
         sideFieldEditorType,
@@ -254,6 +265,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         bugologMode,
         formMode,
         defaultRadioOption,
-        defaultCheckBox
+        defaultCheckBox,
+        exportForm,
+        importForm,
     }
 })

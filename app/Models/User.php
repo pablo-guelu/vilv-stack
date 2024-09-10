@@ -26,6 +26,9 @@ class User extends Authenticatable
         'company_logo',
         'redirect_url',
         'plan_type',
+        'recipients',
+        'ccs',
+        'after_submit_message',
     ];
 
     /**
@@ -67,6 +70,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'recipients' => 'array',
+            'ccs' => 'array',
         ];
     }
 }
