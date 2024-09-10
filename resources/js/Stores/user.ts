@@ -32,7 +32,10 @@ export const useUserStore = defineStore('user', () => {
             id: '',
             name:'',
             email: '',
-            recipients: []
+            recipients: [],
+            ccs: [],
+            afterSubmittingMessage: '',
+            redirect_after_submit: false
         }
         isUserAuth.value = false
         router.post('/logout')
