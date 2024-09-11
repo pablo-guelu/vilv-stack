@@ -30,7 +30,7 @@
 
                         <!-- RECIEPIENTS -->
                         <Label name="Recipients" info
-                            infoString="This are the email addresses that will receive the form submissions." />
+                            infoString="Email addresses that will receive the form submissions." />
                         <v-row class="mt-4" v-if="user.recipients.length > 0">
                             <v-chip v-for="recepient, index in user.recipients" :key="recepient" class="ma-2" closable
                                 @click:close="deleteRecipient(index)"> {{ recepient }}</v-chip>

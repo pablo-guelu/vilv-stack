@@ -3,7 +3,8 @@
         <v-card width="400px" class="py-8 px-2" rounded="lg" flat>
             <v-card-title v-text="'Form Settings'" class="px-0 mb-3" />
             <v-form ref="fieldForm" fastfail>
-                <v-select label="Form Variant" :variant="formStructure.variant" density="compact" :items="variants" v-model="selectedVariant" @update:model-value="updateVariant" ></v-select>
+                <v-select label="Form Variant" variant="outlined" density="compact" :items="variants" v-model="selectedVariant" @update:model-value="updateVariant" ></v-select>
+                <v-select label="Field Density" variant="outlined" density="compact" :items="densities" v-model="selectedDensity" @update:model-value="updateDensity" ></v-select>
             </v-form>
 
             <div class="w-100 d-flex justify-center mt-10">
@@ -32,7 +33,14 @@ const variants = ref([
     "solo-filled"
 ])
 
+const densities = ref([
+    "compact",
+    "comfortable",
+    "default",
+])
+
 const selectedVariant = ref();
+const selectedDensity = ref();
 
 
 const updateVariant = () => {
@@ -41,6 +49,17 @@ const updateVariant = () => {
         if (formStructure.value.rows[row].columns) {
             for (let column = 0; column < formStructure.value.rows[row].columns.length; column++) {
                 formStructure.value.rows[row].columns[column].field!.variant = selectedVariant.value;
+            }
+        }
+    }
+}
+
+const updateDensity = () => {
+    formStructure.value.density = selectedDensity.value;
+    for ( let row = 0; row < formStructure.value.rows.length; row++) {
+        if (formStructure.value.rows[row].columns) {
+            for (let column = 0; column < formStructure.value.rows[row].columns.length; column++) {
+                formStructure.value.rows[row].columns[column].field!.density = selectedDensity.value;
             }
         }
     }

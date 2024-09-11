@@ -1,7 +1,7 @@
 <template>
     <template v-if="field">
         <FormLabel :field="field" />
-        <v-file-input :variant="field.variant" :clearable="field.clearable" v-model="field.fileInput" :label="field.label" multiple :hint="field.hint" :persistent-hint="field.persistentHint" />
+        <v-file-input :variant="field.variant"  :density="field.density" :clearable="field.clearable" v-model="field.fileInput" :label="field.label" multiple :hint="field.hint" :persistent-hint="field.persistentHint" :class="field.customAttributes?.class ? field.customAttributes.class : ''":name="field.customAttributes?.name ? field.customAttributes.name : ''" />
     </template>
 </template>
 

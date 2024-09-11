@@ -1,7 +1,7 @@
 <template>
     <v-sheet class="d-flex align-center w-100 my-6 row_container px-2" style="min-height: 80px" @mouseover="showDelete = true" @mouseleave=" showDelete = false" >
         <div class="mx-3 row_action_buttons">
-            <v-btn v-if="showDelete" color="red" size="small" fab icon="mdi-delete" @click="() => warningDeleteRow = true" />
+            <v-btn v-if="showDelete && index === currentRowIndex" color="red" size="small" fab icon="mdi-delete" @click="() => warningDeleteRow = true" />
         </div>
         <div class="w-100">
             <v-row v-if="row.colsNumber < 2 && row.columns.length === 1">
@@ -46,7 +46,7 @@ const props = defineProps<{
 
 const showDelete = ref(false);
 const bugFormStore = useBugFormStore();
-const { warningDeleteRow } = storeToRefs(bugFormStore);
+const { warningDeleteRow, currentRowIndex } = storeToRefs(bugFormStore);
 
 </script>
 

@@ -49,6 +49,13 @@ export const useBugFormStore = defineStore('bugForm', () => {
             clearable: false,
             fileInput: null,
             variant: 'outlined',
+            density: 'default',
+            hint: '',
+            persistentHint: false,
+            customAttributes: {
+                class: '',
+                name: ''
+            },
             empty: true
         }
     }
@@ -68,6 +75,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const emptyFormStructure = (): FormStructure => {
         return {
             variant: 'outlined',
+            density: 'default',
             rows: [
                 defaultRow()
             ]
@@ -76,6 +84,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const formStructure: Ref<FormStructure> = ref({
         variant: 'outlined',
+        density: 'default',
         rows: [defaultRow()]
     })
 

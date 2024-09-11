@@ -8,7 +8,8 @@
                         v-model="field!.label" autofocus />
                     <v-text-field v-if="needsPlaceHolder" variant="outlined" density="compact" label="Placeholder"
                         v-model="field!.placeholder" />
-                    <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT" v-model:inputType="field!.inputType" />
+                    <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT"
+                        v-model:inputType="field!.inputType" />
                     <SelectFieldSpecific v-if="sideFieldEditorType === FieldType.SELECT" />
                     <RadioGroupFieldSpecific v-if="sideFieldEditorType === FieldType.RADIO" />
                     <CheckboxSpecific v-if="sideFieldEditorType === FieldType.CHECKBOX" />
@@ -17,7 +18,7 @@
                             class="me-6"></v-checkbox>
                         <v-checkbox label="Info Tooltip" v-model="field!.info" color="success"></v-checkbox>
                     </div>
-                    <div v-if="field!.info">
+                    <div v-if="field!.info" class="mb-8">
                         <div class="text-h6 mb-2">Info Tooltip</div>
                         <QuillEditor v-model:content="field!.infoString" content-type="html" />
                     </div>
@@ -30,10 +31,17 @@
                     <ParagraphFieldSpecific />
                 </div>
 
+                <Label name="Custom HTML Attributes" class="mb-8" />
+                <v-text-field variant="outlined" density="compact" label="custom element class"
+                    v-model="field!.customAttributes!.class" />
+                <v-text-field variant="outlined" density="compact" label="Custom input name"
+                    v-model="field!.customAttributes!.name" />
+
             </v-form>
 
             <div class="w-100 d-flex justify-center mt-10">
-                <v-btn @click="saveForm" color="primary" class="mx-3" flat block append-icon="mdi-content-save" >Save</v-btn>
+                <v-btn @click="saveForm" color="primary" class="mx-3" flat block
+                    append-icon="mdi-content-save">Save</v-btn>
             </div>
         </v-card>
     </div>
@@ -50,15 +58,18 @@ import { QuillEditor } from '@vueup/vue-quill';
 import RadioGroupFieldSpecific from '@/RadioField/RadioGroupFieldSpecific.vue';
 import CheckboxSpecific from '@/Checkbox/CheckboxSpecific.vue';
 import ParagraphFieldSpecific from '@/Paragraph/ParagraphFieldSpecific.vue';
+import Label from '@/Components/Label.vue';
 
 const bugFormStore = useBugFormStore();
 const { sideFieldEditorType, formStructure, currentRowIndex, currentColumnIndex } = storeToRefs(bugFormStore);
 const { requiredRule, saveForm } = bugFormStore;
 
-const field = computed(() => {
-    return formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field;
-})
-
+const field = computed({
+    get: () => formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field,
+    set: (newValue) => {
+        formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field = newValue;
+    }
+});
 
 const fieldForm = ref();
 

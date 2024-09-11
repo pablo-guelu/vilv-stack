@@ -1,7 +1,7 @@
 <template>
     <template v-if="field">
         <FormLabel :field="field" />
-        <v-radio-group v-model="field.value">
+        <v-radio-group v-model="field.value" :class="field.customAttributes?.class ? field.customAttributes.class : ''":name="field.customAttributes?.name ? field.customAttributes.name : ''" :value="field.value">
             <template v-for="radio in field.radioGroup" :key="radio.id">
                 <v-radio :label="radio.label" :value="radio.value"></v-radio>
             </template>

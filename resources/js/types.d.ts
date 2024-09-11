@@ -46,8 +46,14 @@ export interface BugologField {
     clearable?: boolean,
     fileInput?: File | File[] | null | undefined,
     variant: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled",
+    density: "compact" | "comfortable" | "default",
     hint?: string;
     persistentHint?: boolean;
+    customAttributes?: {
+        class?: string;
+        name?: string;
+    };
+
     empty?: boolean;
 }
 
@@ -70,7 +76,8 @@ export interface TextField {
 }
 
 export interface FormStructure {
-    variant: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled"; 
+    variant: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled";
+    density: "compact" | "comfortable" | "default";
     rows: Row[];
 }
 
