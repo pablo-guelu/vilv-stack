@@ -52,13 +52,21 @@ export const useUserStore = defineStore('user', () => {
     }
 
     const updateProjectInfo = () => {
-        router.post('/user/project', {
-            name: user.value.name,
-            email: user.value.email,
-            company_name: user.value.company_name,
-            company_website: user.value.company_website,
-            company_logo: user.value.company_logo
-        })
+        const formData = new FormData();
+        formData.append('name', user.value.name ?? '');
+        formData.append('email', user.value.email ?? '');
+        formData.append('company_name', user.value.company_name ?? '');
+        formData.append('company_website', user.value.company_website ?? '');
+        
+        if (user.value.company_logo instanceof File) {
+            formData.append('company_logo', user.value.company_logo);
+        }
+
+        router.post('/user/project', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
     }
 
     return {

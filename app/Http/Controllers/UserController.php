@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -54,6 +55,16 @@ class UserController extends Controller
             'company_website' => 'nullable|url',
             'company_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
+
+        if ($request->hasFile('company_logo')) {
+            // Delete old company logo if it exists
+            if ($user->company_logo) {
+                Storage::disk('public')->delete($user->company_logo);
+            }
+
+            $path = $request->file('company_logo')->store('company_logos', 'public');
+            $validatedData['company_logo'] = $path;
+        }
 
         DB::table('users')
             ->where('id', $user->id)

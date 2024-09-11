@@ -22,6 +22,8 @@ const props = defineProps<{
 const userStore = useUserStore();
 const { user, isUserAuth } = storeToRefs(userStore);
 
+console.log(props.user)
+
 user.value = {...props.user}
 isUserAuth.value = props.isUserAuth
 
