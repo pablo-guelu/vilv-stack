@@ -45,8 +45,6 @@ class RegisteredUserController extends Controller
             'company_name' => '',
             'company_website' => '',
             'company_logo' => '',
-            'after_submit_message' => '',
-            'recepients' => [],
         ]);
 
         event(new Registered($user));

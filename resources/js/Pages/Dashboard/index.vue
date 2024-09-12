@@ -3,18 +3,18 @@
         <template v-slot:main>
             <div class="h-100">
                 <v-sheet class="d-flex flex-column align-center h-100 ma-10">
-                    <LeftDrawer />
+                    <!-- <LeftDrawer /> -->
 
                     <v-sheet class="ma-4 rounded-lg w-100 justify-self-center" max-width="1200px" color="transparent">
 
                         <v-tabs v-model="indexMode" slider-color="primary">
-                            <v-tab :value="IndexMode.SETTINGS">Settings</v-tab>
+                            <v-tab :value="IndexMode.PROJECT_INFO">Project Info</v-tab>
                             <v-tab :value="IndexMode.FORMS">Forms</v-tab>
                         </v-tabs>
 
                         <v-tabs-window v-model="indexMode">
-                            <v-tabs-window-item :value="IndexMode.SETTINGS">
-                                <Settings />
+                            <v-tabs-window-item :value="IndexMode.PROJECT_INFO">
+                                <UserInfo />
                             </v-tabs-window-item>
                             <v-tabs-window-item :value="IndexMode.FORMS">
                                 <FormsList :forms="forms" />
@@ -33,10 +33,9 @@ import BugologLayout from '@/Layout/BugologLayout.vue';
 import { useUserStore } from '@/Stores/user';
 import { storeToRefs } from 'pinia';
 import { Form, User } from "@/types";
-import { router } from '@inertiajs/vue3'
 import LeftDrawer from '@/Layout/Components/LeftDrawer.vue';
-import Settings from '@/User/Settings.vue'
 import FormsList from '@/Form/FormsList.vue';
+import UserInfo from '@/User/UserInfo.vue';
 import { IndexMode } from '@/enums';
 
 const props = defineProps<{
@@ -50,21 +49,5 @@ const { user, isUserAuth, indexMode } = storeToRefs(userStore);
 
 user.value = { ...props.user.data }
 isUserAuth.value = props.isUserAuth
-if (user.value.redirect_url !== '') {
-    user.value.redirect_after_submit = true;
-}
 
-const headers = [
-    { title: 'Title', key: 'title', sortable: true, align: 'start' },
-    { title: 'Created At', key: 'created_at', sortable: true, align: 'start' },
-    { title: 'Actions', key: 'actions', sortable: false, align: 'center' },
-];
-
-const editForm = (id: string) => {
-    router.visit(`/form/${id}/edit`)
-}
-
-const deleteForm = (id: string) => {
-    router.delete(`/form/${id}`)
-}
 </script>

@@ -13,6 +13,7 @@
                             </template>
                         </v-switch>
 
+                        <!-- REDIRECT TO -->
                         <v-text-field v-if="user.redirect_after_submit" v-model="user.redirect_url" required
                             variant="outlined" density="compact" placeholder="https://my-docs.com"></v-text-field>
                     </v-col>
@@ -27,7 +28,6 @@
 
                 <v-row>
                     <v-col>
-
                         <!-- RECIEPIENTS -->
                         <Label name="Recipients" info
                             infoString="Email addresses that will receive the form submissions." />
@@ -64,7 +64,7 @@
                                 </v-text-field>
                             </v-col>
                             <v-col cols="12" md="2">
-                                <v-btn @click="addRecipient" append-icon="mdi-plus" color="primary" class="w-100">
+                                <v-btn @click="addCc" append-icon="mdi-plus" color="primary" class="w-100">
                                     Add
                                 </v-btn>
                             </v-col>
@@ -87,7 +87,7 @@ import { useUserStore } from '@/Stores/user';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { storeToRefs } from 'pinia';
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);

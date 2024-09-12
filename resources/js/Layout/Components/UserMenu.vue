@@ -23,7 +23,10 @@
                     <v-btn class="mt-8" variant="tonal" @click="logout" text="logout"/>
                     
                 </div>
-                <v-btn v-else class="ma-2" color="primary" variant="tonal" @click="() => router.get('/login')" text="Login"/>
+                <div v-else class="d-flex flex-column">
+                    <v-btn  class="ma-2" color="primary" variant="tonal" @click="() => router.get('/login')" text="Login"/>
+                    <v-btn class="ma-2" color="primary" variant="tonal" @click="() => router.get('/register')" text="Register"/>
+                </div>
             </v-row>
         </v-card>
     </v-menu>

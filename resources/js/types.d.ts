@@ -76,6 +76,7 @@ export interface TextField {
 }
 
 export interface FormStructure {
+    id?: string;
     variant: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled";
     density: "compact" | "comfortable" | "default";
     rows: Row[];

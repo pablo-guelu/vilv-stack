@@ -1,18 +1,22 @@
 <template>
+    <div class="w-100 mt-8 mb-4 d-flex justify-end">
+        <v-btn prepend-icon="mdi-monitor-dashboard" variant="tonal" color="primary" href="/form"
+            class="me-4">Dashboard</v-btn>
+        <v-btn prepend-icon="mdi-plus" variant="tonal" color="primary" @click="newForm">New Form</v-btn>
+    </div>
+
     <div class="d-flex justify-space-between align-center">
-        <v-tabs v-model="bugologMode" class="my-10">
+        <v-tabs v-model="bugologMode" class="">
             <v-tab :value="BugologMode.FORM">
                 <v-icon class="me-2">mdi-format-align-justify</v-icon>
                 Form</v-tab>
+            <v-tab :value="BugologMode.SETTINGS">
+                <v-icon class="me-2">mdi-cog</v-icon>
+                Settings</v-tab>
             <v-tab :value="BugologMode.MESSAGE">
                 <v-icon class="me-2">mdi-email-fast-outline</v-icon>
                 Message / Log</v-tab>
         </v-tabs>
-        <div class="d-flex justify-self-end">
-            <v-btn prepend-icon="mdi-monitor-dashboard" variant="tonal" color="primary" href="/form"
-                class="me-4">Dashboard</v-btn>
-            <v-btn prepend-icon="mdi-plus" variant="tonal" color="primary" @click="newForm">New Form</v-btn>
-        </div>
     </div>
 
     <v-tabs-window v-model="bugologMode">
@@ -86,6 +90,10 @@
             </v-window>
         </v-tabs-window-item>
 
+        <v-tabs-window-item :value="BugologMode.SETTINGS">
+            <Settings />
+        </v-tabs-window-item>
+
         <v-tabs-window-item :value="BugologMode.MESSAGE">
             <PreviewMessage :formStructure="formStructure" />
         </v-tabs-window-item>
@@ -101,7 +109,7 @@ import { ref, watch } from 'vue';
 import { BugologMode, FormMode, SideEditionMode } from '@/enums';
 import PreviewForm from './Components/PreviewForm.vue';
 import PreviewMessage from './Components/PreviewMessage.vue';
-
+import Settings from './Components/Settings.vue';
 const bugFormStore = useBugFormStore();
 const { formStructure, formTitle, currentRowIndex, currentColumnIndex, sideEditorMode, formMode, bugologMode } = storeToRefs(bugFormStore);
 const { requiredRule, newForm, saveForm, addRow, exportForm, importForm } = bugFormStore

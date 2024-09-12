@@ -16,6 +16,7 @@ export enum SideEditionMode {
 
 export enum BugologMode {
     FORM,
+    SETTINGS,
     MESSAGE
 }
 
@@ -43,5 +44,5 @@ export enum PlanType {
 
 export enum IndexMode {
     FORMS,
-    SETTINGS
+    PROJECT_INFO
 }

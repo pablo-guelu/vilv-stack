@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { Ref, ref } from "vue";
 import { router } from '@inertiajs/vue3'
 import { IndexMode, PlanType } from "@/enums";
+import { validateAndFormatUrl } from "@/utils";
 
 export const useUserStore = defineStore('user', () => {
 
@@ -45,9 +46,10 @@ export const useUserStore = defineStore('user', () => {
 
     const updateSettings = () => {
         router.post('/user/settings', {
-            redirect_url: user.value.redirect_url,
+            redirect_url: user.value.redirect_url ? validateAndFormatUrl(user.value.redirect_url) : '',
             after_submitting_message: user.value.afterSubmittingMessage,
-            recipients: user.value.recipients
+            recipients: user.value.recipients,
+            ccs: user.value.ccs
         })
     }
 
@@ -56,7 +58,7 @@ export const useUserStore = defineStore('user', () => {
         formData.append('name', user.value.name ?? '');
         formData.append('email', user.value.email ?? '');
         formData.append('company_name', user.value.company_name ?? '');
-        formData.append('company_website', user.value.company_website ?? '');
+        formData.append('company_website', (user.value.company_website ? validateAndFormatUrl(user.value.company_website) : ''));
         
         if (user.value.company_logo instanceof File) {
             formData.append('company_logo', user.value.company_logo);

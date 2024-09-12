@@ -18,13 +18,9 @@ return new class extends Migration
             $table->string('company_name')->nullable();
             $table->string('company_website')->nullable();
             $table->string('company_logo')->nullable();
-            $table->string('redirect_url')->nullable();
             $table->string('plan_type')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->json('recipients')->nullable();
-            $table->json('ccs')->nullable();
-            $table->string('after_submit_message')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

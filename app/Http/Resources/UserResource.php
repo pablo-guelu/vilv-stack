@@ -25,11 +25,7 @@ class UserResource extends JsonResource
             'company_name' => $this->company_name ?? '',
             'company_website' => $this->company_website ?? '',
             'company_logo' => $this->company_logo ? asset('storage/' . $this->company_logo) : '',
-            'redirect_url' => $this->redirect_url ?? '',
             'plan_type' => $this->plan_type ?? '',
-            'after_submit_message' => $this->after_submit_message ?? '',
-            'recipients' => $this->recipients ?? [],
-            'ccs' => $this->ccs ?? [],
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at
         ];

@@ -22,6 +22,8 @@ class UserController extends Controller
             'after_submitting_message' => 'nullable|string',
             'recipients' => 'nullable|array',
             'recipients.*' => 'email',
+            'ccs' => 'nullable|array',
+            'ccs.*' => 'email',
         ]);
 
         // Convert recipients array to JSON if it exists
