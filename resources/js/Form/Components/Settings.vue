@@ -72,7 +72,7 @@
                     </v-col>
                 </v-row>
                 <div class="text-center">
-                    <v-btn type="submit" append-icon="mdi-cog" color="primary" class="mt-10" @click="saveForm">
+                    <v-btn type="submit" append-icon="mdi-content-save-cog" color="primary" class="mt-10" @click="saveForm">
                         Update Settings
                     </v-btn>
                 </div>

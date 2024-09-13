@@ -1,9 +1,5 @@
 <template>
     <v-card class="pt-8 mt-4" border>
-        <v-row class="w-100">
-            <v-btn class="ms-auto me-6" @click="formMode = FormMode.EDIT" variant="tonal"
-                prepend-icon="mdi-file-edit-outline" text="Back to Edit"></v-btn>
-        </v-row>
         <v-row>
             <v-col cols="12">
                 <!-- FORM TITLE -->

@@ -16,6 +16,7 @@ export enum SideEditionMode {
 
 export enum BugologMode {
     FORM,
+    PREVIEW,
     SETTINGS,
     MESSAGE
 }

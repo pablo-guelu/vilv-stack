@@ -1,5 +1,5 @@
 <template>
-    <div class="w-100 mt-8 mb-4 d-flex justify-end">
+    <div class="w-100 my-8 d-flex justify-end">
         <v-btn prepend-icon="mdi-monitor-dashboard" variant="tonal" color="primary" href="/form"
             class="me-4">Dashboard</v-btn>
         <v-btn prepend-icon="mdi-plus" variant="tonal" color="primary" @click="newForm">New Form</v-btn>
@@ -8,8 +8,11 @@
     <div class="d-flex justify-space-between align-center">
         <v-tabs v-model="bugologMode" class="">
             <v-tab :value="BugologMode.FORM">
-                <v-icon class="me-2">mdi-format-align-justify</v-icon>
+                <v-icon class="me-2">mdi-file-edit-outline</v-icon>
                 Form</v-tab>
+            <v-tab :value="BugologMode.PREVIEW">
+                <v-icon class="me-2">mdi-eye-outline</v-icon>
+                Preview</v-tab>
             <v-tab :value="BugologMode.SETTINGS">
                 <v-icon class="me-2">mdi-cog</v-icon>
                 Settings</v-tab>
@@ -22,72 +25,65 @@
     <v-tabs-window v-model="bugologMode">
         <v-tabs-window-item :value="BugologMode.FORM">
             <!-- FORM CANVAS -->
-            <v-window v-model="formMode">
-                <!-- EDIT FORM-->
-                <v-window-item :value="FormMode.EDIT">
-                    <v-card class="pt-8 px-4 mt-4 border">
-                        <v-row class="px-4 mb-5">
+            <v-card class="pt-8 px-4 mt-4 border">
+                <v-row class="px-4 mb-5">
+                    <!-- SAVE -->
+                    <v-tooltip location="top" text="Save form">
+                        <template v-slot:activator="{ props }">
+                            <v-btn v-bind="props" class="mx-3" color="primary" @click="saveForm"
+                                icon="mdi-content-save"></v-btn>
+                        </template>
+                    </v-tooltip>
 
-                            <!-- SAVE -->
-                            <v-tooltip location="top" text="Save form">
-                                <template v-slot:activator="{ props }">
-                                    <v-btn v-bind="props" class="mx-3" color="primary" @click="saveForm"
-                                        icon="mdi-content-save"></v-btn>
-                                </template>
-                            </v-tooltip>
+                    <!-- IMPORT -->
+                    <v-tooltip location="top" text="Import form">
+                        <template v-slot:activator="{ props }">
+                            <v-btn v-bind="props" class="mx-3" color="primary" @click="importForm"
+                                icon="mdi-file-import-outline"></v-btn>
+                        </template>
+                    </v-tooltip>
 
-                            <!-- IMPORT -->
-                            <v-tooltip location="top" text="Import form">
-                                <template v-slot:activator="{ props }">
-                                    <v-btn v-bind="props" class="mx-3" color="primary" @click="importForm"
-                                        icon="mdi-file-import-outline"></v-btn>
-                                </template>
-                            </v-tooltip>
+                    <!-- EXPORT -->
+                    <v-tooltip location="top" text="Export form">
+                        <template v-slot:activator="{ props }">
+                            <v-btn v-bind="props" class="mx-3" color="primary" @click="exportForm"
+                                icon="mdi-file-export-outline"></v-btn>
+                        </template>
+                    </v-tooltip>
 
-                            <!-- EXPORT -->
-                            <v-tooltip location="top" text="Export form">
-                                <template v-slot:activator="{ props }">
-                                    <v-btn v-bind="props" class="mx-3" color="primary" @click="exportForm"
-                                        icon="mdi-file-export-outline"></v-btn>
-                                </template>
-                            </v-tooltip>
-
-                            <div class="ms-auto">
-                                <v-tooltip location="top" text="Preview">
-                                    <template v-slot:activator="{ props }">
-                                        <v-btn v-bind="props" class="mx-3" @click="formMode = FormMode.PREVIEW"
-                                            variant="tonal" icon="mdi-eye-outline"></v-btn>
-                                    </template>
-                                </v-tooltip>
-                            </div>
-                        </v-row>
-                        <v-row>
-                            <v-col cols="9">
-                                <!-- FORM TITLE -->
-                                <div class="d-flex justify-start align-center ms-6">
-                                    <div v-if="!enableFormTitleEdit" class="text-h4 me-1">{{ formTitle }}</div>
-                                    <v-text-field class="me-2" label="Form's Title" v-if="enableFormTitleEdit"
-                                        variant="outlined" v-model="formTitle" :rules="[requiredRule]"></v-text-field>
-                                    <v-btn :class="{ 'mb-4': enableFormTitleEdit }"
-                                        :icon="enableFormTitleEdit ? 'mdi-content-save' : 'mdi-pencil'"
-                                        @click="() => enableFormTitleEdit ? enableFormTitleEdit = false : enableFormTitleEdit = true"
-                                        variant="plain" />
-                                </div>
-                            </v-col>
-                        </v-row>
-                        <v-sheet id="form_canvas" :min-height="100" :ondragover="dragRowOverHandler"
-                            :ondrop="dropRowHandler">
-                            <template v-for="row, index in formStructure.rows">
-                                <RowFrame :index="index" :row="row" />
+                    <div class="ms-auto">
+                        <v-tooltip location="top" text="Preview">
+                            <template v-slot:activator="{ props }">
+                                <v-btn v-bind="props" class="mx-3" @click="formMode = FormMode.PREVIEW" variant="tonal"
+                                    icon="mdi-eye-outline"></v-btn>
                             </template>
-                        </v-sheet>
-                    </v-card>
-                </v-window-item>
+                        </v-tooltip>
+                    </div>
+                </v-row>
+                <v-row>
+                    <v-col cols="9">
+                        <!-- FORM TITLE -->
+                        <div class="d-flex justify-start align-center ms-6">
+                            <div v-if="!enableFormTitleEdit" class="text-h4 me-1">{{ formTitle }}</div>
+                            <v-text-field class="me-2" label="Form's Title" v-if="enableFormTitleEdit"
+                                variant="outlined" v-model="formTitle" :rules="[requiredRule]"></v-text-field>
+                            <v-btn :class="{ 'mb-4': enableFormTitleEdit }"
+                                :icon="enableFormTitleEdit ? 'mdi-content-save' : 'mdi-pencil'"
+                                @click="() => enableFormTitleEdit ? enableFormTitleEdit = false : enableFormTitleEdit = true"
+                                variant="plain" />
+                        </div>
+                    </v-col>
+                </v-row>
+                <v-sheet id="form_canvas" :min-height="100" :ondragover="dragRowOverHandler" :ondrop="dropRowHandler">
+                    <template v-for="row, index in formStructure.rows">
+                        <RowFrame :index="index" :row="row" />
+                    </template>
+                </v-sheet>
+            </v-card>
+        </v-tabs-window-item>
 
-                <v-window-item :value="FormMode.PREVIEW">
-                    <PreviewForm />
-                </v-window-item>
-            </v-window>
+        <v-tabs-window-item :value="BugologMode.PREVIEW">
+            <PreviewForm />
         </v-tabs-window-item>
 
         <v-tabs-window-item :value="BugologMode.SETTINGS">

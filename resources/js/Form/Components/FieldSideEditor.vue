@@ -31,7 +31,7 @@
                     <ParagraphFieldSpecific />
                 </div>
 
-                <div class="mb-6 text-body-1 font-weight-bold font-italic">Custom HTML Attributes</div>
+                <div class="mb-6 text-body-1 font-italic">Custom HTML Attributes</div>
                 <v-text-field variant="outlined" density="compact" label="custom element class"
                     v-model="field!.customAttributes!.class" />
                 <v-text-field variant="outlined" density="compact" label="Custom input name"
