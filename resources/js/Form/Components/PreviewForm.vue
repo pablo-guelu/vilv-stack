@@ -20,13 +20,13 @@
 </template>
 
 <script lang="ts" setup>
-import { BugologMode, FormMode } from '@/enums';
+import { BugologMode } from '@/enums';
 import RowPreviewFrame from '@/Row/RowPreviewFrame.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 
 const bugFormStore = useBugFormStore();
-const { formStructure, formTitle, formMode, bugologMode } = storeToRefs(bugFormStore);
+const { formStructure, formTitle, bugologMode } = storeToRefs(bugFormStore);
 
 </script>
 

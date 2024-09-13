@@ -21,11 +21,6 @@ export enum BugologMode {
     MESSAGE
 }
 
-export enum FormMode {
-    EDIT,
-    PREVIEW
-}
-
 export const IconsFieldTypes = {
     [FieldType.TEXT]: 'mdi-form-textbox',
     [FieldType.HTML]: 'mdi-format-text',
@@ -34,7 +29,7 @@ export const IconsFieldTypes = {
     [FieldType.TEXT_AREA]: 'mdi-form-textarea',
     [FieldType.RADIO]: 'mdi-radiobox-marked',
     [FieldType.CHECKBOX]: 'mdi-checkbox-intermediate',
-    [FieldType.PARAGRAPH]: 'mdi-card-text-outline'
+    [FieldType.PARAGRAPH]: 'mdi-card-text-outline',
 }
 
 export enum PlanType {

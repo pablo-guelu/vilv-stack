@@ -27,18 +27,10 @@
             <!-- FORM CANVAS -->
             <v-card class="pt-8 px-4 mt-4 border">
                 <v-row class="px-4 mb-5">
-                    <!-- SAVE -->
-                    <v-tooltip location="top" text="Save form">
-                        <template v-slot:activator="{ props }">
-                            <v-btn v-bind="props" class="mx-3" color="primary" @click="saveForm"
-                                icon="mdi-content-save"></v-btn>
-                        </template>
-                    </v-tooltip>
-
                     <!-- IMPORT -->
                     <v-tooltip location="top" text="Import form">
                         <template v-slot:activator="{ props }">
-                            <v-btn v-bind="props" class="mx-3" color="primary" @click="importForm"
+                            <v-btn v-bind="props" class="mx-3" color="secondary" @click="importForm"
                                 icon="mdi-file-import-outline"></v-btn>
                         </template>
                     </v-tooltip>
@@ -46,18 +38,20 @@
                     <!-- EXPORT -->
                     <v-tooltip location="top" text="Export form">
                         <template v-slot:activator="{ props }">
-                            <v-btn v-bind="props" class="mx-3" color="primary" @click="exportForm"
+                            <v-btn v-bind="props" class="mx-3" color="secondary" @click="exportForm"
                                 icon="mdi-file-export-outline"></v-btn>
                         </template>
                     </v-tooltip>
 
                     <div class="ms-auto">
-                        <v-tooltip location="top" text="Preview">
+                        <!-- SAVE -->
+                        <v-tooltip location="top" text="Save form">
                             <template v-slot:activator="{ props }">
-                                <v-btn v-bind="props" class="mx-3" @click="formMode = FormMode.PREVIEW" variant="tonal"
-                                    icon="mdi-eye-outline"></v-btn>
+                                <v-btn v-bind="props" class="" color="primary" @click="saveForm"
+                                    icon="mdi-content-save"></v-btn>
                             </template>
                         </v-tooltip>
+
                     </div>
                 </v-row>
                 <v-row>
@@ -102,12 +96,12 @@ import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 import RowFrame from '../Row/RowFrame.vue';
 import { ref, watch } from 'vue';
-import { BugologMode, FormMode, SideEditionMode } from '@/enums';
+import { BugologMode, SideEditionMode } from '@/enums';
 import PreviewForm from './Components/PreviewForm.vue';
 import PreviewMessage from './Components/PreviewMessage.vue';
 import Settings from './Components/Settings.vue';
 const bugFormStore = useBugFormStore();
-const { formStructure, formTitle, currentRowIndex, currentColumnIndex, sideEditorMode, formMode, bugologMode } = storeToRefs(bugFormStore);
+const { formStructure, formTitle, currentRowIndex, currentColumnIndex, sideEditorMode, bugologMode } = storeToRefs(bugFormStore);
 const { requiredRule, newForm, saveForm, addRow, exportForm, importForm } = bugFormStore
 
 const enableFormTitleEdit = ref(false);

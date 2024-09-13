@@ -8,12 +8,15 @@
                     <v-row class="w-100 mt-6" no-gutters>
                         <v-col class="w-100">
                             <div class="mb-10">
-                                <AddRow :cols-number="1" draggable="true" :id="'row_1'" :ondragstart="dragRowStartHandler" :ondragend="dragRowEndHandler" />
-                                <AddRow :cols-number="2" draggable="true" :id="'row_2'" :ondragstart="dragRowStartHandler" :ondragend="dragRowEndHandler" />
+                                <AddRow :cols-number="1" draggable="true" :id="'row_1'"
+                                    :ondragstart="dragRowStartHandler" :ondragend="dragRowEndHandler" />
+                                <AddRow :cols-number="2" draggable="true" :id="'row_2'"
+                                    :ondragstart="dragRowStartHandler" :ondragend="dragRowEndHandler" />
                             </div>
                             <template v-for="type in fieldTypes" :key="type">
-                                <AddFieldFrame :fieldType="type" draggable="true" :id="`${type}_field`" class="field_type_draggable"
-                                    :ondragstart="dragStartHandler" :ondragend="dragEndHandler" />
+                                <AddFieldFrame :fieldType="type" draggable="true" :id="`${type}_field`"
+                                    class="field_type_draggable" :ondragstart="dragStartHandler"
+                                    :ondragend="dragEndHandler" />
                             </template>
                         </v-col>
                     </v-row>
@@ -59,13 +62,12 @@ import { storeToRefs } from 'pinia';
 import WarningDialog from './Components/WarningDialog.vue';
 import FieldSideEditor from './Components/FieldSideEditor.vue';
 import FormSideEditor from './Components/FormSideEditor.vue';
-import { FieldType, FormMode, SideEditionMode } from '@/enums';
+import { FieldType, SideEditionMode } from '@/enums';
 import AddFieldFrame from '@/Components/AddFieldFrame.vue';
 import FormCanvas from './FormCanvas.vue';
-import { watch } from 'vue';
 
 const bugFormStore = useBugFormStore();
-const { warningMissingRow, warningDeleteField, warningDeleteRow, currentRowIndex, currentColumnIndex, sideEditorMode, formMode } = storeToRefs(bugFormStore);
+const { warningMissingRow, warningDeleteField, warningDeleteRow, currentRowIndex, currentColumnIndex, sideEditorMode } = storeToRefs(bugFormStore);
 const { deleteField, deleteRow } = bugFormStore;
 
 const fieldTypes =
@@ -77,7 +79,8 @@ const fieldTypes =
         FieldType.TEXT_AREA,
         FieldType.RADIO,
         FieldType.CHECKBOX,
-        FieldType.PARAGRAPH
+        FieldType.PARAGRAPH,
+
     ];
 
 const dragStartHandler = (ev: DragEvent) => {
@@ -99,12 +102,6 @@ const dragEndHandler = (ev: DragEvent) => {
 const dragRowEndHandler = (ev: DragEvent) => {
     (ev.currentTarget as HTMLElement).classList.remove('row_draggable_selected');
 }
-
-watch(formMode, ()=> {
-    if(formMode.value === FormMode.PREVIEW) {
-        sideEditorMode.value = SideEditionMode.FORM;
-    }
-})
 
 </script>
 

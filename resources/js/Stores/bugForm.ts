@@ -1,4 +1,4 @@
-import { BugologMode, FieldType, FormMode, SideEditionMode } from "@/enums";
+import { BugologMode, FieldType, SideEditionMode } from "@/enums";
 import { BugologField, Column, Form, FormStructure, Paragraph, Row } from "@/types";
 import { cleanFormStructure, validateAndFormatUrl } from "@/utils";
 import { router } from "@inertiajs/vue3";
@@ -212,7 +212,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         }
     }
 
-    const formMode = ref(FormMode.EDIT);
     const bugologMode = ref(BugologMode.FORM);
 
 
@@ -289,7 +288,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         sideEditorMode,
         saveForm,
         bugologMode,
-        formMode,
         defaultRadioOption,
         defaultCheckBox,
         exportForm,

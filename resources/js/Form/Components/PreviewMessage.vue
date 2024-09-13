@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="rounded-lg border">
+  <v-sheet class="rounded-lg border mt-4">
     <div v-for="row, rowIndex in formStructure.rows" :key="`row-${rowIndex}`" class="d-flex flex-column justify-center w-100">
       <div v-for="column, colIndex in row.columns" :key="`col-${colIndex}`">
         <div v-if="column.field?.type !== FieldType.PARAGRAPH && !column.field?.empty" class="ma-3">
