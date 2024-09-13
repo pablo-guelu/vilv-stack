@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('form_id');
             $table->foreign('form_id')->references('id')->on('forms')->onDelete('cascade');
             $table->string('redirect_url')->nullable();
-            $table->text('message_after_submitting')->nullable();
+            $table->text('after_submitting_message')->nullable();
             $table->json('recipients')->nullable();
             $table->json('ccs')->nullable();
             $table->timestamps();

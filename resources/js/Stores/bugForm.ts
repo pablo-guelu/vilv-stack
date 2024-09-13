@@ -1,9 +1,10 @@
 import { BugologMode, FieldType, FormMode, SideEditionMode } from "@/enums";
 import { BugologField, Column, Form, FormStructure, Paragraph, Row } from "@/types";
-import { cleanFormStructure } from "@/utils";
+import { cleanFormStructure, validateAndFormatUrl } from "@/utils";
 import { router } from "@inertiajs/vue3";
-import { defineStore } from "pinia";
+import { defineStore, storeToRefs } from "pinia";
 import { computed, Ref, ref } from "vue";
+import { useSettingsStore } from "./settings";
 
 export const useBugFormStore = defineStore('bugForm', () => {
 
@@ -177,6 +178,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const sideEditorMode = ref(SideEditionMode.FORM);
 
+    const settingsStore = useSettingsStore();
+    const { redirectUrl, afterSubmittingMessage, recipients, ccs } = storeToRefs(settingsStore);
+
     const saveForm = () => {
         const cleanStructure = cleanFormStructure(formStructure.value);
 
@@ -185,12 +189,25 @@ export const useBugFormStore = defineStore('bugForm', () => {
             router.post('/form', {
                 form_structure: JSON.stringify(cleanStructure),
                 title: formTitle.value,
+                settings: {
+                    redirect_url: validateAndFormatUrl(redirectUrl.value),
+                    after_submitting_message: afterSubmittingMessage.value,
+                    recipients: recipients.value,
+                    ccs: ccs.value
+                }
+
             });
         } else {
             // UPDATE
             router.put(`/form/${formId.value}`, {
                 form_structure: JSON.stringify(cleanStructure),
                 title: formTitle.value,
+                settings: {
+                    redirect_url: validateAndFormatUrl(redirectUrl.value),
+                    after_submitting_message: afterSubmittingMessage.value,
+                    recipients: recipients.value,
+                    ccs: ccs.value
+                }
             });
         }
     }

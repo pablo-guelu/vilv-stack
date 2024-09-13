@@ -103,3 +103,10 @@ export interface SelectItem {
     label: string;
     value: string;
 }
+
+export interface Settings {
+    redirect_url: string;
+    after_submitting_message: string;
+    recipients: string[];
+    ccs: string[];
+}

@@ -25,7 +25,7 @@
             <v-window v-model="formMode">
                 <!-- EDIT FORM-->
                 <v-window-item :value="FormMode.EDIT">
-                    <v-card class="pt-8 px-4 mt-4" border>
+                    <v-card class="pt-8 px-4 mt-4 border">
                         <v-row class="px-4 mb-5">
 
                             <!-- SAVE -->

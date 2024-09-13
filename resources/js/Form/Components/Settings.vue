@@ -5,7 +5,7 @@
             <v-form @submit.prevent="" ref="settingsForm">
                 <v-row>
                     <v-col cols="12">
-                        <v-switch v-model="user.redirect_after_submit" :hide-details="true"
+                        <v-switch v-model="redirectAfterSubmit" :hide-details="true"
                             label="Redirect after submitting" color="primary">
                             <template v-slot:label>
                                 <Label name="Redirect URL" info
@@ -14,14 +14,14 @@
                         </v-switch>
 
                         <!-- REDIRECT TO -->
-                        <v-text-field v-if="user.redirect_after_submit" v-model="user.redirect_url" required
+                        <v-text-field v-if="redirectAfterSubmit" v-model="redirectUrl" required
                             variant="outlined" density="compact" placeholder="https://my-docs.com"></v-text-field>
                     </v-col>
                     <v-col>
                         <Label name="Message after Submmition" info
                             infoString="This message will be shown to the user after your users submit the form." />
                         <div>
-                            <QuillEditor v-model:content="user.afterSubmittingMessage" content-type="html" />
+                            <QuillEditor v-model:content="afterSubmittingMessage" content-type="html" toolbar="essential"/>
                         </div>
                     </v-col>
                 </v-row>
@@ -31,8 +31,8 @@
                         <!-- RECIEPIENTS -->
                         <Label name="Recipients" info
                             infoString="Email addresses that will receive the form submissions." />
-                        <v-row class="mt-4" v-if="user.recipients.length > 0">
-                            <v-chip v-for="recepient, index in user.recipients" :key="recepient" class="ma-2" closable
+                        <v-row class="mt-4" v-if="recipients.length > 0">
+                            <v-chip v-for="recepient, index in recipients" :key="recepient" class="ma-2" closable
                                 @click:close="deleteRecipient(index)"> {{ recepient }}</v-chip>
                         </v-row>
                         <v-row>
@@ -52,13 +52,13 @@
                         <!-- CC -->
                         <Label name="CCs" info
                             infoString="With copy to" />
-                        <v-row class="mt-4" v-if="user.ccs.length > 0">
-                            <v-chip v-for="cc, index in user.ccs" :key="cc" class="ma-2" closable
+                        <v-row class="mt-4" v-if="ccs.length > 0">
+                            <v-chip v-for="cc, index in ccs" :key="cc" class="ma-2" closable
                                 @click:close="deleteCc(index)"> {{ cc }}</v-chip>
                         </v-row>
                         <v-row>
                             <v-col cols="12" md="6">
-                                <v-text-field v-model="currentRecipient" variant="outlined" density="compact"
+                                <v-text-field v-model="currentCc" variant="outlined" density="compact"
                                     placeholder="john@doe.com" @keydown="handleKeydown" ref="recipientInput"
                                     :rules="[emailRule, sameEmailRule]">
                                 </v-text-field>
@@ -72,7 +72,7 @@
                     </v-col>
                 </v-row>
                 <div class="text-center">
-                    <v-btn type="submit" append-icon="mdi-cog" color="primary" class="mt-10" @click="updateSettings">
+                    <v-btn type="submit" append-icon="mdi-cog" color="primary" class="mt-10" @click="saveForm">
                         Update Settings
                     </v-btn>
                 </div>
@@ -83,26 +83,31 @@
 
 <script lang="ts" setup>
 import Label from '@/Components/Label.vue';
-import { useUserStore } from '@/Stores/user';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
+import { useSettingsStore } from '@/Stores/settings';
+import { useBugFormStore } from '@/Stores/bugForm';
 
-const userStore = useUserStore();
-const { user } = storeToRefs(userStore);
-const { updateSettings } = userStore;
+const settingsStore = useSettingsStore();
+const { redirectAfterSubmit, redirectUrl, afterSubmittingMessage, recipients, ccs } = storeToRefs(settingsStore);
+
+const bugFormStore = useBugFormStore();
+const { saveForm } = bugFormStore;
 
 const currentRecipient = ref('');
-
+const currentCc = ref('');
 const settingsForm = ref(null)
+
+if (redirectUrl.value !== '') redirectAfterSubmit.value = true;
 
 const addRecipient = () => {
     if (
         /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(currentRecipient.value)
-        && !user.value.recipients.includes(currentRecipient.value)
+        && !recipients.value.includes(currentRecipient.value)
     ) {
-        user.value.recipients.push(currentRecipient.value);
+        recipients.value.push(currentRecipient.value);
         currentRecipient.value = '';
     } else {
         return
@@ -111,11 +116,11 @@ const addRecipient = () => {
 
 const addCc = () => {
     if (
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(currentRecipient.value)
-        && !user.value.ccs.includes(currentRecipient.value)
+        /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(currentCc.value)
+        && !ccs.value.includes(currentCc.value)
     ) {
-        user.value.ccs.push(currentRecipient.value);
-        currentRecipient.value = '';
+        ccs.value.push(currentCc.value);
+        currentCc.value = '';
     }
 }
 
@@ -131,18 +136,18 @@ const emailRule = (value: string) => {
 }
 
 const sameEmailRule = (value: string) => {
-    return !user.value.recipients.includes(value) || value === '' || 'Email already exists';
+    return !recipients.value.includes(value) || value === '' || 'Email already exists';
 }
 
 const deleteRecipient = (index: number) => {
-    if (index >= 0 && index < user.value.recipients.length) {
-        user.value.recipients.splice(index, 1);
+    if (index >= 0 && index < recipients.value.length) {
+        recipients.value.splice(index, 1);
     }
 }
 
 const deleteCc = (index: number) => {
-    if (index >= 0 && index < user.value.ccs.length) {
-        user.value.ccs.splice(index, 1);
+    if (index >= 0 && index < ccs.value.length) {
+        ccs.value.splice(index, 1);
     }
 }
 

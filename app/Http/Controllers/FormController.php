@@ -56,6 +56,10 @@ class FormController extends Controller
             // Create and link settings to the form
             $settings = new Setting();
             $settings->form_id = $form->id;
+            $settings->redirect_url = $request->input('settings.redirect_url');
+            $settings->after_submitting_message = $request->input('settings.after_submitting_message');
+            $settings->recipients = json_encode($request->input('settings.recipients'));
+            $settings->ccs = json_encode($request->input('settings.ccs'));
             // Add other setting fields here as needed
             $settings->save();
 
@@ -85,7 +89,8 @@ class FormController extends Controller
         return Inertia::render('Dashboard/edit', [
             'user' => Auth::user(),
             'isUserAuth' => Auth::check(),
-            'form' => $form,
+            'form' => $form, 
+            'settings' => $form->setting,
         ]);
     }
 
@@ -94,12 +99,29 @@ class FormController extends Controller
      */
     public function update(UpdateFormRequest $request, Form $form)
     {
-        $form->title = $request->input('title');
-        $form->url = $request->input('url');
-        $form->form_structure = $request->input('form_structure');
-        $form->save();
+        try {
+            DB::beginTransaction();
 
-        return redirect()->route('form.edit', $form->id)->with('success', 'Form updated successfully');
+            $form->title = $request->input('title');
+            $form->url = $request->input('url');
+            $form->form_structure = $request->input('form_structure');
+            $form->save();
+
+            $settings = Setting::where('form_id', $form->id)->first();
+            $settings->redirect_url = $request->input('settings.redirect_url');
+            $settings->after_submitting_message = $request->input('settings.after_submitting_message');
+            $settings->recipients = json_encode($request->input('settings.recipients'));
+            $settings->ccs = json_encode($request->input('settings.ccs'));
+            $settings->save();
+
+            DB::commit();
+
+            return redirect()->route('form.edit', $form->id)->with('success', 'Form updated successfully');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error updating form: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while updating the form. Please try again.');
+        }
     }
 
     /**

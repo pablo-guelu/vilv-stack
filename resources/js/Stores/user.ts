@@ -42,7 +42,7 @@ export const useUserStore = defineStore('user', () => {
         router.post('/logout')
     }
 
-    const indexMode = ref(IndexMode.FORMS)
+    const indexMode = ref(IndexMode.PROJECT_INFO)
 
     const updateSettings = () => {
         router.post('/user/settings', {

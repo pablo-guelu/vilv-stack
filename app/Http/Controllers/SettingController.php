@@ -52,16 +52,7 @@ class SettingController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
-        $validatedData = $request->validate([
-            'success_message' => 'nullable|string',
-            'redirect_url' => 'nullable|url',
-            'email_notifications' => 'boolean',
-            'notification_email' => 'nullable|email|required_if:email_notifications,true',
-        ]);
-
-        $setting->update($validatedData);
-
-        return redirect()->back()->with('success', 'Settings updated successfully');
+        //
     }
 
     /**
