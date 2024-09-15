@@ -4,15 +4,17 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Mail\BugologForm;
-use Illuminate\Contracts\Support\ValidatedData;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Form;
 
 class SubmitFormController extends Controller
 {
 
     // Handle form submission
-    public function submitForm(Request $request)
+    public function submitForm(Request $request, $slug)
     {
+        $form = Form::where('slug', $slug)->firstOrFail();
+        
         // Validate and process the form data
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',

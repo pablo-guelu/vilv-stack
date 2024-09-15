@@ -13,12 +13,12 @@
             <v-tab :value="BugologMode.PREVIEW">
                 <v-icon class="me-2">mdi-eye-outline</v-icon>
                 Preview</v-tab>
-            <v-tab :value="BugologMode.SETTINGS">
-                <v-icon class="me-2">mdi-cog</v-icon>
-                Settings</v-tab>
             <v-tab :value="BugologMode.MESSAGE">
                 <v-icon class="me-2">mdi-email-fast-outline</v-icon>
                 Message / Log</v-tab>
+            <v-tab :value="BugologMode.PUBLISH">
+                <v-icon class="me-2">mdi-creation</v-icon>
+                Publish</v-tab>
         </v-tabs>
     </div>
 
@@ -74,18 +74,19 @@
                     </template>
                 </v-sheet>
             </v-card>
+
         </v-tabs-window-item>
 
         <v-tabs-window-item :value="BugologMode.PREVIEW">
             <PreviewForm />
         </v-tabs-window-item>
 
-        <v-tabs-window-item :value="BugologMode.SETTINGS">
-            <Settings />
-        </v-tabs-window-item>
-
         <v-tabs-window-item :value="BugologMode.MESSAGE">
             <PreviewMessage :formStructure="formStructure" />
+        </v-tabs-window-item>
+
+        <v-tabs-window-item :value="BugologMode.PUBLISH">
+            <PublishForm />
         </v-tabs-window-item>
 
     </v-tabs-window>
@@ -99,7 +100,7 @@ import { ref, watch } from 'vue';
 import { BugologMode, SideEditionMode } from '@/enums';
 import PreviewForm from './Components/PreviewForm.vue';
 import PreviewMessage from './Components/PreviewMessage.vue';
-import Settings from './Components/Settings.vue';
+import PublishForm from './Components/PublishForm.vue';
 const bugFormStore = useBugFormStore();
 const { formStructure, formTitle, currentRowIndex, currentColumnIndex, sideEditorMode, bugologMode } = storeToRefs(bugFormStore);
 const { requiredRule, newForm, saveForm, addRow, exportForm, importForm } = bugFormStore
@@ -124,7 +125,6 @@ const dropRowHandler = (ev: DragEvent) => {
     let numbreOfCols = ev.dataTransfer!.getData("columns");
     const dropZone = document.getElementById('form_canvas');
     const dropElement = ev.target as HTMLElement;
-    console.log(ev.currentTarget, ev.dataTransfer!.getData("type"));
 
     if (dropZone && dropElement && (ev.currentTarget as HTMLElement) && ev.dataTransfer!.getData("type") === '') {
         addRow(Number(numbreOfCols));

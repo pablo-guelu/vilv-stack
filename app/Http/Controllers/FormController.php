@@ -51,6 +51,7 @@ class FormController extends Controller
             $form->url = $request->input('url');
             $form->user_id = $request->user()->id;
             $form->form_structure = $request->input('form_structure');
+            $form->slug = $request->input('slug');
             $form->save();
 
             // Create and link settings to the form
@@ -105,6 +106,7 @@ class FormController extends Controller
             $form->title = $request->input('title');
             $form->url = $request->input('url');
             $form->form_structure = $request->input('form_structure');
+            $form->slug = $request->input('slug');
             $form->save();
 
             $settings = Setting::where('form_id', $form->id)->first();

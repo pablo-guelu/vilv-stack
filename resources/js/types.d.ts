@@ -96,6 +96,8 @@ export interface Form {
     id: string;
     title: string;
     form_structure: FormStructure;
+    settings?: Settings;
+    slug?: string;
 }
 
 export interface SelectItem {

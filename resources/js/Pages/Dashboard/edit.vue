@@ -22,14 +22,17 @@ const props = defineProps<{
     user: User;
 }>();
 
+console.log(props.form);
+
 useUserHydration(props.user, props.isUserAuth);
 
 const bugStore = useBugFormStore();
-const { formStructure, formTitle, formId } = storeToRefs(bugStore);
+const { formStructure, formTitle, formId, formSlug } = storeToRefs(bugStore);
 
 formId.value = props.form.id;
 formTitle.value = props.form.title;
 formStructure.value = JSON.parse(props.form.form_structure as unknown as string);
+formSlug.value = props.form.slug ?? '';
 
 const settings = useSettingsStore();
 const { redirectUrl, afterSubmittingMessage, recipients, ccs } = storeToRefs(settings);

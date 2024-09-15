@@ -12,6 +12,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const formId = ref('');
     const formTitle = ref('');
+    const formSlug = ref('');
 
     const defaultRadioOption = () => {
         return {
@@ -189,26 +190,43 @@ export const useBugFormStore = defineStore('bugForm', () => {
             router.post('/form', {
                 form_structure: JSON.stringify(cleanStructure),
                 title: formTitle.value,
+                slug: formSlug.value,
                 settings: {
                     redirect_url: validateAndFormatUrl(redirectUrl.value),
                     after_submitting_message: afterSubmittingMessage.value,
                     recipients: recipients.value,
                     ccs: ccs.value
                 }
-
-            });
+            },
+                {
+                    onError: (errors) => {
+                        errorSnackBar.value = true;
+                        AppErrors.value = Object.values(errors).flat() as string[];
+                        console.log(errors.value);
+                    }
+                }
+            );
         } else {
             // UPDATE
             router.put(`/form/${formId.value}`, {
                 form_structure: JSON.stringify(cleanStructure),
                 title: formTitle.value,
+                slug: formSlug.value,
                 settings: {
                     redirect_url: validateAndFormatUrl(redirectUrl.value),
                     after_submitting_message: afterSubmittingMessage.value,
                     recipients: recipients.value,
                     ccs: ccs.value
                 }
-            });
+            },
+                {
+                    onError: (errors) => {
+                        errorSnackBar.value = true;
+                        AppErrors.value = Object.values(errors).flat() as string[];
+                        console.log(errors.value);
+                    }
+                }
+            );
         }
     }
 
@@ -258,6 +276,10 @@ export const useBugFormStore = defineStore('bugForm', () => {
         input.click();
     }
 
+    const AppErrors = ref<string[]>([]);
+
+    const errorSnackBar = ref(false);
+
     return {
         sideFieldEditorType,
         editFieldMode,
@@ -268,6 +290,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         formId,
         formTitle,
         formStructure,
+        formSlug,
         addRow,
         deleteRow,
         // addField,
@@ -292,5 +315,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         defaultCheckBox,
         exportForm,
         importForm,
+        AppErrors,
+        errorSnackBar
     }
 })

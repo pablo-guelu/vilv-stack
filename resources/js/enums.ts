@@ -17,8 +17,8 @@ export enum SideEditionMode {
 export enum BugologMode {
     FORM,
     PREVIEW,
-    SETTINGS,
-    MESSAGE
+    MESSAGE,
+    PUBLISH
 }
 
 export const IconsFieldTypes = {

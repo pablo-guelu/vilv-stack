@@ -47,6 +47,8 @@
 import Label from '@/Components/Label.vue';
 import BugologLayout from '@/Layout/BugologLayout.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { useBugFormStore } from '@/Stores/bugForm';
+import { storeToRefs } from 'pinia';
 
 defineProps<{
     canResetPassword?: boolean;
@@ -59,11 +61,19 @@ const form = useForm({
     remember: false,
 });
 
+const bugFormStore = useBugFormStore();
+const { AppErrors, errorSnackBar } = storeToRefs(bugFormStore);
+
 const submit = () => {
     form.post(route('login'), {
         onFinish: () => {
             form.reset('password');
         },
+        onError: (errors) => {
+            errorSnackBar.value = true;
+            AppErrors.value = Object.values(errors).flat();
+            console.log(errors.value);
+        }
     });
 };
 </script>
