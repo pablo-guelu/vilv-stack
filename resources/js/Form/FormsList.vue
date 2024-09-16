@@ -13,14 +13,24 @@
             </v-btn>
         </div>
 
-        <v-card-text class="mt-10 pa-0">
-            <v-card v-for="form, index in forms" :key="`form-${index}`" class="d-flex border rounded-lg my-4 pa-2"
-                style="box-sizing: border-box;">
-                <v-card-title>{{ form.title }}</v-card-title>
+        <v-card-text class="mt-16 pa-0">
+            <v-card v-for="form, index in forms" :key="`form-${index}`" style="box-sizing: border-box;"
+                class="border rounded-lg my-4 pa-2 d-flex align-center">
+                <div class="d-flex flex-column">
+                    <v-card-title>{{ form.title }}</v-card-title>
+                    <div v-if="form.slug !== '' || form.slug !== null" class="d-flex align-center">
+                        <p class="text-body-2 text-grey-darken-1 font-italic ps-4">{{ `https://bugolog.com/${form.slug}`
+                            }}</p>
+                        <v-btn icon="mdi-content-copy" flat class="border mx-2" size="x-small"
+                            @click="copyLink(form.slug)" />
+                        <v-btn icon="mdi-open-in-new" flat class="border" size="x-small" @click="" />
+                    </div>
+                </div>
                 <div class="ms-auto">
                     <v-btn @click="editForm(form.id)" icon="mdi-pencil" flat class="border mx-2" />
                     <v-btn @click="deleteForm(form.id)" icon="mdi-delete" flat class="border mx-2" />
                 </div>
+
             </v-card>
         </v-card-text>
     </v-card>
@@ -45,4 +55,9 @@ const deleteForm = (id: string) => {
     router.delete(`/form/${id}`)
 }
 
+const copyLink = (slug: string | undefined) => {
+    if (slug) {
+        navigator.clipboard.writeText(`https://bugolog.com/${slug}`)
+    }
+}
 </script>

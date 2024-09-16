@@ -1,7 +1,5 @@
 <template>
-
     <v-container class="h-100 pa-0" fluid>
-
         <v-row class="h-100">
             <v-col cols="3">
                 <v-sheet class="px-4 h-100 border-e-sm" style="padding-top: 105px;">
@@ -50,9 +48,7 @@
             :warning-type="'info'" :action="() => deleteField(currentRowIndex, currentColumnIndex)" />
         <WarningDialog v-model="warningDeleteRow" :text="'Are you sure you want to delete this Row?'"
             :warning-type="'info'" :action="() => deleteRow(currentRowIndex)" />
-
     </v-container>
-
 </template>
 
 <script lang="ts" setup>

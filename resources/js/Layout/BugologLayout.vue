@@ -5,12 +5,23 @@
 
         <v-main class="d-flex justify-center align-center flex-shrink-0 h-100 w-100" style="box-sizing: border-box;">
             <div class="h-100 w-100" style="max-width: 1800px;">
+
+                <!-- ERROR ALERTS -->
                 <v-snackbar v-model="errorSnackBar" location="top" variant="tonal" color="warning">
                     <p v-for="error in AppErrors" :key="error">{{ error }}</p>
                     <template v-slot:actions>
                         <v-btn variant="text" @click="errorSnackBar = false" icon="mdi-close" />
                     </template>
                 </v-snackbar>
+
+                <!-- SUCCESS ALERTS -->
+                <v-snackbar v-model="successSnackBar" location="top" variant="tonal" color="success">
+                    <p v-for="success in AppSuccess" :key="success">{{ success }}</p>
+                    <template v-slot:actions>
+                        <v-btn variant="text" @click="successSnackBar = false" icon="mdi-close" />
+                    </template>
+                </v-snackbar>
+
                 <slot name="main"></slot>
             </div>
 
@@ -25,6 +36,6 @@ import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 
 const bugFormStore = useBugFormStore();
-const { errorSnackBar, AppErrors } = storeToRefs(bugFormStore);
+const { errorSnackBar, AppErrors, successSnackBar, AppSuccess } = storeToRefs(bugFormStore);
 
 </script>

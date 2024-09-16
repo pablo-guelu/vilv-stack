@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublishController;
 use App\Http\Controllers\ShowFormController;
 use App\Http\Controllers\SubmitFormController;
 use App\Http\Controllers\UserController;
@@ -32,6 +33,8 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 
-Route::get('/{slug}', [ShowFormController::class, 'show'])->name('form.show');
+Route::get('/{slug}', [ShowFormController::class, 'show'])->name('bugolog.show');
 
 Route::post('/{slug}/submit', [SubmitFormController::class, 'submitForm'])->name('slug.form.submit');
+
+Route::post('/publish', [PublishController::class, 'publish'])->name('publish');

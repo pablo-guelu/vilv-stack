@@ -3,8 +3,8 @@
 
         <FormSettings />
 
-        <v-btn class="mt-6" append-icon="mdi-creation" color="success" @click="publishForm"
-            :disabled="!formSlug" size="large">
+        <v-btn class="mt-6" append-icon="mdi-creation" color="success" @click="bugFormStore.publishForm" :disabled="!formSlug"
+            size="large">
             Publish
         </v-btn>
     </v-sheet>
@@ -19,9 +19,6 @@ const { formSlug } = storeToRefs(bugFormStore);
 
 import FormSettings from './FormSettings.vue';
 
-const publishForm = () => {
-    
-};
 
 </script>
 

@@ -277,8 +277,40 @@ export const useBugFormStore = defineStore('bugForm', () => {
     }
 
     const AppErrors = ref<string[]>([]);
+    const AppSuccess = ref<string[]>([]);
 
     const errorSnackBar = ref(false);
+    const successSnackBar = ref(false);
+
+
+    const publishForm = () => {
+
+        const cleanStructure = cleanFormStructure(formStructure.value);
+        
+        router.post('/publish', {
+            form_structure: JSON.stringify(cleanStructure),
+            title: formTitle.value,
+            slug: formSlug.value,
+            settings: {
+                redirect_url: validateAndFormatUrl(redirectUrl.value),
+                after_submitting_message: afterSubmittingMessage.value,
+                recipients: recipients.value,
+                ccs: ccs.value
+            }
+        },
+            {
+                onSuccess: () => {
+                    AppSuccess.value.push('Form published successfully');
+                    successSnackBar.value = true;
+                },
+                onError: (errors) => {
+                    errorSnackBar.value = true;
+                    AppErrors.value = Object.values(errors).flat();
+                    console.log(errors.value);
+                },
+            }
+        );
+    };
 
     return {
         sideFieldEditorType,
@@ -316,6 +348,9 @@ export const useBugFormStore = defineStore('bugForm', () => {
         exportForm,
         importForm,
         AppErrors,
-        errorSnackBar
+        errorSnackBar,
+        AppSuccess,
+        successSnackBar,
+        publishForm
     }
 })
