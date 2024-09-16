@@ -22,8 +22,6 @@ const props = defineProps<{
     user: User;
 }>();
 
-console.log(props.form);
-
 useUserHydration(props.user, props.isUserAuth);
 
 const bugStore = useBugFormStore();

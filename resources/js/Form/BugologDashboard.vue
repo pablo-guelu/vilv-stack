@@ -3,7 +3,7 @@
     <v-container class="h-100 pa-0" fluid>
 
         <v-row class="h-100">
-            <v-col md="2">
+            <v-col cols="3">
                 <v-sheet class="px-4 h-100 border-e-sm" style="padding-top: 105px;">
                     <v-row class="w-100 mt-6" no-gutters>
                         <v-col class="w-100">
@@ -23,13 +23,9 @@
                 </v-sheet>
             </v-col>
 
-            <v-spacer></v-spacer>
-
             <v-col cols="6">
                 <FormCanvas />
             </v-col>
-
-            <v-spacer></v-spacer>
 
             <v-col cols="3">
                 <v-sheet class="pt-6 h-100 border-s-sm">

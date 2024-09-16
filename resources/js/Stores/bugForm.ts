@@ -290,7 +290,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         formId,
         formTitle,
         formStructure,
-        formSlug,
+        formSlug,   
         addRow,
         deleteRow,
         // addField,

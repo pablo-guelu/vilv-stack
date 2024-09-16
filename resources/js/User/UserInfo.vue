@@ -24,7 +24,7 @@
 
         <v-card-text>
             <v-form @submit.prevent="updateProjectInfo" class="d-flex flex-column align-center">
-                <div class="d-flex flex-column w-md-50">
+                <div class="d-flex flex-column w-100">
                     <v-text-field v-model="user.name" label="Name" required variant="outlined"
                         density="compact"></v-text-field>
                     <v-text-field v-model="user.email" label="Email" required variant="outlined"

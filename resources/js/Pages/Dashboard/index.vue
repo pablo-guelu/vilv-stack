@@ -2,26 +2,21 @@
     <BugologLayout>
         <template v-slot:main>
             <div class="h-100">
-                <v-sheet class="d-flex flex-column align-center h-100 ma-10">
-                    <!-- <LeftDrawer /> -->
+                <v-sheet class="d-flex h-100">
 
-                    <v-sheet class="ma-4 rounded-lg w-100 justify-self-center" max-width="1200px" color="transparent">
 
-                        <v-tabs v-model="indexMode" slider-color="primary">
-                            <v-tab :value="IndexMode.PROJECT_INFO">Project Info</v-tab>
-                            <v-tab :value="IndexMode.FORMS">Forms</v-tab>
-                        </v-tabs>
 
-                        <v-tabs-window v-model="indexMode">
-                            <v-tabs-window-item :value="IndexMode.PROJECT_INFO">
-                                <UserInfo />
-                            </v-tabs-window-item>
-                            <v-tabs-window-item :value="IndexMode.FORMS">
-                                <FormsList :forms="forms" />
-                            </v-tabs-window-item>
-                        </v-tabs-window>
+                    <div class="d-flex ps-10 w-100" style="max-width: 550px;">
+                        <UserInfo />
+                        <v-divider class="my-16 ps-10" vertical />
+                    </div>
 
-                    </v-sheet>
+                    
+
+                    <div class="ps-10 mx-auto w-100" style="max-width: 1000px;">
+                        <FormsList :forms="forms" />
+                    </div>
+
                 </v-sheet>
             </div>
         </template>
@@ -33,10 +28,8 @@ import BugologLayout from '@/Layout/BugologLayout.vue';
 import { useUserStore } from '@/Stores/user';
 import { storeToRefs } from 'pinia';
 import { Form, User } from "@/types";
-import LeftDrawer from '@/Layout/Components/LeftDrawer.vue';
 import FormsList from '@/Form/FormsList.vue';
 import UserInfo from '@/User/UserInfo.vue';
-import { IndexMode } from '@/enums';
 
 const props = defineProps<{
     isUserAuth: boolean;
