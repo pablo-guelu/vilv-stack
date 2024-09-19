@@ -29,6 +29,16 @@ class Form extends Model
         });
     }
 
+    // Add the 'id' field to the $fillable array
+    protected $fillable = [
+        'id',
+        'title',
+        'user_id',
+        'form_structure',
+        'slug',
+        // ... any other fillable fields ...
+    ];
+
     public function setting(): HasOne
     {
         return $this->hasOne(Setting::class);

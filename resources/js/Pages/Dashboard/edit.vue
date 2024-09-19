@@ -35,8 +35,6 @@ formSlug.value = props.form.slug ?? '';
 const settings = useSettingsStore();
 const { redirectUrl, afterSubmittingMessage, recipients, ccs } = storeToRefs(settings);
 
-console.log(props.settings);
-
 redirectUrl.value = props.settings.redirect_url;
 afterSubmittingMessage.value = props.settings.after_submitting_message;
 recipients.value = JSON.parse(props.settings.recipients as unknown as string);

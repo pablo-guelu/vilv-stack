@@ -45,6 +45,4 @@ const userStore = useUserStore();
 const { user, isUserAuth } = storeToRefs(userStore);
 const { logout } = userStore;
 
-console.log(user.value)
-
 </script>

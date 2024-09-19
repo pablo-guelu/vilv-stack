@@ -25,6 +25,14 @@ class Setting extends Model
      */
     protected $keyType = 'string';
 
+    protected $fillable = [
+        'form_id',
+        'redirect_url',
+        'after_submitting_message',
+        'recipients',
+        'ccs',
+    ];
+
     protected static function boot()
     {
         parent::boot();

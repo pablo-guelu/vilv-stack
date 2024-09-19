@@ -10,7 +10,7 @@
                 <v-snackbar v-model="errorSnackBar" location="top" variant="tonal" color="warning">
                     <p v-for="error in AppErrors" :key="error">{{ error }}</p>
                     <template v-slot:actions>
-                        <v-btn variant="text" @click="errorSnackBar = false" icon="mdi-close" />
+                        <v-btn variant="text" @click="closeErrorSnackBar" icon="mdi-close" />
                     </template>
                 </v-snackbar>
 
@@ -18,7 +18,7 @@
                 <v-snackbar v-model="successSnackBar" location="top" variant="tonal" color="success">
                     <p v-for="success in AppSuccess" :key="success">{{ success }}</p>
                     <template v-slot:actions>
-                        <v-btn variant="text" @click="successSnackBar = false" icon="mdi-close" />
+                        <v-btn variant="text" @click="closeSuccessSnackBar" icon="mdi-close" />
                     </template>
                 </v-snackbar>
 
@@ -34,8 +34,29 @@
 import AppBar from '@/LandingPage/components/app/AppBar.vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
+import { usePage } from '@inertiajs/vue3';
+import { watch } from 'vue';
+
+const page = usePage();
+
+const errors = page.props.errors;
+
 
 const bugFormStore = useBugFormStore();
 const { errorSnackBar, AppErrors, successSnackBar, AppSuccess } = storeToRefs(bugFormStore);
 
+const closeErrorSnackBar = () => {
+    errorSnackBar.value = false;
+    AppErrors.value = [];
+}
+
+const closeSuccessSnackBar = () => {
+    successSnackBar.value = false;
+    AppSuccess.value = [];
+}
+
+watch(errors, (newErrors) => {
+    AppErrors.value = Object.values(newErrors);
+    errorSnackBar.value = true;
+});
 </script>

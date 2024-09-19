@@ -199,6 +199,10 @@ export const useBugFormStore = defineStore('bugForm', () => {
                 }
             },
                 {
+                    onSuccess: () => {
+                        AppSuccess.value = ['Form created successfully'];
+                        successSnackBar.value = true;
+                    },
                     onError: (errors) => {
                         errorSnackBar.value = true;
                         AppErrors.value = Object.values(errors).flat() as string[];
@@ -220,6 +224,10 @@ export const useBugFormStore = defineStore('bugForm', () => {
                 }
             },
                 {
+                    onSuccess: () => {
+                        AppSuccess.value = ['Form updated successfully'];
+                        successSnackBar.value = true;
+                    },
                     onError: (errors) => {
                         errorSnackBar.value = true;
                         AppErrors.value = Object.values(errors).flat() as string[];
@@ -289,6 +297,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         
         router.post('/publish', {
             form_structure: JSON.stringify(cleanStructure),
+            form_id: formId.value,
             title: formTitle.value,
             slug: formSlug.value,
             settings: {
@@ -300,7 +309,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         },
             {
                 onSuccess: () => {
-                    AppSuccess.value.push('Form published successfully');
+                    AppSuccess.value = ['Form published successfully'];
                     successSnackBar.value = true;
                 },
                 onError: (errors) => {

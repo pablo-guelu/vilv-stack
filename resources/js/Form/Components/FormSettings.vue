@@ -1,7 +1,7 @@
 <template>
     <v-card class="mx-auto my-4 w-100" flat>
 
-        <v-form>
+        <v-form ref="settingsForm">
             <v-card-text class="pa-0">
                 <v-row no-gutters>
                     <v-col cols="12">
@@ -56,7 +56,7 @@
                 </div>
                 <!-- BUGOLOG URL -->
                 <div class="pa-2" >
-                    <Label name="Your Bugolog String" info
+                    <Label name="Your Bugolog URL" info
                         infoString="This string will appear after bugolog.com/{ Your string placed here }" />
                     <div class="d-flex justify-center align-center">
                         <v-text-field hide-details v-model="formSlug" label="" variant="outlined" density="compact"
