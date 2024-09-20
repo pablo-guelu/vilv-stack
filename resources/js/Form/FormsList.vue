@@ -28,12 +28,16 @@
                 </div>
                 <div class="ms-auto">
                     <v-btn @click="editForm(form.id)" icon="mdi-pencil" flat class="border mx-2" />
-                    <v-btn @click="deleteForm(form.id)" icon="mdi-delete" flat class="border mx-2" />
+                    <v-btn @click="handleDeleteForm" icon="mdi-delete" flat class="border mx-2" />
                 </div>
 
+                <WarningDialog v-model="deleteFormDialog" :text="'Are you sure you want to delete this Form?'"
+                    :warning-type="'info'" :action="() => deleteForm(form.id)" />
             </v-card>
         </v-card-text>
     </v-card>
+
+
 
 </template>
 
@@ -41,7 +45,10 @@
 import { Form } from '@/types';
 import { router } from '@inertiajs/vue3'
 import { useBugFormStore } from '@/Stores/bugForm';
+import { storeToRefs } from 'pinia';
+import WarningDialog from './Components/WarningDialog.vue';
 const bugFormStore = useBugFormStore();
+const { deleteFormDialog } = storeToRefs(bugFormStore);
 
 const props = defineProps<{
     forms?: Form[]
@@ -53,6 +60,10 @@ const editForm = (id: string) => {
 
 const deleteForm = (id: string) => {
     router.delete(`/form/${id}`)
+}
+
+const handleDeleteForm = () => {
+    deleteFormDialog.value = true
 }
 
 const copyLink = (slug: string | undefined) => {

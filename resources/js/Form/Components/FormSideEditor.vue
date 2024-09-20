@@ -1,7 +1,7 @@
 <template>
     <div class="d-flex justify-center w-100">
         <v-card width="400px" class="py-8 px-2" rounded="lg" flat>
-            <v-form ref="fieldForm" fastfail>
+            <v-form ref="fieldForm" fastfail class="mt-16">
                 <v-select label="Form Variant" variant="outlined" density="compact" :items="variants" v-model="selectedVariant" @update:model-value="updateVariant" ></v-select>
                 <v-select label="Field Density" variant="outlined" density="compact" :items="densities" v-model="selectedDensity" @update:model-value="updateDensity" ></v-select>
             </v-form>

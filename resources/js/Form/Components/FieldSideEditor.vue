@@ -4,8 +4,8 @@
             <v-card-title v-text="`Field Editor - ${field!.type}`" class="px-0 mb-8" />
             <v-form ref="fieldForm" fastfail>
                 <div v-if="sideFieldEditorType !== FieldType.PARAGRAPH">
-                    <v-text-field variant="outlined" density="compact" label="Label*" :rules="[requiredRule]"
-                        v-model="field!.label" autofocus />
+                    <v-text-field v-if="sideFieldEditorType !== FieldType.CHECKBOX" variant="outlined" density="compact"
+                        label="Label*" :rules="[requiredRule]" v-model="field!.label" autofocus />
                     <v-text-field v-if="needsPlaceHolder" variant="outlined" density="compact" label="Placeholder"
                         v-model="field!.placeholder" />
                     <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT"
@@ -31,11 +31,41 @@
                     <ParagraphFieldSpecific />
                 </div>
 
-                <div class="mb-6 text-body-1 font-italic">Custom HTML Attributes</div>
-                <v-text-field variant="outlined" density="compact" label="custom element class"
-                    v-model="field!.customAttributes!.class" />
-                <v-text-field variant="outlined" density="compact" label="Custom input name"
-                    v-model="field!.customAttributes!.name" />
+                <div class="mb-6 text-body-1 font-italic">Custom Styling</div>
+                <!-- <v-text-field variant="outlined" density="compact" label="custom element class"
+                    v-model="field!.customAttributes!.class" /> -->
+                <!-- <v-text-field variant="outlined" density="compact" label="Custom input name"
+                    v-model="field!.customAttributes!.name" /> -->
+
+                <!-- MARGIN -->
+                <div class="text-body-1 mb-4">Margin</div>
+                <div class="d-flex w-100 flex-wrap">
+                    <v-number-input :reverse="false" controlVariant="stacked" inset label="margin-top"
+                        variant="outlined" density="compact" v-model="field!.customStyle!.marginTop"
+                        class="w-50 pe-4 mb-2" />
+                    <v-number-input :reverse="false" controlVariant="stacked" inset label="margin-bottom"
+                        variant="outlined" density="compact" v-model="field!.customStyle!.marginBottom"
+                        class="w-50 pe-4 mb-2" />
+                    <v-number-input :reverse="false" controlVariant="stacked" inset label="margin-left"
+                        variant="outlined" density="compact" v-model="field!.customStyle!.marginLeft"
+                        class="w-50 pe-4 mb-2" />
+                    <v-number-input :reverse="false" controlVariant="stacked" inset label="margin-right"
+                        variant="outlined" density="compact" v-model="field!.customStyle!.marginRight"
+                        class="w-50 pe-4 mb-2" />
+                </div>
+
+                <!-- PADDING -->
+                <div class="text-body-1 mb-4">Padding</div>
+                <div class="d-flex w-100 flex-wrap">
+                    <v-number-input :reverse="false" controlVariant="stacked" inset label="padding-top"
+                        variant="outlined" density="compact" v-model="field!.customStyle!.paddingTop" class="w-50 pe-4 mb-2" />
+                    <v-number-input :reverse="false" controlVariant="stacked" inset label="padding-bottom"
+                        variant="outlined" density="compact" v-model="field!.customStyle!.paddingBottom" class="w-50 pe-4 mb-2" />
+                    <v-number-input :reverse="false" controlVariant="stacked" inset label="padding-left"
+                        variant="outlined" density="compact" v-model="field!.customStyle!.paddingLeft" class="w-50 pe-4 mb-2" />
+                    <v-number-input :reverse="false" controlVariant="stacked" inset label="padding-right"
+                        variant="outlined" density="compact" v-model="field!.customStyle!.paddingRight" class="w-50 pe-4 mb-2" />
+                </div>
 
             </v-form>
 

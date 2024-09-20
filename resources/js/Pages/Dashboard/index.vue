@@ -38,7 +38,7 @@ const props = defineProps<{
 }>();
 
 const userStore = useUserStore();
-const { user, isUserAuth, indexMode } = storeToRefs(userStore);
+const { user, isUserAuth } = storeToRefs(userStore);
 
 user.value = { ...props.user.data }
 isUserAuth.value = props.isUserAuth

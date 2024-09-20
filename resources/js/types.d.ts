@@ -53,7 +53,16 @@ export interface BugologField {
         class?: string;
         name?: string;
     };
-
+    customStyle?: {
+        marginTop?: number;
+        marginBottom?: number;
+        marginLeft?: number;
+        marginRight?: number;
+        paddingTop?: number;
+        paddingBottom?: number;
+        paddingLeft?: number;
+        paddingRight?: number;
+    };
     empty?: boolean;
 }
 

@@ -58,6 +58,16 @@ export const useBugFormStore = defineStore('bugForm', () => {
                 class: '',
                 name: ''
             },
+            customStyle: {
+                marginTop: 0,
+                marginBottom: 0,
+                marginLeft: 0,
+                marginRight: 0,
+                paddingTop: 0,
+                paddingBottom: 0,
+                paddingLeft: 0,
+                paddingRight: 0,
+            },
             empty: true
         }
     }
@@ -321,6 +331,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
         );
     };
 
+    const deleteFormDialog = ref(false);
+
     return {
         sideFieldEditorType,
         editFieldMode,
@@ -360,6 +372,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         errorSnackBar,
         AppSuccess,
         successSnackBar,
-        publishForm
+        publishForm,
+        deleteFormDialog
     }
 })
