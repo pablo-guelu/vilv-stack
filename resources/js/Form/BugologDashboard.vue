@@ -76,7 +76,7 @@ const fieldTypes =
         FieldType.RADIO,
         FieldType.CHECKBOX,
         FieldType.PARAGRAPH,
-
+        FieldType.IMAGE,
     ];
 
 const dragStartHandler = (ev: DragEvent) => {

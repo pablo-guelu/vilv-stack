@@ -1,21 +1,21 @@
 <template>
-    <div v-if="field">
-        <template v-if="isTextField" >
+    <div v-if="field" class="d-flex align-center">
+        <template v-if="isTextField">
             <BugologTextField :field="(field as BugologField)" />
         </template>
-        <template v-if="isHTMLField" >
+        <template v-if="isHTMLField">
             <BugologHTMLEditor :field="(field as BugologField)" />
         </template>
-        <template v-if="isSelectField" >
+        <template v-if="isSelectField">
             <BugologSelectField :field="(field as BugologField)" />
         </template>
-        <template v-if="isFilesField" >
+        <template v-if="isFilesField">
             <BugologFilesField :field="(field as BugologField)" />
         </template>
-        <template v-if="isTextAreaField" >
+        <template v-if="isTextAreaField">
             <BugologTextArea :field="(field as BugologField)" />
         </template>
-        <template v-if="isRadioField" >
+        <template v-if="isRadioField">
             <BugologRadioField :field="(field as BugologField)" />
         </template>
         <template v-if="isCheckboxField">
@@ -24,6 +24,14 @@
         <template v-if="isParagraphField">
             <BugologParagraph :field="(field as BugologField)" />
         </template>
+        <v-tooltip v-if="field.info" density="compact" variant="tonal" icon="mdi-information-outline"
+            class="text-disabled pa-0" close-delay="1000" :disabled="field.infoString?.trim() === '<p><br></p>'">
+            <template v-slot:activator="{ props }">
+                <v-btn v-bind="props" class="mb-4 ms-1" variant="plain" density="compact"
+                    :icon="'mdi-information-outline'" />
+            </template>
+            <div v-html="field.infoString" />
+        </v-tooltip>
     </div>
 </template>
 

@@ -1,5 +1,5 @@
 export enum FieldType {
-    TEXT = 'Text',
+    TEXT = 'Text Input',
     HTML = 'HTML',
     SELECT = 'Select',
     FILES = 'Files',
@@ -7,6 +7,7 @@ export enum FieldType {
     RADIO = 'Radio',
     CHECKBOX = 'Checkbox',
     PARAGRAPH = 'Paragraph',
+    IMAGE = 'Image',
 }
 
 export enum SideEditionMode {
@@ -30,6 +31,7 @@ export const IconsFieldTypes = {
     [FieldType.RADIO]: 'mdi-radiobox-marked',
     [FieldType.CHECKBOX]: 'mdi-checkbox-intermediate',
     [FieldType.PARAGRAPH]: 'mdi-card-text-outline',
+    [FieldType.IMAGE]: 'mdi-image-area',
 }
 
 export enum PlanType {

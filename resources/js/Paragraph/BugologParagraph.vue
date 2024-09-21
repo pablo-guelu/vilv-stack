@@ -1,10 +1,10 @@
 <template>
-    <v-card color="surface-variant" variant="tonal" class="mb-4">
+    <v-sheet>
         <p v-if="field.paragraphHTML" v-html="field.paragraph" class="pa-2"/>
-        <v-card-text v-else class="text-medium-emphasis text-caption">
+        <p v-else class="text-medium-emphasis text-caption">
             {{field.paragraph}}
-        </v-card-text>
-    </v-card>
+        </p>
+    </v-sheet>
 </template>
 
 <script lang="ts" setup>
