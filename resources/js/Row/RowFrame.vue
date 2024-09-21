@@ -1,7 +1,11 @@
 <template>
-    <v-sheet class="d-flex align-center w-100 my-6 row_container px-2" style="min-height: 80px" @mouseover="showDelete = true" @mouseleave=" showDelete = false" >
+    <v-sheet class="d-flex align-center w-100 my-3 row_container px-2" style="min-height: 80px" @mouseover="showDelete = true" @mouseleave=" showDelete = false" >
         <div class="mx-3 row_action_buttons">
-            <v-btn v-if="showDelete && index === currentRowIndex" color="red" size="small" fab icon="mdi-delete" @click="() => warningDeleteRow = true" />
+            <v-tooltip location="top" text="Delete row">
+                <template v-slot:activator="{ props }" >
+                    <v-btn v-bind="props" v-if="showDelete && index === currentRowIndex" color="red" size="small" fab icon="mdi-delete" @click="() => warningDeleteRow = true" />
+                </template>
+            </v-tooltip>
         </div>
         <div class="w-100">
             <v-row v-if="row.colsNumber < 2 && row.columns.length === 1">

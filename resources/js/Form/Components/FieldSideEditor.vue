@@ -5,7 +5,7 @@
             <v-form ref="fieldForm" fastfail>
                 <div v-if="sideFieldEditorType !== FieldType.PARAGRAPH">
                     <v-text-field v-if="sideFieldEditorType !== FieldType.CHECKBOX" variant="outlined" density="compact"
-                        label="Label*" :rules="[requiredRule]" v-model="field!.label" autofocus />
+                        label="Label" v-model="field!.label" autofocus />
                     <v-text-field v-if="needsPlaceHolder" variant="outlined" density="compact" label="Placeholder"
                         v-model="field!.placeholder" />
                     <TextFieldSpecific v-if="sideFieldEditorType === FieldType.TEXT"

@@ -6,8 +6,12 @@
         <div v-if="!field.empty" :style="fieldStyle">
             <slot></slot>
             <div v-if="field" class="action-buttons">
-                <v-btn class="delete-button" @click="() => warningDeleteField = true" icon="mdi-delete" size="x-small"
-                    color="success" />
+                <v-tooltip location="top" text="Delete field">
+                    <template v-slot:activator="{ props }">
+                        <v-btn v-bind="props" @click="() => warningDeleteField = true" icon="mdi-delete" size="x-small"
+                            color="success" />
+                    </template>
+                </v-tooltip>
             </div>
         </div>
     </v-card>
