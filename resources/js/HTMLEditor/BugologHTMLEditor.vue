@@ -1,6 +1,5 @@
 <template>
     <template v-if="field">
-        <FormLabel :field="field" />
         <v-sheet height="250px">
             <QuillEditor theme="snow" :toolbar="toolbarConfig" v-model:content="(field.value as string)" :placeholder="field.placeholder" content-type="html" :class="field.customAttributes?.class ? field.customAttributes.class : ''":name="field.customAttributes?.name ? field.customAttributes.name : ''" />
         </v-sheet>
@@ -9,7 +8,6 @@
 </template>
 
 <script lang="ts" setup>
-import FormLabel from '@/Components/FormLabel.vue';
 import { BugologField } from '@/types';
 import { QuillEditor } from '@vueup/vue-quill';
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
