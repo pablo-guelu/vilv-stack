@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Form extends Model
@@ -42,5 +43,13 @@ class Form extends Model
     public function setting(): HasOne
     {
         return $this->hasOne(Setting::class);
+    }
+
+    /**
+     * Get the images for the form.
+     */
+    public function images(): HasMany
+    {
+        return $this->hasMany(Image::class);
     }
 }

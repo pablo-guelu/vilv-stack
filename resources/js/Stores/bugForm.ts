@@ -1,7 +1,7 @@
 import { BugologMode, FieldType, SideEditionMode } from "@/enums";
-import { BugologField, Column, Form, FormStructure, Paragraph, Row } from "@/types";
+import { BugologField, Column, Form, FormStructure, Image, Paragraph, Row } from "@/types";
 import { cleanFormStructure, validateAndFormatUrl } from "@/utils";
-import { router } from "@inertiajs/vue3";
+import { router, useForm } from "@inertiajs/vue3";
 import { defineStore, storeToRefs } from "pinia";
 import { computed, Ref, ref } from "vue";
 import { useSettingsStore } from "./settings";
@@ -67,6 +67,11 @@ export const useBugFormStore = defineStore('bugForm', () => {
                 paddingBottom: 0,
                 paddingLeft: 0,
                 paddingRight: 0,
+            },
+            image: {
+                src: null,
+                alt: '',
+                path: ''
             },
             empty: true
         }
@@ -192,59 +197,67 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const settingsStore = useSettingsStore();
     const { redirectUrl, afterSubmittingMessage, recipients, ccs } = storeToRefs(settingsStore);
 
+    const images: Ref<Image[]> = ref([]);
+
     const saveForm = () => {
         const cleanStructure = cleanFormStructure(formStructure.value);
 
+        const form = useForm({
+            form_structure: JSON.stringify(cleanStructure),
+            title: formTitle.value,
+            slug: formSlug.value,
+            settings: JSON.stringify({
+                redirect_url: validateAndFormatUrl(redirectUrl.value),
+                after_submitting_message: afterSubmittingMessage.value,
+                recipients: recipients.value,
+                ccs: ccs.value
+            }),
+            images: images.value.map(image => image.src) // Map to image sources
+        })
+
+        let formData = new FormData();
+        formData.append('form_structure', JSON.stringify(cleanStructure));
+        formData.append('title', formTitle.value);
+        formData.append('slug', formSlug.value);
+        formData.append('settings', JSON.stringify({
+            redirect_url: validateAndFormatUrl(redirectUrl.value),
+            after_submitting_message: afterSubmittingMessage.value,
+            recipients: recipients.value,
+            ccs: ccs.value
+        }));
+
+        images.value.forEach((image, index) => {
+            if (image.src) {
+                formData.append(`images[${index}]`, image.src as File);
+            }
+        });
+
+        console.log(formData);
+
+        const onSuccess = () => {
+            AppSuccess.value = ['Form saved successfully'];
+            successSnackBar.value = true;
+        };
+
+        const onError = (errors: any) => {
+            errorSnackBar.value = true;
+            AppErrors.value = Object.values(errors).flat() as string[];
+            console.log(errors.value);
+        };
+
         if (route().current('form.create')) {
             // CREATE
-            router.post('/form', {
-                form_structure: JSON.stringify(cleanStructure),
-                title: formTitle.value,
-                slug: formSlug.value,
-                settings: {
-                    redirect_url: validateAndFormatUrl(redirectUrl.value),
-                    after_submitting_message: afterSubmittingMessage.value,
-                    recipients: recipients.value,
-                    ccs: ccs.value
-                }
-            },
-                {
-                    onSuccess: () => {
-                        AppSuccess.value = ['Form created successfully'];
-                        successSnackBar.value = true;
-                    },
-                    onError: (errors) => {
-                        errorSnackBar.value = true;
-                        AppErrors.value = Object.values(errors).flat() as string[];
-                        console.log(errors.value);
-                    }
-                }
-            );
+            router.post('/form', formData, { onSuccess, onError });
         } else {
             // UPDATE
-            router.put(`/form/${formId.value}`, {
-                form_structure: JSON.stringify(cleanStructure),
-                title: formTitle.value,
-                slug: formSlug.value,
-                settings: {
-                    redirect_url: validateAndFormatUrl(redirectUrl.value),
-                    after_submitting_message: afterSubmittingMessage.value,
-                    recipients: recipients.value,
-                    ccs: ccs.value
-                }
-            },
-                {
-                    onSuccess: () => {
-                        AppSuccess.value = ['Form updated successfully'];
-                        successSnackBar.value = true;
-                    },
-                    onError: (errors) => {
-                        errorSnackBar.value = true;
-                        AppErrors.value = Object.values(errors).flat() as string[];
-                        console.log(errors.value);
-                    }
-                }
-            );
+            router.post(`/form/${formId.value}`, {
+                _method : 'put',
+                title : form.title,
+                slug : form.slug,
+                form_structure : form.form_structure,
+                settings : form.settings,
+                images : form.images
+            }, { onSuccess, onError });
         }
     }
 
@@ -373,6 +386,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         AppSuccess,
         successSnackBar,
         publishForm,
-        deleteFormDialog
+        deleteFormDialog,
+        images
     }
 })

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublishController;
 use App\Http\Controllers\ShowFormController;
@@ -38,3 +39,5 @@ Route::get('/{slug}', [ShowFormController::class, 'show'])->name('bugolog.show')
 Route::post('/{slug}/submit', [SubmitFormController::class, 'submitForm'])->name('slug.form.submit');
 
 Route::post('/publish', [PublishController::class, 'publish'])->name('publish');
+
+Route::post('/save-image', [ImageController::class, 'upload'])->name('save-image');

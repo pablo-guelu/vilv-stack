@@ -11,6 +11,8 @@ use Inertia\Inertia;
 use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Actions\SaveImageAction;
+use Illuminate\Http\Request;
 
 class FormController extends Controller
 {
@@ -41,7 +43,7 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreFormRequest $request)
+    public function store(Request $request)
     {
         try {
             DB::beginTransaction();
@@ -53,6 +55,12 @@ class FormController extends Controller
             $form->form_structure = $request->input('form_structure');
             $form->slug = $request->input('slug');
             $form->save();
+
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    (new SaveImageAction)->execute($image, $form->id); 
+                }
+            }
 
             // Create and link settings to the form
             $settings = new Setting();
@@ -98,8 +106,10 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateFormRequest $request, Form $form)
+    public function update(Request $request, Form $form)
     {
+
+        // dd($request->all());
         try {
             DB::beginTransaction();
 
@@ -108,6 +118,12 @@ class FormController extends Controller
             $form->form_structure = $request->input('form_structure');
             $form->slug = $request->input('slug');
             $form->save();
+
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    (new SaveImageAction)->execute($image, $form->id); 
+                }
+            }
 
             $settings = Setting::where('form_id', $form->id)->first();
             $settings->redirect_url = $request->input('settings.redirect_url');

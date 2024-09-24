@@ -63,7 +63,16 @@ export interface BugologField {
         paddingLeft?: number;
         paddingRight?: number;
     };
+    image?: Image;
     empty?: boolean;
+}
+
+export interface Image {
+    src: File | File[] | null | undefined;
+    alt: string;
+    path: string;
+    width?: string;
+    height?: string;
 }
 
 export interface Paragraph{

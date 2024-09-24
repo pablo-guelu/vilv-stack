@@ -1,8 +1,20 @@
 <template>
     <div class="w-100 my-8 d-flex justify-end">
-        <v-btn prepend-icon="mdi-monitor-dashboard" variant="tonal" color="primary" href="/form"
-            class="me-4">Dashboard</v-btn>
-        <v-btn prepend-icon="mdi-plus" variant="tonal" color="primary" @click="newForm">New Form</v-btn>
+        <!-- FORM TITLE -->
+        <div class="d-flex flex-grow-1 justify-start align-center ms-2 me-auto">
+            <div v-if="!enableFormTitleEdit" class="text-h5 me-1">{{ formTitle }}</div>
+            <v-text-field label="Form's Title" v-if="enableFormTitleEdit" variant="outlined" v-model="formTitle"
+                density="compact" :rules="[requiredRule]"></v-text-field>
+            <v-btn :class="{ 'mb-4': enableFormTitleEdit }"
+                :icon="enableFormTitleEdit ? 'mdi-content-save' : 'mdi-pencil'"
+                @click="() => enableFormTitleEdit ? enableFormTitleEdit = false : enableFormTitleEdit = true"
+                variant="plain" />
+        </div>
+        <div class="ms-10 d-flex pt-1">
+            <v-btn prepend-icon="mdi-monitor-dashboard" variant="tonal" color="primary" href="/form"
+                class="me-4">Dashboard</v-btn>
+            <v-btn prepend-icon="mdi-plus" variant="tonal" color="primary" @click="newForm">New Form</v-btn>
+        </div>
     </div>
 
     <div class="d-flex justify-space-between align-center">
@@ -54,20 +66,7 @@
 
                     </div>
                 </v-row>
-                <v-row>
-                    <v-col cols="9">
-                        <!-- FORM TITLE -->
-                        <div class="d-flex justify-start align-center ms-6">
-                            <div v-if="!enableFormTitleEdit" class="text-h4 me-1">{{ formTitle }}</div>
-                            <v-text-field class="me-2" label="Form's Title" v-if="enableFormTitleEdit"
-                                variant="outlined" v-model="formTitle" :rules="[requiredRule]"></v-text-field>
-                            <v-btn :class="{ 'mb-4': enableFormTitleEdit }"
-                                :icon="enableFormTitleEdit ? 'mdi-content-save' : 'mdi-pencil'"
-                                @click="() => enableFormTitleEdit ? enableFormTitleEdit = false : enableFormTitleEdit = true"
-                                variant="plain" />
-                        </div>
-                    </v-col>
-                </v-row>
+                
                 <v-sheet id="form_canvas" :min-height="100" :ondragover="dragRowOverHandler" :ondrop="dropRowHandler">
                     <template v-for="row, index in formStructure.rows">
                         <RowFrame :index="index" :row="row" />

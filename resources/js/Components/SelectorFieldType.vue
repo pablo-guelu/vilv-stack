@@ -33,6 +33,7 @@
             <div v-html="field.infoString" />
         </v-tooltip>
     </div>
+    <BugologImage v-if="isImageField" :img="field.image" />
 </template>
 
 <script lang="ts" setup>
@@ -47,6 +48,7 @@ import BugologTextField from '@/TextField/BugologTextField.vue';
 import BugologParagraph from '@/Paragraph/BugologParagraph.vue';
 import { BugologField } from '@/types';
 import { computed } from 'vue';
+import BugologImage from '@/Image/BugologImage.vue';
 
 const props = defineProps<{
     field: BugologField,
@@ -60,4 +62,5 @@ const isTextAreaField = computed(() => props.field.type === FieldType.TEXT_AREA)
 const isRadioField = computed(() => props.field.type === FieldType.RADIO);
 const isCheckboxField = computed(() => props.field.type === FieldType.CHECKBOX);
 const isParagraphField = computed(() => props.field.type === FieldType.PARAGRAPH);
+const isImageField = computed(() => props.field.type === FieldType.IMAGE);
 </script>

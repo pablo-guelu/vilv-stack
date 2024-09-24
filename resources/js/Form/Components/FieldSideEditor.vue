@@ -2,7 +2,7 @@
     <div class="d-flex justify-center w-100">
         <v-card width="400px" class="py-8 px-2" rounded="lg" flat>
             <v-card-title v-text="`Field Editor - ${field!.type}`" class="px-0 mb-8" />
-            <v-form ref="fieldForm" fastfail>
+            <v-form ref="fieldForm" fastfail v-if="sideFieldEditorType !== FieldType.IMAGE">
                 <div v-if="sideFieldEditorType !== FieldType.PARAGRAPH">
                     <v-text-field v-if="sideFieldEditorType !== FieldType.CHECKBOX" variant="outlined" density="compact"
                         label="Label" v-model="field!.label" autofocus />
@@ -69,11 +69,15 @@
 
             </v-form>
 
+            <ImageSpecific v-if="sideFieldEditorType === FieldType.IMAGE" />
+
             <div class="w-100 d-flex justify-center mt-10">
                 <v-btn @click="saveForm" color="primary" class="mx-3" flat block
                     append-icon="mdi-content-save">Save</v-btn>
             </div>
         </v-card>
+
+        
     </div>
 </template>
 
@@ -89,6 +93,7 @@ import RadioGroupFieldSpecific from '@/RadioField/RadioGroupFieldSpecific.vue';
 import CheckboxSpecific from '@/Checkbox/CheckboxSpecific.vue';
 import ParagraphFieldSpecific from '@/Paragraph/ParagraphFieldSpecific.vue';
 import Label from '@/Components/Label.vue';
+import ImageSpecific from '@/Image/ImageSpecific.vue';
 
 const bugFormStore = useBugFormStore();
 const { sideFieldEditorType, formStructure, currentRowIndex, currentColumnIndex } = storeToRefs(bugFormStore);
