@@ -31,7 +31,7 @@
                         <!-- RECIEPIENTS -->
                         <Label name="Recipients" info
                             infoString="Email addresses that will receive the form submissions." />
-                        <v-row v-if="recipients.length > 0">
+                        <v-row v-if="recipients && recipients.length > 0">
                             <v-chip v-for="recepient, index in recipients" :key="recepient" class="ma-2" closable
                                 @click:close="deleteRecipient(index)"> {{ recepient }}</v-chip>
                         </v-row>
@@ -45,7 +45,7 @@
                         </div>
                         <!-- CC -->
                         <Label name="CCs" info infoString="With copy to" />
-                        <v-row v-if="ccs.length > 0">
+                        <v-row v-if="ccs && ccs.length > 0">
                             <v-chip v-for="cc, index in ccs" :key="cc" class="ma-2" closable
                                 @click:close="deleteCc(index)">
                                 {{ cc
