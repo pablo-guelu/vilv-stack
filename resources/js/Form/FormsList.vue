@@ -23,7 +23,7 @@
                             }}</p>
                         <v-btn icon="mdi-content-copy" flat class="border mx-2" size="x-small"
                             @click="copyLink(form.slug)" />
-                        <v-btn icon="mdi-open-in-new" flat class="border" size="x-small" @click="" />
+                        <v-btn icon="mdi-open-in-new" flat class="border" size="x-small" @click="router.visit(`/form/${form.id}`)" />
                     </div>
                 </div>
                 <div class="ms-auto">

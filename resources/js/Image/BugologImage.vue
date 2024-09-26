@@ -1,12 +1,6 @@
 <template>
-    <div v-if="img" class="border d-flex justify-center align-center">
-        <v-img :src="imgSrc" :alt="img.alt" :width="img.width ?? 400" :height="img.height ?? 200" lazy-src="https://picsum.photos/400/200">
-            <!-- <template v-slot:placeholder>
-                <div class="d-flex align-center justify-center fill-height">
-                    <v-img src="../assets/placeholder-image.jpg" width="100%" height="100%"></v-img>
-                </div>
-            </template> -->
-        </v-img>
+    <div v-if="img" class="d-flex justify-center align-center">
+        <v-img :src="imgSrc" :alt="img.alt" :width="img.width ?? 400" :height="img.height ?? 200" lazy-src="https://picsum.photos/400/200" />
     </div>
 </template>
 

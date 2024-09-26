@@ -87,12 +87,16 @@ class FormController extends Controller
      */
     public function show(Form $form)
     {
-        //
+        return Inertia::render('ShowForm', [
+            'user' => Auth::user(),
+            'isUserAuth' => Auth::check(),
+            'form' => $form, 
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
-     */
+     */ 
     public function edit(Form $form)
     {
         return Inertia::render('Dashboard/edit', [

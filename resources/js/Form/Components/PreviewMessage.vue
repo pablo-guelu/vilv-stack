@@ -5,7 +5,7 @@
       <div v-for="column, colIndex in row.columns" :key="`col-${colIndex}`">
 
         <div
-          v-if="column.field?.type !== FieldType.PARAGRAPH && column.field?.type !== FieldType.CHECKBOX && column.field?.type !== FieldType.FILES && !column.field?.empty"
+          v-if="column.field?.type !== FieldType.PARAGRAPH && column.field?.type !== FieldType.CHECKBOX && column.field?.type !== FieldType.FILES && column.field?.type !== FieldType.IMAGE && !column.field?.empty"
           class="ma-3">
           <div class="text-h6 mb-1">{{ column.field?.label }}:</div>
           <p v-if="column.field?.type === FieldType.HTML" v-html="column.field?.value"></p>
