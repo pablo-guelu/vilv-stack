@@ -1,8 +1,5 @@
 <template>
-
-
     <v-card class="pa-6 mx-auto mt-8 d-flex flex-column justify-center w-100" style="box-sizing: border-box;" flat>
-
         <v-card-title class="text-h5 mb-10 text-center">
             <div class="text-h5 mb-auto text-center">Project Info</div>
         </v-card-title>
@@ -23,7 +20,7 @@
                             }}</p>
                         <v-btn icon="mdi-content-copy" flat class="border mx-2" size="x-small"
                             @click="copyLink(form.slug)" />
-                        <v-btn icon="mdi-open-in-new" flat class="border" size="x-small" @click="router.visit(`/form/${form.id}`)" />
+                        <v-btn icon="mdi-open-in-new" flat class="border" size="x-small" @click="goToForm(form.slug!)" />
                     </div>
                 </div>
                 <div class="ms-auto">
@@ -36,9 +33,6 @@
             </v-card>
         </v-card-text>
     </v-card>
-
-
-
 </template>
 
 <script lang="ts" setup>
@@ -70,5 +64,9 @@ const copyLink = (slug: string | undefined) => {
     if (slug) {
         navigator.clipboard.writeText(`https://bugolog.com/${slug}`)
     }
+}
+
+const goToForm = (slug: string) => {
+    window.open(`/${slug}`, '_blank')
 }
 </script>

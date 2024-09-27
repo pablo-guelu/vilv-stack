@@ -77,7 +77,6 @@
             </v-form>
         </v-card>
 
-
     </v-sheet>
 </template>
 
@@ -91,7 +90,7 @@ import { useSettingsStore } from '@/Stores/settings';
 import { useBugFormStore } from '@/Stores/bugForm';
 
 const bugFormStore = useBugFormStore();
-const { formSlug } = storeToRefs(bugFormStore);
+const { formSlug, formTitle } = storeToRefs(bugFormStore);
 
 const settingsStore = useSettingsStore();
 const { redirectAfterSubmit, redirectUrl, afterSubmittingMessage, recipients, ccs } = storeToRefs(settingsStore);
@@ -100,6 +99,8 @@ const currentRecipient = ref('');
 const currentCc = ref('');
 
 if (redirectUrl.value !== '') redirectAfterSubmit.value = true;
+
+if (formSlug.value === '') formSlug.value = formTitle.value;
 
 const addRecipient = () => {
     if (
