@@ -17,7 +17,7 @@
     <template #append>
       <div class="pe-6" >
         <v-btn :icon="theme.global.current.value.dark ? 'mdi-white-balance-sunny' : 'mdi-moon-waning-crescent'"
-          @click="toggleTheme" class="border"</v-btn>
+          @click="toggleTheme" class="border"/>
         <UserMenu />
       </div>
 

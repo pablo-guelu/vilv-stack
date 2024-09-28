@@ -27,7 +27,7 @@
                             </div>
                         </v-col>
                     </v-row>
-                    <div class="mt-4 pa-2">
+                    <div class="mt-4">
                         <!-- RECIEPIENTS -->
                         <Label name="Recipients" info
                             infoString="Email addresses that will receive the form submissions." />
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <!-- BUGOLOG URL -->
-                    <div class="pa-2">
+                    <div >
                         <Label name="Your Bugolog URL" info
                             infoString="This string will appear after bugolog.com/{ Your string placed here }" />
                         <div class="d-flex justify-center align-center">

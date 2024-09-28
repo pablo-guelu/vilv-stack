@@ -1,10 +1,10 @@
 <template>
+    <div class="d-flex ma-4 justify-end">
+        <v-btn :icon="theme.global.current.value.dark ? 'mdi-white-balance-sunny' : 'mdi-moon-waning-crescent'"
+            @click="toggleTheme" class="border" />
+    </div>
     <div style="max-width: 1000px;" class="mx-auto py-16">
-
         <FormView :formStructure="formStructure" :formTitle="formTitle" />
-
-
-
     </div>
 </template>
 
@@ -12,7 +12,14 @@
 import { useBugFormStore } from '@/Stores/bugForm';
 import { Form } from '@/types';
 import { storeToRefs } from 'pinia';
-import FormView from '@/Form/Components/FormView.vue';  
+import FormView from '@/Form/Components/FormView.vue';
+import { useTheme } from 'vuetify';
+
+const theme = useTheme();
+const toggleTheme = () => {
+    theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark';
+}
+
 const props = defineProps<{
     form: Form
 }>();

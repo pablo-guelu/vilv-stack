@@ -94,6 +94,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
             variant: 'outlined',
             density: 'default',
             showTitle: true,
+            defaultTheme: 'light',
             rows: [
                 defaultRow()
             ]
@@ -104,6 +105,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         variant: 'outlined',
         density: 'default',
         showTitle: true,
+        defaultTheme: 'light',
         rows: [defaultRow()]
     })
 

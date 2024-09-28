@@ -1,5 +1,5 @@
 <template>
-    <v-card class="py-8 my-4" border>
+    <v-card class="py-8 my-4" border :theme="formStructure.defaultTheme">
         <v-row>
             <v-col cols="12">
                 <!-- FORM TITLE -->

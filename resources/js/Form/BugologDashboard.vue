@@ -2,14 +2,23 @@
     <v-container class="h-100 pa-0" fluid>
         <v-row class="h-100">
             <v-col cols="3">
-                <v-sheet class="px-4 h-100 border-e-sm" style="padding-top: 105px;">
-                    <v-row class="w-100 mt-6" no-gutters>
+                <v-sheet class="px-4 h-100 border-e-sm">
+                    <v-row class="w-100" no-gutters>
                         <v-col class="w-100">
+
+                            <div class="d-flex flex-column pt-6">
+                                <v-btn prepend-icon="mdi-monitor-dashboard" variant="tonal" color="primary" href="/form"
+                                    class="my-2">Dashboard</v-btn>
+                                <v-btn prepend-icon="mdi-plus" variant="tonal" color="primary" @click="newForm" class="my-2">New
+                                    Form</v-btn>
+                            </div>
+
+                            <!-- ADDR ROWS -->
                             <div class="mb-10">
-                                <AddRow :cols-number="1" draggable="true" :id="'row_1'"
-                                    :ondragstart="dragRowStartHandler" :ondragend="dragRowEndHandler" />
-                                <AddRow :cols-number="2" draggable="true" :id="'row_2'"
-                                    :ondragstart="dragRowStartHandler" :ondragend="dragRowEndHandler" />
+                                <AddRow :cols-number="1" draggable="true" :id="'row_1'" :ondragstart="dragRowStartHandler"
+                                    :ondragend="dragRowEndHandler" />
+                                <AddRow :cols-number="2" draggable="true" :id="'row_2'" :ondragstart="dragRowStartHandler"
+                                    :ondragend="dragRowEndHandler" />
                             </div>
                             <template v-for="type in fieldTypes" :key="type">
                                 <AddFieldFrame :fieldType="type" draggable="true" :id="`${type}_field`"
@@ -46,8 +55,8 @@
         <WarningDialog v-model="warningMissingRow" :text="'Please add a row to add a Field'" />
         <WarningDialog v-model="warningDeleteField" :text="'Are you sure you want to delete this Field?'"
             :warning-type="'info'" :action="() => deleteField(currentRowIndex, currentColumnIndex)" />
-        <WarningDialog v-model="warningDeleteRow" :text="'Are you sure you want to delete this Row?'"
-            :warning-type="'info'" :action="() => deleteRow(currentRowIndex)" />
+        <WarningDialog v-model="warningDeleteRow" :text="'Are you sure you want to delete this Row?'" :warning-type="'info'"
+            :action="() => deleteRow(currentRowIndex)" />
     </v-container>
 </template>
 
@@ -64,7 +73,7 @@ import FormCanvas from './FormCanvas.vue';
 
 const bugFormStore = useBugFormStore();
 const { warningMissingRow, warningDeleteField, warningDeleteRow, currentRowIndex, currentColumnIndex, sideEditorMode } = storeToRefs(bugFormStore);
-const { deleteField, deleteRow } = bugFormStore;
+const { deleteField, deleteRow, newForm } = bugFormStore;
 
 const fieldTypes =
     [
