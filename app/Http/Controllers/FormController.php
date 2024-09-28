@@ -67,8 +67,8 @@ class FormController extends Controller
             $settings->form_id = $form->id;
             $settings->redirect_url = $request->input('settings.redirect_url');
             $settings->after_submitting_message = $request->input('settings.after_submitting_message');
-            $settings->recipients = json_encode($request->input('settings.recipients'));
-            $settings->ccs = json_encode($request->input('settings.ccs'));
+            $settings->recipients = json_encode($request->input('settings.recipients') ?: []);
+            $settings->ccs = json_encode($request->input('settings.ccs') ?: []);
             // Add other setting fields here as needed
             $settings->save();
 
@@ -113,7 +113,6 @@ class FormController extends Controller
     public function update(Request $request, Form $form)
     {
 
-        // dd($request->all());
         try {
             DB::beginTransaction();
 
@@ -132,8 +131,8 @@ class FormController extends Controller
             $settings = Setting::where('form_id', $form->id)->first();
             $settings->redirect_url = $request->input('settings.redirect_url');
             $settings->after_submitting_message = $request->input('settings.after_submitting_message');
-            $settings->recipients = json_encode($request->input('settings.recipients'));
-            $settings->ccs = json_encode($request->input('settings.ccs'));
+            $settings->recipients = json_encode($request->input('settings.recipients') ?: []);
+            $settings->ccs = json_encode($request->input('settings.ccs') ?: []);
             $settings->save();
 
             DB::commit();

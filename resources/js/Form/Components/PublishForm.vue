@@ -136,7 +136,7 @@ const handleKeydown = (event: KeyboardEvent, ccOrRecipient: 'cc' | 'recipient') 
 }
 
 const requiredRecipientRule = (value: string) => {
-    return !!value || recipients.value.length > 0 || 'Required';
+    return value || recipients.value.length > 0 || 'Required';
 }
 
 const emailRule = (value: string) => {

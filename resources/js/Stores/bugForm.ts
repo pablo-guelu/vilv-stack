@@ -93,6 +93,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         return {
             variant: 'outlined',
             density: 'default',
+            showTitle: true,
             rows: [
                 defaultRow()
             ]
@@ -102,6 +103,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const formStructure: Ref<FormStructure> = ref({
         variant: 'outlined',
         density: 'default',
+        showTitle: true,
         rows: [defaultRow()]
     })
 

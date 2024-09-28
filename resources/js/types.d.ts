@@ -95,6 +95,7 @@ export interface TextField {
 
 export interface FormStructure {
     id?: string;
+    showTitle: boolean;
     variant: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled";
     density: "compact" | "comfortable" | "default";
     rows: Row[];

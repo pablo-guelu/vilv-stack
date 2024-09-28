@@ -18,7 +18,7 @@ Route::get('/', function () {
     ]);
 })->name('landing');
 
-Route::resource('/form', FormController::class)->middleware(['auth']);
+
 
 Route::post('/send', [SubmitFormController::class, 'submitForm']);
 
@@ -34,10 +34,11 @@ Route::middleware('auth')->group(function () {
 require __DIR__ . '/auth.php';
 
 
-Route::get('/{slug}', [ShowFormController::class, 'show'])->name('bugolog.show');
-
-Route::post('/{slug}/submit', [SubmitFormController::class, 'submitForm'])->name('slug.form.submit');
-
 Route::post('/publish', [PublishController::class, 'publish'])->name('publish');
 
 Route::post('/save-image', [ImageController::class, 'upload'])->name('save-image');
+
+Route::resource('/form', FormController::class)->middleware(['auth']);
+
+Route::get('/{slug}', [ShowFormController::class, 'show'])->name('bugolog.show');
+Route::post('/{slug}/submit', [SubmitFormController::class, 'submitForm'])->name('slug.form.submit');

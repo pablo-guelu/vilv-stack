@@ -18,12 +18,12 @@
             </div>
             <v-row>
                 <!-- <v-btn class="my-1 text-error" variant="text" prepend-icon="mdi-logout" @click="" text="logout" /> -->
-                <div v-if="isUserAuth" class="d-flex flex-column">
+                <div v-if="isUserAuth" class="d-flex flex-column w-100">
                     <v-btn class="ma-2" prepend-icon="mdi-view-dashboard" color="primary" variant="tonal" @click="() => router.get('/form')" text="Dashboard"/>
                     <v-btn class="mt-8" variant="tonal" @click="logout" text="logout"/>
                     
                 </div>
-                <div v-else class="d-flex flex-column">
+                <div v-else class="d-flex flex-column w-100">
                     <v-btn  class="ma-2" color="primary" variant="tonal" @click="() => router.get('/login')" text="Login"/>
                     <v-btn class="ma-2" color="primary" variant="tonal" @click="() => router.get('/register')" text="Register"/>
                 </div>
