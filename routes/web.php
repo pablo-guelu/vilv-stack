@@ -18,8 +18,6 @@ Route::get('/', function () {
     ]);
 })->name('landing');
 
-
-
 Route::post('/send', [SubmitFormController::class, 'submitForm']);
 
 Route::post('/user/settings', [UserController::class, 'updateSettings'])->middleware(['auth']);

@@ -41,6 +41,7 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'ce9671a430e4846b44e1c68c7611f9f5' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'a1cfe24d14977df6878b9bf804af2d1c' => __DIR__ . '/..' . '/nunomaduro/collision/src/Adapters/Phpunit/Autoload.php',
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        '0754989a10baadda533479884b399278' => __DIR__ . '/..' . '/resend/resend-php/src/Resend.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -92,12 +93,14 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
             'Symfony\\Component\\Finder\\' => 25,
             'Symfony\\Component\\EventDispatcher\\' => 34,
             'Symfony\\Component\\ErrorHandler\\' => 31,
+            'Symfony\\Component\\DomCrawler\\' => 29,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Clock\\' => 24,
         ),
         'R' => 
         array (
+            'Resend\\' => 7,
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
@@ -123,6 +126,7 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         array (
             'Monolog\\' => 8,
             'Mockery\\' => 8,
+            'Masterminds\\' => 12,
             'MailerSend\\LaravelDriver\\' => 25,
             'MailerSend\\' => 11,
         ),
@@ -188,6 +192,7 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
             'Clue\\StreamFilter\\' => 18,
             'Carbon\\Doctrine\\' => 16,
             'Carbon\\' => 7,
+            'CapsulesCodes\\InertiaMailable\\' => 30,
         ),
         'B' => 
         array (
@@ -349,6 +354,10 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         array (
             0 => __DIR__ . '/..' . '/symfony/error-handler',
         ),
+        'Symfony\\Component\\DomCrawler\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/dom-crawler',
+        ),
         'Symfony\\Component\\CssSelector\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/css-selector',
@@ -360,6 +369,10 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'Symfony\\Component\\Clock\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/clock',
+        ),
+        'Resend\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/resend/resend-php/src',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -425,6 +438,10 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'Mockery\\' => 
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
+        ),
+        'Masterminds\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/masterminds/html5/src',
         ),
         'MailerSend\\LaravelDriver\\' => 
         array (
@@ -594,6 +611,10 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
+        'CapsulesCodes\\InertiaMailable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/capsulescodes/inertia-mailable/src',
+        ),
         'Brick\\Math\\' => 
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
@@ -610,6 +631,8 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
     );
 
     public static $classMap = array (
+        'App\\Actions\\ReplaceBase64byEmbeddedPath' => __DIR__ . '/../..' . '/app/Actions/ReplaceBase64byEmbeddedPath.php',
+        'App\\Actions\\SaveImageAction' => __DIR__ . '/../..' . '/app/Actions/SaveImageAction.php',
         'App\\Http\\Controllers\\Auth\\AuthenticatedSessionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/AuthenticatedSessionController.php',
         'App\\Http\\Controllers\\Auth\\ConfirmablePasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmablePasswordController.php',
         'App\\Http\\Controllers\\Auth\\EmailVerificationNotificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/EmailVerificationNotificationController.php',
@@ -620,13 +643,27 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'App\\Http\\Controllers\\Auth\\RegisteredUserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisteredUserController.php',
         'App\\Http\\Controllers\\Auth\\VerifyEmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerifyEmailController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\FormController' => __DIR__ . '/../..' . '/app/Http/Controllers/FormController.php',
+        'App\\Http\\Controllers\\ImageController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImageController.php',
         'App\\Http\\Controllers\\ProfileController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProfileController.php',
+        'App\\Http\\Controllers\\PublishController' => __DIR__ . '/../..' . '/app/Http/Controllers/PublishController.php',
+        'App\\Http\\Controllers\\SettingController' => __DIR__ . '/../..' . '/app/Http/Controllers/SettingController.php',
+        'App\\Http\\Controllers\\ShowFormController' => __DIR__ . '/../..' . '/app/Http/Controllers/ShowFormController.php',
         'App\\Http\\Controllers\\SubmitFormController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubmitFormController.php',
+        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Middleware\\HandleInertiaRequests' => __DIR__ . '/../..' . '/app/Http/Middleware/HandleInertiaRequests.php',
         'App\\Http\\Requests\\Auth\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Auth/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
+        'App\\Http\\Requests\\StoreFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreFormRequest.php',
+        'App\\Http\\Requests\\UpdateFormRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateFormRequest.php',
+        'App\\Http\\Resources\\UserResource' => __DIR__ . '/../..' . '/app/Http/Resources/UserResource.php',
         'App\\Mail\\BugologForm' => __DIR__ . '/../..' . '/app/Mail/BugologForm.php',
+        'App\\Mail\\InertiaVuetiMail' => __DIR__ . '/../..' . '/app/Mail/InertiaVuetiMail.php',
+        'App\\Models\\Form' => __DIR__ . '/../..' . '/app/Models/Form.php',
+        'App\\Models\\Image' => __DIR__ . '/../..' . '/app/Models/Image.php',
+        'App\\Models\\Setting' => __DIR__ . '/../..' . '/app/Models/Setting.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Policies\\FormPolicy' => __DIR__ . '/../..' . '/app/Policies/FormPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Assert\\Assert' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/Assert.php',
         'Assert\\Assertion' => __DIR__ . '/..' . '/beberlei/assert/lib/Assert/Assertion.php',
@@ -651,6 +688,9 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'Brick\\Math\\Internal\\Calculator\\GmpCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/GmpCalculator.php',
         'Brick\\Math\\Internal\\Calculator\\NativeCalculator' => __DIR__ . '/..' . '/brick/math/src/Internal/Calculator/NativeCalculator.php',
         'Brick\\Math\\RoundingMode' => __DIR__ . '/..' . '/brick/math/src/RoundingMode.php',
+        'CapsulesCodes\\InertiaMailable\\Mail\\Mailable' => __DIR__ . '/..' . '/capsulescodes/inertia-mailable/src/Mail/Mailable.php',
+        'CapsulesCodes\\InertiaMailable\\Mail\\Mailables\\Content' => __DIR__ . '/..' . '/capsulescodes/inertia-mailable/src/Mail/Mailables/Content.php',
+        'CapsulesCodes\\InertiaMailable\\Providers\\ServiceProvider' => __DIR__ . '/..' . '/capsulescodes/inertia-mailable/src/Providers/ServiceProvider.php',
         'Carbon\\AbstractTranslator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/AbstractTranslator.php',
         'Carbon\\Callback' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Callback.php',
         'Carbon\\Carbon' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Carbon.php',
@@ -755,8 +795,10 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'Cron\\HoursField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/HoursField.php',
         'Cron\\MinutesField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MinutesField.php',
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
+        'Database\\Factories\\FormFactory' => __DIR__ . '/../..' . '/database/factories/FormFactory.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\FormSeeder' => __DIR__ . '/../..' . '/database/seeders/FormSeeder.php',
         'DateError' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateError.php',
         'DateException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateException.php',
         'DateInvalidOperationException' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/DateInvalidOperationException.php',
@@ -3655,6 +3697,26 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'MailerSend\\LaravelDriver\\MailerSendTrait' => __DIR__ . '/..' . '/mailersend/laravel-driver/src/MailerSendTrait.php',
         'MailerSend\\LaravelDriver\\MailerSendTransport' => __DIR__ . '/..' . '/mailersend/laravel-driver/src/MailerSendTransport.php',
         'MailerSend\\MailerSend' => __DIR__ . '/..' . '/mailersend/mailersend/src/MailerSend.php',
+        'Masterminds\\HTML5' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5.php',
+        'Masterminds\\HTML5\\Elements' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Elements.php',
+        'Masterminds\\HTML5\\Entities' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Entities.php',
+        'Masterminds\\HTML5\\Exception' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Exception.php',
+        'Masterminds\\HTML5\\InstructionProcessor' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/InstructionProcessor.php',
+        'Masterminds\\HTML5\\Parser\\CharacterReference' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/CharacterReference.php',
+        'Masterminds\\HTML5\\Parser\\DOMTreeBuilder' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/DOMTreeBuilder.php',
+        'Masterminds\\HTML5\\Parser\\EventHandler' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/EventHandler.php',
+        'Masterminds\\HTML5\\Parser\\FileInputStream' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/FileInputStream.php',
+        'Masterminds\\HTML5\\Parser\\InputStream' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/InputStream.php',
+        'Masterminds\\HTML5\\Parser\\ParseError' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/ParseError.php',
+        'Masterminds\\HTML5\\Parser\\Scanner' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/Scanner.php',
+        'Masterminds\\HTML5\\Parser\\StringInputStream' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/StringInputStream.php',
+        'Masterminds\\HTML5\\Parser\\Tokenizer' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/Tokenizer.php',
+        'Masterminds\\HTML5\\Parser\\TreeBuildingRules' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/TreeBuildingRules.php',
+        'Masterminds\\HTML5\\Parser\\UTF8Utils' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Parser/UTF8Utils.php',
+        'Masterminds\\HTML5\\Serializer\\HTML5Entities' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/HTML5Entities.php',
+        'Masterminds\\HTML5\\Serializer\\OutputRules' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/OutputRules.php',
+        'Masterminds\\HTML5\\Serializer\\RulesInterface' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/RulesInterface.php',
+        'Masterminds\\HTML5\\Serializer\\Traverser' => __DIR__ . '/..' . '/masterminds/html5/src/HTML5/Serializer/Traverser.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
@@ -5588,6 +5650,40 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
         'Ramsey\\Uuid\\Validator\\GenericValidator' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/GenericValidator.php',
         'Ramsey\\Uuid\\Validator\\ValidatorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/ValidatorInterface.php',
+        'Resend\\ApiKey' => __DIR__ . '/..' . '/resend/resend-php/src/ApiKey.php',
+        'Resend\\Audience' => __DIR__ . '/..' . '/resend/resend-php/src/Audience.php',
+        'Resend\\Client' => __DIR__ . '/..' . '/resend/resend-php/src/Client.php',
+        'Resend\\Collection' => __DIR__ . '/..' . '/resend/resend-php/src/Collection.php',
+        'Resend\\Contact' => __DIR__ . '/..' . '/resend/resend-php/src/Contact.php',
+        'Resend\\Contracts\\Client' => __DIR__ . '/..' . '/resend/resend-php/src/Contracts/Client.php',
+        'Resend\\Contracts\\Resource' => __DIR__ . '/..' . '/resend/resend-php/src/Contracts/Resource.php',
+        'Resend\\Contracts\\Stringable' => __DIR__ . '/..' . '/resend/resend-php/src/Contracts/Stringable.php',
+        'Resend\\Contracts\\Transporter' => __DIR__ . '/..' . '/resend/resend-php/src/Contracts/Transporter.php',
+        'Resend\\Domain' => __DIR__ . '/..' . '/resend/resend-php/src/Domain.php',
+        'Resend\\Email' => __DIR__ . '/..' . '/resend/resend-php/src/Email.php',
+        'Resend\\Enums\\Transporter\\ContentType' => __DIR__ . '/..' . '/resend/resend-php/src/Enums/Transporter/ContentType.php',
+        'Resend\\Enums\\Transporter\\Method' => __DIR__ . '/..' . '/resend/resend-php/src/Enums/Transporter/Method.php',
+        'Resend\\Exceptions\\ErrorException' => __DIR__ . '/..' . '/resend/resend-php/src/Exceptions/ErrorException.php',
+        'Resend\\Exceptions\\MissingAttributeException' => __DIR__ . '/..' . '/resend/resend-php/src/Exceptions/MissingAttributeException.php',
+        'Resend\\Exceptions\\TransporterException' => __DIR__ . '/..' . '/resend/resend-php/src/Exceptions/TransporterException.php',
+        'Resend\\Exceptions\\UnserializableResponse' => __DIR__ . '/..' . '/resend/resend-php/src/Exceptions/UnserializableResponse.php',
+        'Resend\\Exceptions\\WebhookSignatureVerificationException' => __DIR__ . '/..' . '/resend/resend-php/src/Exceptions/WebhookSignatureVerificationException.php',
+        'Resend\\Resource' => __DIR__ . '/..' . '/resend/resend-php/src/Resource.php',
+        'Resend\\Service\\ApiKey' => __DIR__ . '/..' . '/resend/resend-php/src/Service/ApiKey.php',
+        'Resend\\Service\\Audience' => __DIR__ . '/..' . '/resend/resend-php/src/Service/Audience.php',
+        'Resend\\Service\\Batch' => __DIR__ . '/..' . '/resend/resend-php/src/Service/Batch.php',
+        'Resend\\Service\\Contact' => __DIR__ . '/..' . '/resend/resend-php/src/Service/Contact.php',
+        'Resend\\Service\\Domain' => __DIR__ . '/..' . '/resend/resend-php/src/Service/Domain.php',
+        'Resend\\Service\\Email' => __DIR__ . '/..' . '/resend/resend-php/src/Service/Email.php',
+        'Resend\\Service\\Service' => __DIR__ . '/..' . '/resend/resend-php/src/Service/Service.php',
+        'Resend\\Service\\ServiceFactory' => __DIR__ . '/..' . '/resend/resend-php/src/Service/ServiceFactory.php',
+        'Resend\\Transporters\\HttpTransporter' => __DIR__ . '/..' . '/resend/resend-php/src/Transporters/HttpTransporter.php',
+        'Resend\\ValueObjects\\ApiKey' => __DIR__ . '/..' . '/resend/resend-php/src/ValueObjects/ApiKey.php',
+        'Resend\\ValueObjects\\ResourceUri' => __DIR__ . '/..' . '/resend/resend-php/src/ValueObjects/ResourceUri.php',
+        'Resend\\ValueObjects\\Transporter\\BaseUri' => __DIR__ . '/..' . '/resend/resend-php/src/ValueObjects/Transporter/BaseUri.php',
+        'Resend\\ValueObjects\\Transporter\\Headers' => __DIR__ . '/..' . '/resend/resend-php/src/ValueObjects/Transporter/Headers.php',
+        'Resend\\ValueObjects\\Transporter\\Payload' => __DIR__ . '/..' . '/resend/resend-php/src/ValueObjects/Transporter/Payload.php',
+        'Resend\\WebhookSignature' => __DIR__ . '/..' . '/resend/resend-php/src/WebhookSignature.php',
         'SQLite3Exception' => __DIR__ . '/..' . '/symfony/polyfill-php83/Resources/stubs/SQLite3Exception.php',
         'SebastianBergmann\\CliParser\\AmbiguousOptionException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/AmbiguousOptionException.php',
         'SebastianBergmann\\CliParser\\Exception' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/Exception.php',
@@ -5969,6 +6065,25 @@ class ComposerStaticInit7e8c3c14ff33b199b4a0838993eb8423
         'Symfony\\Component\\CssSelector\\XPath\\Translator' => __DIR__ . '/..' . '/symfony/css-selector/XPath/Translator.php',
         'Symfony\\Component\\CssSelector\\XPath\\TranslatorInterface' => __DIR__ . '/..' . '/symfony/css-selector/XPath/TranslatorInterface.php',
         'Symfony\\Component\\CssSelector\\XPath\\XPathExpr' => __DIR__ . '/..' . '/symfony/css-selector/XPath/XPathExpr.php',
+        'Symfony\\Component\\DomCrawler\\AbstractUriElement' => __DIR__ . '/..' . '/symfony/dom-crawler/AbstractUriElement.php',
+        'Symfony\\Component\\DomCrawler\\Crawler' => __DIR__ . '/..' . '/symfony/dom-crawler/Crawler.php',
+        'Symfony\\Component\\DomCrawler\\Field\\ChoiceFormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/ChoiceFormField.php',
+        'Symfony\\Component\\DomCrawler\\Field\\FileFormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/FileFormField.php',
+        'Symfony\\Component\\DomCrawler\\Field\\FormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/FormField.php',
+        'Symfony\\Component\\DomCrawler\\Field\\InputFormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/InputFormField.php',
+        'Symfony\\Component\\DomCrawler\\Field\\TextareaFormField' => __DIR__ . '/..' . '/symfony/dom-crawler/Field/TextareaFormField.php',
+        'Symfony\\Component\\DomCrawler\\Form' => __DIR__ . '/..' . '/symfony/dom-crawler/Form.php',
+        'Symfony\\Component\\DomCrawler\\FormFieldRegistry' => __DIR__ . '/..' . '/symfony/dom-crawler/FormFieldRegistry.php',
+        'Symfony\\Component\\DomCrawler\\Image' => __DIR__ . '/..' . '/symfony/dom-crawler/Image.php',
+        'Symfony\\Component\\DomCrawler\\Link' => __DIR__ . '/..' . '/symfony/dom-crawler/Link.php',
+        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerAnySelectorTextContains' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerAnySelectorTextContains.php',
+        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerAnySelectorTextSame' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerAnySelectorTextSame.php',
+        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerSelectorAttributeValueSame' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerSelectorAttributeValueSame.php',
+        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerSelectorCount' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerSelectorCount.php',
+        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerSelectorExists' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerSelectorExists.php',
+        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerSelectorTextContains' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerSelectorTextContains.php',
+        'Symfony\\Component\\DomCrawler\\Test\\Constraint\\CrawlerSelectorTextSame' => __DIR__ . '/..' . '/symfony/dom-crawler/Test/Constraint/CrawlerSelectorTextSame.php',
+        'Symfony\\Component\\DomCrawler\\UriResolver' => __DIR__ . '/..' . '/symfony/dom-crawler/UriResolver.php',
         'Symfony\\Component\\ErrorHandler\\BufferingLogger' => __DIR__ . '/..' . '/symfony/error-handler/BufferingLogger.php',
         'Symfony\\Component\\ErrorHandler\\Debug' => __DIR__ . '/..' . '/symfony/error-handler/Debug.php',
         'Symfony\\Component\\ErrorHandler\\DebugClassLoader' => __DIR__ . '/..' . '/symfony/error-handler/DebugClassLoader.php',

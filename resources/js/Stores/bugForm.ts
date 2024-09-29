@@ -91,6 +91,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const emptyFormStructure = (): FormStructure => {
         return {
+            id: '',
             variant: 'outlined',
             density: 'default',
             showTitle: true,
@@ -102,6 +103,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     }
 
     const formStructure: Ref<FormStructure> = ref({
+        id: formId.value,
         variant: 'outlined',
         density: 'default',
         showTitle: true,
@@ -255,12 +257,12 @@ export const useBugFormStore = defineStore('bugForm', () => {
         } else {
             // UPDATE
             router.post(`/form/${formId.value}`, {
-                _method : 'put',
-                title : form.title,
-                slug : form.slug,
-                form_structure : form.form_structure,
-                settings : form.settings,
-                images : form.images
+                _method: 'put',
+                title: form.title,
+                slug: form.slug,
+                form_structure: form.form_structure,
+                settings: form.settings,
+                images: form.images
             }, { onSuccess, onError });
         }
     }
@@ -321,7 +323,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const publishForm = () => {
 
         const cleanStructure = cleanFormStructure(formStructure.value);
-        
+
         router.post('/publish', {
             form_structure: JSON.stringify(cleanStructure),
             form_id: formId.value,
@@ -350,6 +352,42 @@ export const useBugFormStore = defineStore('bugForm', () => {
 
     const deleteFormDialog = ref(false);
 
+    const parseFormStructureData = (formStructure: FormStructure) => {
+        const relevantFields: FieldType[] = [FieldType.TEXT, FieldType.TEXT_AREA, FieldType.SELECT, FieldType.RADIO, FieldType.CHECKBOX];
+
+        const result: Record<string, any> = {};
+
+        formStructure.rows.forEach(row => {
+            row.columns.forEach(column => {
+                const field = column.field;
+                if (field && relevantFields.includes(field.type)) {
+                    const key = field.label || field.customAttributes?.name || field.id || field.type;
+                    if (key) {
+                        switch (field.type) {
+                            case FieldType.RADIO:
+                                result[key] = field.radioGroup?.find(option => option.value)?.value || '';
+                                break;
+                            case FieldType.CHECKBOX:
+                                if (field.checkboxMultiple) {
+                                    result[key] = field.checkboxGroup?.filter(option => option.value).map(option => option.label) || [];
+                                } else {
+                                    result[key] = field.value || false;
+                                }
+                                break;
+                            case FieldType.SELECT:
+                                result[key] = field.multiple ? field.items?.filter(item => item) : (field.value || '');
+                                break;
+                            default:
+                                result[key] = field.value || '';
+                        }
+                    }
+                }
+            });
+        });
+
+        return result;
+    };
+
     return {
         sideFieldEditorType,
         editFieldMode,
@@ -360,7 +398,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         formId,
         formTitle,
         formStructure,
-        formSlug,   
+        formSlug,
         addRow,
         deleteRow,
         // addField,
@@ -391,6 +429,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         successSnackBar,
         publishForm,
         deleteFormDialog,
-        images
+        images,
+        parseFormStructureData,
     }
 })

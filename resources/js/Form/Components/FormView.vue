@@ -15,17 +15,32 @@
         </v-sheet>
 
         <div class="d-flex justify-center">
-            <v-btn color="primary" size="large" class="mt-8">Submit</v-btn>
+            <v-btn color="primary" size="large" class="mt-8" :disabled="formStructure.rows.length < 1 && settings && settings.recipients.length > 0" @click="submitForm">Submit</v-btn>
         </div>
     </v-card>
 </template>
 
 <script lang="ts" setup>
 import RowPreviewFrame from '@/Row/RowPreviewFrame.vue';
-import { FormStructure } from '@/types';
+import { FormStructure, Settings } from '@/types';
+import { router } from '@inertiajs/vue3'
+import { useBugFormStore } from '@/Stores/bugForm';
+import { computed } from 'vue';
 
 const props = defineProps<{
-    formStructure: FormStructure;
-    formTitle: string;
+    formStructure: FormStructure,
+    formTitle?: string,
+    settings?: Settings,
+    formId?: string
 }>();
+
+const data = computed(() => useBugFormStore().parseFormStructureData(props.formStructure))
+console.log(data.value);
+
+const submitForm = () => {
+    router.post('/send', {
+        data: data.value,
+        form_id: props.formId
+    })
+}
 </script>

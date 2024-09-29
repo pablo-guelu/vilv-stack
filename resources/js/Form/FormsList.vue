@@ -54,6 +54,7 @@ const editForm = (id: string) => {
 
 const deleteForm = (id: string) => {
     router.delete(`/form/${id}`)
+    deleteFormDialog.value = false
 }
 
 const handleDeleteForm = () => {

@@ -11,10 +11,13 @@ class ShowFormController extends Controller
     public function show($slug)
     {
         if (Form::where('slug', $slug)->exists()) {
+
+            $form = Form::where('slug', $slug)->firstOrFail();
             return Inertia::render('ShowForm', [
                 'user' => Auth::user(),
                 'isUserAuth' => Auth::check(),
-                'form' => Form::where('slug', $slug)->firstOrFail()
+                'form' => $form,
+                'settings' => $form->setting,
             ]);
         } else {
             return Inertia::render('FormNotFound');

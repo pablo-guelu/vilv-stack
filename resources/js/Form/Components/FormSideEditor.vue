@@ -3,9 +3,9 @@
         <v-card width="400px" class="py-8 px-2" rounded="lg" flat>
             <v-form ref="fieldForm" fastfail class="mt-16">
 
-                <v-select label="Form Variant" variant="outlined" density="compact" :items="variants" v-model="selectedVariant" @update:model-value="updateVariant" ></v-select>
+                <v-select label="Form Variant" variant="outlined" density="compact" :items="variants" v-model="formStructure.variant" @update:model-value="updateVariant" ></v-select>
 
-                <v-select label="Field Density" variant="outlined" density="compact" :items="densities" v-model="selectedDensity" @update:model-value="updateDensity" ></v-select>
+                <v-select label="Field Density" variant="outlined" density="compact" :items="densities" v-model="formStructure.density" @update:model-value="updateDensity" ></v-select>
                 
                 <v-select label="Theme" variant="outlined" density="compact" :items="themes" v-model="formStructure.defaultTheme" ></v-select>
 
@@ -44,27 +44,27 @@ const densities = ref([
     "default",
 ])
 
-const selectedVariant = ref();
-const selectedDensity = ref();
+// const selectedVariant = ref();
+// const selectedDensity = ref();
 
 
 const updateVariant = () => {
-    formStructure.value.variant = selectedVariant.value;
+    // formStructure.value.variant = selectedVariant.value;
     for ( let row = 0; row < formStructure.value.rows.length; row++) {
         if (formStructure.value.rows[row].columns) {
             for (let column = 0; column < formStructure.value.rows[row].columns.length; column++) {
-                formStructure.value.rows[row].columns[column].field!.variant = selectedVariant.value;
+                formStructure.value.rows[row].columns[column].field!.variant = formStructure.value.variant;
             }
         }
     }
 }
 
 const updateDensity = () => {
-    formStructure.value.density = selectedDensity.value;
+    // formStructure.value.density = selectedDensity.value;
     for ( let row = 0; row < formStructure.value.rows.length; row++) {
         if (formStructure.value.rows[row].columns) {
             for (let column = 0; column < formStructure.value.rows[row].columns.length; column++) {
-                formStructure.value.rows[row].columns[column].field!.density = selectedDensity.value;
+                formStructure.value.rows[row].columns[column].field!.density = formStructure.value.density;
             }
         }
     }

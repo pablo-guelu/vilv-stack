@@ -13,6 +13,7 @@ export interface User {
     recipients: string[];
     ccs: string[];
     afterSubmittingMessage?: string;
+    data?: any;
 }
 
 export interface Radio {
@@ -94,7 +95,7 @@ export interface TextField {
 }
 
 export interface FormStructure {
-    id?: string;
+    id: string;
     defaultTheme: 'light' | 'dark';
     showTitle: boolean;
     variant: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled";
