@@ -22,7 +22,7 @@ class InertiaVuetiMail extends Mailable
     {
         $this->data = $data;
         $this->fromName = $fromName;
-        $this->fromEmail = $fromEmail;
+        $this->fromEmail = 'support@simplevueti.com';
         $this->subject = $subject;
         $this->files = $files;
         $this->settings = $settings;
