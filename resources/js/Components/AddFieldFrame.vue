@@ -10,12 +10,11 @@
 
         <v-list-item-title class="text-none ps-4 border-e-sm">{{ fieldType }}</v-list-item-title>
         <template v-slot:append="">
-            <div class="d-flex h-100 justify-center align-center rounded-ezinedine05
-            " style="width: 40px; background-color: #1976D2;">
+            <div class="d-flex h-100 justify-center align-center rounded-e" style="width: 40px; background-color: #1976D2;">
                 <v-btn color="transparent" @click="addField" flat class=" w-100 h-100">
                     <v-icon size="large" color="white">
                         mdi-plus
-                    </v-icon>
+                    </v-icon>   
                 </v-btn>
             </div>
         </template>

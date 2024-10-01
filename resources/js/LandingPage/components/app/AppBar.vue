@@ -3,7 +3,7 @@
     <template #title>
       <div class="d-inline-flex align-center text-h4 font-weight-bold my-5 text-primary" @click="isUserAuth ? router.visit('/form') : router.visit('/')" style="cursor: pointer;">
         <v-icon icon="$vuetify" start />
-        Bugolog
+        SimpleVueti
       </div>
     </template>
 

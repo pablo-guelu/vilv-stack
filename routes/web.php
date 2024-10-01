@@ -40,3 +40,5 @@ Route::resource('/form', FormController::class)->middleware(['auth']);
 
 Route::get('/{slug}', [ShowFormController::class, 'show'])->name('bugolog.show');
 Route::post('/{slug}/submit', [SubmitFormController::class, 'submitForm'])->name('slug.form.submit');
+
+Route::post('/preferences', [PreferencesController::class, 'savePreferences'])->name('preferences.save');
