@@ -33,6 +33,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const emptyField = (): BugologField => {
         return {
             id: '',
+            name: '',
             type: FieldType.TEXT,
             label: '',
             placeholder: '',
@@ -56,7 +57,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
             persistentHint: false,
             customAttributes: {
                 class: '',
-                name: ''
             },
             customStyle: {
                 marginTop: 0,
@@ -361,7 +361,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
             row.columns.forEach(column => {
                 const field = column.field;
                 if (field && relevantFields.includes(field.type)) {
-                    const key = field.label || field.customAttributes?.name || field.id || field.type;
+                    const key = field.label || field.name || field.id || field.type;
                     if (key) {
                         switch (field.type) {
                             case FieldType.RADIO:

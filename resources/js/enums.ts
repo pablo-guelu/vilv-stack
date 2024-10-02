@@ -8,6 +8,7 @@ export enum FieldType {
     CHECKBOX = 'Checkbox',
     PARAGRAPH = 'Paragraph',
     IMAGE = 'Image',
+    NUMBER = 'Number'
 }
 
 export enum SideEditionMode {
@@ -32,6 +33,7 @@ export const IconsFieldTypes = {
     [FieldType.CHECKBOX]: 'mdi-checkbox-intermediate',
     [FieldType.PARAGRAPH]: 'mdi-card-text-outline',
     [FieldType.IMAGE]: 'mdi-image-area',
+    [FieldType.NUMBER]: 'mdi-numeric-0-box-outline'
 }
 
 export enum PlanType {

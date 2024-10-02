@@ -39,11 +39,16 @@ class SubmitFormController extends Controller
 
         try {
             Mail::to('pablo.guelu@gmail.com')->send($mailable);
+
+            if ($form->setting->redirect_url) {
+                return redirect($form->setting->redirect_url);
+            }
         } catch (\Exception $e) {
             Log::error('Email sending failed: ' . $e->getMessage());
             dd($e->getMessage());
             return response()->json(['message' => 'Failed to send email. Please try again later.'], 500);
         }
+
 
         // Handle the form submission logic (e.g., save to database, send email, etc.)
 

@@ -25,6 +25,7 @@
                         <v-text-field variant="outlined" density="compact" label="Hint" v-model="field!.hint" />
                         <v-checkbox label="Persistent Hint" v-model="field!.persistentHint" color="success" />
                     </div>
+                    <v-text-field variant="outlined" density="compact" label="Name" v-model="field!.name" />
                     <div v-if="sideFieldEditorType == FieldType.PARAGRAPH">
                         <ParagraphFieldSpecific />
                     </div>

@@ -29,11 +29,12 @@ export interface Checkbox {
 }
 export interface BugologField {
     id: string;
+    name: string;
     type: FieldType;
     label: string;
     placeholder: string;
     required: boolean;
-    value: string | string[];
+    value: string | string[] | number;
     info?: boolean;
     infoString?: string;
     inputType?: string;
@@ -52,7 +53,6 @@ export interface BugologField {
     persistentHint?: boolean;
     customAttributes?: {
         class?: string;
-        name?: string;
     };
     customStyle?: {
         marginTop?: number;
@@ -66,6 +66,7 @@ export interface BugologField {
     };
     image?: Image;
     empty?: boolean;
+
 }
 
 export interface Image {

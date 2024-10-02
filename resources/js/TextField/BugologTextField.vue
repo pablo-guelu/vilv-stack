@@ -1,7 +1,7 @@
 <template>
     <template v-if="field">
         <v-text-field :variant="field.variant" :rules="rules" :label="field.label" :density="field.density" v-model="field.value" :placeholder="field.placeholder"
-            :type="field.inputType" :hint="field.hint" :persistent-hint="field.persistentHint" :class="field.customAttributes?.class ? field.customAttributes.class : ''" :name="field.customAttributes?.name ? field.customAttributes.name : ''" ></v-text-field>
+            :type="field.inputType" :hint="field.hint" :persistent-hint="field.persistentHint" :class="field.customAttributes?.class ? field.customAttributes.class : ''" :name="field.name ? field.name : ''" ></v-text-field>
     </template>
 </template>
 

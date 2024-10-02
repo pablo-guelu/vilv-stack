@@ -1,6 +1,6 @@
 <template>
     <template v-if="field">
-        <v-textarea :variant="field.variant" :label="field.label" :density="field.density" v-model="field.value" :placeholder="field.placeholder" :hint="field.hint" :persistent-hint="field.persistentHint" :class="field.customAttributes?.class ? field.customAttributes.class : ''" :name="field.customAttributes?.name ? field.customAttributes.name : ''" />
+        <v-textarea :variant="field.variant" :label="field.label" :density="field.density" v-model="field.value" :placeholder="field.placeholder" :hint="field.hint" :persistent-hint="field.persistentHint" :class="field.customAttributes?.class ? field.customAttributes.class : ''" :name="field.name ? field.name : ''" />
     </template>
 </template>
 

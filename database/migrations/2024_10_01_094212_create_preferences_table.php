@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('preferences', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->json('preferences')->default(json_encode(['theme' => 'light']));
+            $table->json('preferences');
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
         });
     }
