@@ -8,7 +8,10 @@ export enum FieldType {
     CHECKBOX = 'Checkbox',
     PARAGRAPH = 'Paragraph',
     IMAGE = 'Image',
-    NUMBER = 'Number'
+    NUMBER = 'Numeric',
+    RESULT = 'Result',
+    DATE = 'Date',
+    TIME = 'Time'
 }
 
 export enum SideEditionMode {
@@ -33,7 +36,10 @@ export const IconsFieldTypes = {
     [FieldType.CHECKBOX]: 'mdi-checkbox-intermediate',
     [FieldType.PARAGRAPH]: 'mdi-card-text-outline',
     [FieldType.IMAGE]: 'mdi-image-area',
-    [FieldType.NUMBER]: 'mdi-numeric-0-box-outline'
+    [FieldType.NUMBER]: 'mdi-numeric-0-box-outline',
+    [FieldType.RESULT]: 'mdi-equal',
+    [FieldType.DATE]: 'mdi-calendar-range',
+    [FieldType.TIME]: 'mdi-clock-outline'
 }
 
 export enum PlanType {

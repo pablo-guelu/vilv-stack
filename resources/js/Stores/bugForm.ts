@@ -73,7 +73,18 @@ export const useBugFormStore = defineStore('bugForm', () => {
                 alt: '',
                 path: ''
             },
-            empty: true
+            empty: true,
+            number: {
+                min: 0,
+                max: 100,
+                step: 1
+            },
+            result: {
+                function: '() => { }',
+                result: ''
+            },
+            date: '',
+            time: ''
         }
     }
 
@@ -95,7 +106,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
             variant: 'outlined',
             density: 'default',
             showTitle: true,
-            defaultTheme: 'light',
+            defaultTheme: 'dark',
             rows: [
                 defaultRow()
             ]
@@ -107,7 +118,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
         variant: 'outlined',
         density: 'default',
         showTitle: true,
-        defaultTheme: 'light',
+        defaultTheme: 'dark',
         rows: [defaultRow()]
     })
 

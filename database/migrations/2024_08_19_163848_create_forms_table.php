@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('url')->unique()->nullable();
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
             $table->json('form_structure');
+            $table->integer('submissions')->default(0);
             $table->timestamps();
         });
     }

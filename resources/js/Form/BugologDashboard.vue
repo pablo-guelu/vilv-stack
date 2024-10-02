@@ -86,7 +86,10 @@ const fieldTypes =
         FieldType.CHECKBOX,
         FieldType.PARAGRAPH,
         FieldType.IMAGE,
-        FieldType.NUMBER
+        FieldType.NUMBER,
+        FieldType.RESULT,
+        FieldType.DATE,
+        FieldType.TIME
     ];
 
 const dragStartHandler = (ev: DragEvent) => {

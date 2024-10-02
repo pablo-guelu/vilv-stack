@@ -30,8 +30,4 @@ const rules = computed(() => {
     return fieldRules.length > 0 ? fieldRules : undefined;
 });
 
-
-
-
-
 </script>   

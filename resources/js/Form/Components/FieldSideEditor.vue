@@ -4,7 +4,7 @@
             <v-card-title v-text="`Field Editor - ${field!.type}`" class="px-0 mb-8" />
             <v-form ref="fieldForm" fastfail>
 
-                <div v-if="sideFieldEditorType !== FieldType.IMAGE">
+                <div v-if="sideFieldEditorType !== FieldType.IMAGE && sideFieldEditorType !== FieldType.RESULT">
                     <v-text-field v-if="sideFieldEditorType !== FieldType.CHECKBOX" variant="outlined" density="compact"
                         label="Label" v-model="field!.label" autofocus />
                     <v-text-field v-if="needsPlaceHolder" variant="outlined" density="compact" label="Placeholder"
@@ -13,6 +13,7 @@
                     <SelectFieldSpecific v-if="sideFieldEditorType === FieldType.SELECT" />
                     <RadioGroupFieldSpecific v-if="sideFieldEditorType === FieldType.RADIO" />
                     <CheckboxSpecific v-if="sideFieldEditorType === FieldType.CHECKBOX" />
+                    <NumberFieldSpecific v-if="sideFieldEditorType === FieldType.NUMBER" />
                     <div class="d-flex">
                         <v-checkbox label="Required" v-model="field!.required" color="success" class="me-6"></v-checkbox>
                         <v-checkbox label="Info Tooltip" v-model="field!.info" color="success"></v-checkbox>
@@ -32,6 +33,7 @@
                 </div>
 
                 <ImageSpecific v-if="sideFieldEditorType === FieldType.IMAGE" />
+                <ResultSpecific v-if="sideFieldEditorType === FieldType.RESULT" />
 
                 <div class="my-6 text-body-1 font-italic">Custom Styling</div>
                 <!-- <v-text-field variant="outlined" density="compact" label="custom element class"
@@ -97,6 +99,8 @@ import RadioGroupFieldSpecific from '@/RadioField/RadioGroupFieldSpecific.vue';
 import CheckboxSpecific from '@/Checkbox/CheckboxSpecific.vue';
 import ParagraphFieldSpecific from '@/Paragraph/ParagraphFieldSpecific.vue';
 import ImageSpecific from '@/Image/ImageSpecific.vue';
+import NumberFieldSpecific from '@/Number/NumberFieldSpecific.vue';
+import ResultSpecific from '@/Result/ResultSpecific.vue';
 
 const bugFormStore = useBugFormStore();
 const { sideFieldEditorType, formStructure, currentRowIndex, currentColumnIndex } = storeToRefs(bugFormStore);

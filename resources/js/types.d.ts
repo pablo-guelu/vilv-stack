@@ -66,7 +66,17 @@ export interface BugologField {
     };
     image?: Image;
     empty?: boolean;
-
+    number?: {
+        min?: number;
+        max?: number;
+        step?: number;
+    };
+    result?: {
+        function: string;
+        result: string;
+    };
+    date?: any,
+    time?: any
 }
 
 export interface Image {
