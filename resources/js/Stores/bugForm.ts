@@ -81,7 +81,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
             },
             result: {
                 function: '() => { }',
-                result: ''
+                result: () => { }
             },
             date: '',
             time: ''

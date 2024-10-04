@@ -73,7 +73,7 @@ export interface BugologField {
     };
     result?: {
         function: string;
-        result: string;
+        result: Function;
     };
     date?: any,
     time?: any
