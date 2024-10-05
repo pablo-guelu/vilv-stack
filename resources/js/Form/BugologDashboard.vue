@@ -9,7 +9,7 @@
                             <div class="d-flex flex-column pt-6">
                                 <v-btn prepend-icon="mdi-monitor-dashboard" variant="tonal" color="primary" href="/form"
                                     class="my-2">Dashboard</v-btn>
-                                <v-btn prepend-icon="mdi-plus" variant="tonal" color="primary" @click="newForm" class="my-2">New
+                                <v-btn prepend-icon="mdi-plus" variant="tonal" color="primary" @click="warningSaveForm = true" class="my-2">New
                                     Form</v-btn>
                             </div>
 
@@ -57,6 +57,11 @@
             :warning-type="'info'" :action="() => deleteField(currentRowIndex, currentColumnIndex)" />
         <WarningDialog v-model="warningDeleteRow" :text="'Are you sure you want to delete this Row?'" :warning-type="'info'"
             :action="() => deleteRow(currentRowIndex)" />
+        <WarningDialog v-model="warningSaveForm" :text="'Make sure you saved your form before you leave'" :warning-type="'info'" :action="newForm">
+            <template #action>
+                <v-btn color="primary" class="mr-4" variant="tonal" @click="saveFormAndCloseWarning" append-icon="mdi-content-save">Save</v-btn>
+            </template>
+        </WarningDialog>
     </v-container>
 </template>
 
@@ -70,10 +75,18 @@ import FormSideEditor from './Components/FormSideEditor.vue';
 import { FieldType, SideEditionMode } from '@/enums';
 import AddFieldFrame from '@/Components/AddFieldFrame.vue';
 import FormCanvas from './FormCanvas.vue';
+import { ref } from 'vue';
 
 const bugFormStore = useBugFormStore();
 const { warningMissingRow, warningDeleteField, warningDeleteRow, currentRowIndex, currentColumnIndex, sideEditorMode } = storeToRefs(bugFormStore);
-const { deleteField, deleteRow, newForm } = bugFormStore;
+const { deleteField, deleteRow, newForm, saveForm } = bugFormStore;
+
+const warningSaveForm = ref(false);
+
+const saveFormAndCloseWarning = () => {
+    saveForm();
+    warningSaveForm.value = false;
+}
 
 const fieldTypes =
     [

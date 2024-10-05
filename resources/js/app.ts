@@ -15,12 +15,14 @@ import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import { VNumberInput } from 'vuetify/labs/VNumberInput'
 import { VDateInput } from 'vuetify/labs/VDateInput'
+import { VTimePicker } from 'vuetify/labs/VTimePicker'
 
 
 const vuetify = createVuetify({
     components: {
         VNumberInput,
         VDateInput,
+        VTimePicker
     },
     theme: {
         defaultTheme: 'dark'
