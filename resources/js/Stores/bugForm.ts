@@ -40,7 +40,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
             required: false,
             info: false,
             infoString: '',
-            value: '',
+            value: null,
             inputType: 'text',
             items: [''],
             radioGroup: [{ ...defaultRadioOption() }],
@@ -83,7 +83,10 @@ export const useBugFormStore = defineStore('bugForm', () => {
                 function: '() => { }',
                 result: () => { }
             },
-            date: '',
+            date: {
+                multiple: false,
+                range: false
+            },
             time: ''
         }
     }

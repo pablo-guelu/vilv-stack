@@ -14,11 +14,13 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import { VNumberInput } from 'vuetify/labs/VNumberInput'
+import { VDateInput } from 'vuetify/labs/VDateInput'
 
 
 const vuetify = createVuetify({
     components: {
-        VNumberInput
+        VNumberInput,
+        VDateInput,
     },
     theme: {
         defaultTheme: 'dark'

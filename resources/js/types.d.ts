@@ -34,7 +34,7 @@ export interface BugologField {
     label: string;
     placeholder: string;
     required: boolean;
-    value: string | string[] | number;
+    value: string | string[] | number | null | [];
     info?: boolean;
     infoString?: string;
     inputType?: string;
@@ -75,7 +75,7 @@ export interface BugologField {
         function: string;
         result: Function;
     };
-    date?: any,
+    date?: formDate,
     time?: any
 }
 
@@ -143,4 +143,9 @@ export interface Settings {
     after_submitting_message: string;
     recipients: string[];
     ccs: string[];
+}
+
+export interface formDate {
+    multiple: boolean;
+    range: boolean;
 }

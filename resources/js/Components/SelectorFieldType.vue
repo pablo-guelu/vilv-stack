@@ -36,6 +36,7 @@
     <BugologImage v-if="isImageField" :img="field.image" />
     <BugologNumber v-if="isNumberField" :field="(field as BugologField)" />
     <BugologResult v-if="isResultField" :field="(field as BugologField)" />
+    <BugologDate v-if="isDateField" :field="(field as BugologField)" />
 </template>
 
 <script lang="ts" setup>
@@ -53,6 +54,7 @@ import { computed } from 'vue';
 import BugologImage from '@/Image/BugologImage.vue';
 import BugologNumber from '@/Number/BugologNumber.vue';
 import BugologResult from '@/Result/BugologResult.vue';
+import BugologDate from '@/Date/BugologDate.vue';
 
 const props = defineProps<{
     field: BugologField,
@@ -69,4 +71,5 @@ const isParagraphField = computed(() => props.field.type === FieldType.PARAGRAPH
 const isImageField = computed(() => props.field.type === FieldType.IMAGE);
 const isNumberField = computed(() => props.field.type === FieldType.NUMBER);
 const isResultField = computed(() => props.field.type === FieldType.RESULT);
+const isDateField = computed(() => props.field.type === FieldType.DATE);
 </script>
