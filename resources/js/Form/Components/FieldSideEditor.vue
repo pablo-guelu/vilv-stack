@@ -41,6 +41,8 @@
                 <!-- <v-text-field variant="outlined" density="compact" label="Custom input name"
                     v-model="field!.customAttributes!.name" /> -->
 
+                <HTMLSpecific v-if="sideFieldEditorType === FieldType.HTML" />
+
                 <!-- MARGIN -->
                 <div class="text-body-1 mb-4">Margin</div>
                 <div class="d-flex w-100 flex-wrap">
@@ -101,7 +103,7 @@ import ParagraphFieldSpecific from '@/Paragraph/ParagraphFieldSpecific.vue';
 import ImageSpecific from '@/Image/ImageSpecific.vue';
 import NumberFieldSpecific from '@/Number/NumberFieldSpecific.vue';
 import ResultSpecific from '@/Result/ResultSpecific.vue';
-
+import HTMLSpecific from '@/HTMLEditor/HTMLSpecific.vue';
 const bugFormStore = useBugFormStore();
 const { sideFieldEditorType, formStructure, currentRowIndex, currentColumnIndex } = storeToRefs(bugFormStore);
 const { saveForm } = bugFormStore;

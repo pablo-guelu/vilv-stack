@@ -15,7 +15,7 @@
         </v-sheet>
 
         <div class="d-flex justify-center">
-            <v-btn color="primary" size="large" class="mt-8" :disabled="formStructure.rows.length < 1 && settings && settings.recipients.length > 0" @click="submitForm">Submit</v-btn>
+            <v-btn color="primary" size="large" class="mt-8" :disabled="route().current('form.create')" @click="submitForm">Submit</v-btn>
         </div>
     </v-card>
 </template>

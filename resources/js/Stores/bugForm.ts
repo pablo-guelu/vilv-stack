@@ -67,6 +67,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
                 paddingBottom: 0,
                 paddingLeft: 0,
                 paddingRight: 0,
+                height: 0,
+                width: 0
             },
             image: {
                 src: null,

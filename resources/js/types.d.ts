@@ -63,6 +63,8 @@ export interface BugologField {
         paddingBottom?: number;
         paddingLeft?: number;
         paddingRight?: number;
+        height?: number;
+        width?: number;
     };
     image?: Image;
     empty?: boolean;
