@@ -1,34 +1,27 @@
 <template>
     <div class="w-100 mt-6 mb-2 d-flex justify-end">
-        <!-- FORM TITLE -->
-        <div class="d-flex flex-grow-1 justify-start align-center ms-2 me-auto">
-            <div v-if="!enableFormTitleEdit" class="text-h5 me-1">{{ formTitle }}</div>
-            <v-text-field label="Form's Title" v-if="enableFormTitleEdit" variant="outlined" v-model="formTitle"
-                density="compact" :rules="[requiredRule]"></v-text-field>
-            <v-btn :class="{ 'mb-4': enableFormTitleEdit }"
-                :icon="enableFormTitleEdit ? 'mdi-content-save' : 'mdi-pencil'"
-                @click="() => enableFormTitleEdit ? enableFormTitleEdit = false : enableFormTitleEdit = true"
-                variant="plain" />
-        </div>
+
     </div>
 
     <div class="d-flex justify-space-between align-center">
         <v-tabs v-model="bugologMode" center-active class="">
             <v-tab :value="BugologMode.FORM">
-                <v-icon >mdi-file-edit-outline</v-icon>
+                <v-icon>mdi-file-edit-outline</v-icon>
                 <span v-if="!smAndDown" class="ms-2">Form</span></v-tab>
             <v-tab :value="BugologMode.PREVIEW">
-                <v-icon >mdi-eye-outline</v-icon>
+                <v-icon>mdi-eye-outline</v-icon>
                 <span v-if="!smAndDown" class="ms-2">Preview</span></v-tab>
             <v-tab :value="BugologMode.MESSAGE">
                 <v-icon>mdi-email-fast-outline</v-icon>
                 <span v-if="!smAndDown" class="ms-2">Message / Log</span></v-tab>
             <v-tab :value="BugologMode.PUBLISH">
-                <v-icon >mdi-creation</v-icon>
+                <v-icon>mdi-creation</v-icon>
                 <span v-if="!smAndDown" class="ms-2">Publish</span></v-tab>
         </v-tabs>
-        <v-btn v-if="!smAndDown" prepend-icon="mdi-content-save" variant="tonal" color="primary" @click="saveForm" class="my-1">Save</v-btn>
-        <v-btn v-if="smAndDown" icon="mdi-content-save" variant="tonal" color="primary" @click="saveForm" class="my-1" />
+        <v-btn v-if="!smAndDown" prepend-icon="mdi-content-save" variant="tonal" color="primary" @click="saveForm"
+            class="my-1">Save</v-btn>
+        <v-btn v-if="smAndDown" icon="mdi-content-save" variant="tonal" color="primary" @click="saveForm"
+            class="my-1" />
     </div>
 
     <v-tabs-window v-model="bugologMode">
@@ -39,24 +32,39 @@
                     <!-- IMPORT -->
                     <v-tooltip location="top" text="Import form">
                         <template v-slot:activator="{ props }">
-                            <v-btn v-bind="props" class="mx-1" color="primary" variant="tonal" size="small" @click="importForm"
-                                icon="mdi-file-import-outline"></v-btn>
+                            <v-btn v-bind="props" class="mx-1" color="primary" variant="tonal" size="small"
+                                @click="importForm" icon="mdi-file-import-outline"></v-btn>
                         </template>
                     </v-tooltip>
 
                     <!-- EXPORT -->
                     <v-tooltip location="top" text="Export form">
                         <template v-slot:activator="{ props }">
-                            <v-btn v-bind="props" class="mx-1" color="primary" variant="tonal" size="small" @click="exportForm"
-                                icon="mdi-file-export-outline"></v-btn>
+                            <v-btn v-bind="props" class="mx-1" color="primary" variant="tonal" size="small"
+                                @click="exportForm" icon="mdi-file-export-outline"></v-btn>
                         </template>
                     </v-tooltip>
                 </v-row>
-                
+
                 <v-sheet id="form_canvas" :min-height="100" :ondragover="dragRowOverHandler" :ondrop="dropRowHandler">
-                    <template v-for="row, index in formStructure.rows">
-                        <RowFrame :index="index" :row="row" />
-                    </template>
+
+                    <v-form :ref="formToValidate" @submit.prevent="saveForm">
+                        <!-- FORM TITLE -->
+                        <div class="d-flex flex-grow-1 justify-start align-center ms-2 me-auto">
+                            <div v-if="!enableFormTitleEdit" class="text-h5 me-1">{{ formTitle }}</div>
+                            <v-text-field label="Form's Title" v-if="enableFormTitleEdit" variant="outlined"
+                                v-model="formTitle" density="compact" :rules="[requiredRule]"></v-text-field>
+                            <v-btn :class="{ 'mb-4': enableFormTitleEdit }"
+                                :icon="enableFormTitleEdit ? 'mdi-content-save' : 'mdi-pencil'"
+                                @click="() => enableFormTitleEdit ? enableFormTitleEdit = false : enableFormTitleEdit = true"
+                                variant="plain" />
+                        </div>
+                        <!-- FORM CANVAS -->
+                        <template v-for="row, index in formStructure.rows">
+                            <RowFrame :index="index" :row="row" />
+                        </template>
+                    </v-form>
+
                 </v-sheet>
             </v-card>
 
@@ -89,7 +97,7 @@ import PublishForm from './Components/PublishForm.vue';
 import { useDisplay } from 'vuetify';
 const { smAndDown } = useDisplay();
 const bugFormStore = useBugFormStore();
-const { formStructure, formTitle, currentRowIndex, currentColumnIndex, sideEditorMode, bugologMode } = storeToRefs(bugFormStore);
+const { formStructure, formTitle, currentRowIndex, currentColumnIndex, sideEditorMode, bugologMode, formToValidate } = storeToRefs(bugFormStore);
 const { requiredRule, saveForm, addRow, exportForm, importForm } = bugFormStore
 
 const enableFormTitleEdit = ref(false);

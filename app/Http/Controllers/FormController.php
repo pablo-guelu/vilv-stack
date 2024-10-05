@@ -45,11 +45,16 @@ class FormController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            // ... other validation rules ...
+        ]);
+
         try {
             DB::beginTransaction();
 
             $form = new Form();
-            $form->title = $request->input('title');
+            $form->title = $validatedData['title'];
             $form->url = $request->input('url');
             $form->user_id = $request->user()->id;
             $form->form_structure = $request->input('form_structure');
@@ -112,11 +117,15 @@ class FormController extends Controller
      */
     public function update(Request $request, Form $form)
     {
+        $validatedData = $request->validate([
+            'title' => 'required|string|max:255',
+            // ... other validation rules ...
+        ]);
 
         try {
             DB::beginTransaction();
 
-            $form->title = $request->input('title');
+            $form->title = $validatedData['title'];
             $form->url = $request->input('url');
             $form->form_structure = $request->input('form_structure');
             $form->slug = $request->input('slug');

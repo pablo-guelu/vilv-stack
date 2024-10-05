@@ -217,6 +217,7 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const images: Ref<Image[]> = ref([]);
 
     const saveForm = () => {
+
         const cleanStructure = cleanFormStructure(formStructure.value);
 
         const form = useForm({
@@ -330,6 +331,8 @@ export const useBugFormStore = defineStore('bugForm', () => {
     const errorSnackBar = ref(false);
     const successSnackBar = ref(false);
 
+    const formToValidate = ref();
+
 
     const publishForm = () => {
 
@@ -442,5 +445,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         deleteFormDialog,
         images,
         parseFormStructureData,
+        formToValidate
     }
 })
