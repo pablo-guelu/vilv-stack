@@ -1,12 +1,17 @@
 import { BugologMode, FieldType, SideEditionMode } from "@/enums";
-import { BugologField, Column, Form, FormStructure, Image, Paragraph, Row } from "@/types";
+import { BugologField, Column, Form, FormStructure, Image, Row } from "@/types";
 import { cleanFormStructure, validateAndFormatUrl } from "@/utils";
 import { router, useForm } from "@inertiajs/vue3";
 import { defineStore, storeToRefs } from "pinia";
 import { computed, Ref, ref } from "vue";
 import { useSettingsStore } from "./settings";
+import { useGlobalStore } from "./global";
+
 
 export const useBugFormStore = defineStore('bugForm', () => {
+
+    const globalStore = useGlobalStore();
+    const { AppErrors, AppSuccess, errorSnackBar, successSnackBar } = storeToRefs(globalStore);
 
     const sideFieldEditorType: Ref<FieldType> = ref(FieldType.TEXT);
 
@@ -330,12 +335,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         input.click();
     }
 
-    const AppErrors = ref<string[]>([]);
-    const AppSuccess = ref<string[]>([]);
-
-    const errorSnackBar = ref(false);
-    const successSnackBar = ref(false);
-
     const formToValidate = ref();
 
 
@@ -442,10 +441,6 @@ export const useBugFormStore = defineStore('bugForm', () => {
         defaultCheckBox,
         exportForm,
         importForm,
-        AppErrors,
-        errorSnackBar,
-        AppSuccess,
-        successSnackBar,
         publishForm,
         deleteFormDialog,
         images,

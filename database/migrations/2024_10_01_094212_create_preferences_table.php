@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('preferences', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->json('preferences');
+            $table->json('preferences')->nullable();
             $table->foreignUuid('user_id')->constrained()->onDelete('cascade');
         });
     }

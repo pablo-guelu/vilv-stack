@@ -32,18 +32,17 @@
 
 <script setup lang="ts">
 import AppBar from '@/LandingPage/components/app/AppBar.vue';
-import { useBugFormStore } from '@/Stores/bugForm';
+import { useGlobalStore } from '@/Stores/global';
 import { storeToRefs } from 'pinia';
 import { usePage } from '@inertiajs/vue3';
 import { watch } from 'vue';
 
 const page = usePage();
 
+const preferences = page.props.preferences;
 const errors = page.props.errors;
-
-
-const bugFormStore = useBugFormStore();
-const { errorSnackBar, AppErrors, successSnackBar, AppSuccess } = storeToRefs(bugFormStore);
+const globalStore = useGlobalStore();
+const { AppErrors, AppSuccess, errorSnackBar, successSnackBar } = storeToRefs(globalStore);
 
 const closeErrorSnackBar = () => {
     errorSnackBar.value = false;

@@ -31,13 +31,17 @@ import { useTheme } from 'vuetify';
 import { router } from '@inertiajs/vue3';
 import { useUserStore } from '@/Stores/user';
 import { storeToRefs } from 'pinia';
-
+import { usePreferencesStore } from '@/Stores/preferences';
 const userStore = useUserStore();
 const { isUserAuth } = storeToRefs(userStore);
+
+const preferencesStore = usePreferencesStore();
+const { currentTheme } = storeToRefs(preferencesStore);
 
 const theme = useTheme()
 const toggleTheme = () => {
     theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
+    currentTheme.value = theme.global.name.value
 }
 
 const menu = [

@@ -19,9 +19,12 @@ import { computed } from 'vue';
 import { useBugFormStore } from '@/Stores/bugForm';
 import { storeToRefs } from 'pinia';
 import { router, useForm } from '@inertiajs/vue3';
-
+import { useGlobalStore } from '@/Stores/global';
 const bugFormStore = useBugFormStore()
-const { formStructure, currentRowIndex, currentColumnIndex, formId, AppErrors, AppSuccess, errorSnackBar, successSnackBar, images } = storeToRefs(bugFormStore)
+const { formStructure, currentRowIndex, currentColumnIndex, formId, images } = storeToRefs(bugFormStore)
+
+const globalStore = useGlobalStore();
+const { AppErrors, AppSuccess, errorSnackBar, successSnackBar } = storeToRefs(globalStore);
 
 const Img = computed(() => {
     return formStructure.value.rows[currentRowIndex.value].columns[currentColumnIndex.value].field!.image

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\PreferencesController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublishController;
 use App\Http\Controllers\ShowFormController;
@@ -15,6 +16,7 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'user' => Auth::user(),
         'isUserAuth' => Auth::check(),
+        'preferences' => Auth::user()->preferences->preferences,
     ]);
 })->name('landing');
 
@@ -41,4 +43,4 @@ Route::resource('/form', FormController::class)->middleware(['auth']);
 Route::get('/{slug}', [ShowFormController::class, 'show'])->name('bugolog.show');
 Route::post('/{slug}/submit', [SubmitFormController::class, 'submitForm'])->name('slug.form.submit');
 
-Route::post('/preferences', [PreferencesController::class, 'savePreferences'])->name('preferences.save');
+Route::post('/preferences/{user}', [PreferencesController::class, 'savePreferences'])->name('preferences.save');
